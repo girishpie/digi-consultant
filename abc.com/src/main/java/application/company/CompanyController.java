@@ -4,9 +4,11 @@
 package application.company;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.*;
 
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,5 +38,27 @@ public class CompanyController {
     long delete(@RequestBody String id) {
         long res = CompanyRepository.deleteById(id);
         return res;
+    }
+
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<Company>> listAllCompanies() {
+        List<Company> companies = CompanyRepository.findAll();
+        if (companies.isEmpty()) {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            // You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<List<Company>>(companies, HttpStatus.OK);
+    }
+
+    // -------------------Retrieve Single User------------------------------------------
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> getUser(@PathVariable("id") String id) {
+        Company company = CompanyRepository.findById(id);
+        if (company == null) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Company>(company, HttpStatus.OK);
     }
 }

@@ -8,4 +8,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 public interface CompanyRepository extends MongoRepository<Company, String> {
     public Company findByCompanyName(String name);
     public long deleteById(String id);
+    public List<Company> findAll();
+    public Company findById(String id);
 }
