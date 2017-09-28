@@ -3,7 +3,10 @@
  */
 package application.company;
 
+import application.RestError;
+import application.RestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,49 +19,54 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/company")
 public class CompanyController {
 
-    private final CompanyRepository CompanyRepository;
+    private final CompanyRepository companyRepository;
 
 
     @Autowired
-    CompanyController(CompanyRepository CompanyRepository) {
-        this.CompanyRepository = CompanyRepository;
+    CompanyController(CompanyRepository companyRepository) {
+        this.companyRepository = companyRepository;
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(method = RequestMethod.POST)
-    String add(@RequestBody Company input) {
-        Company company = CompanyRepository.save(new Company(input.companyName,
+    ResponseEntity<RestResponse> add(@RequestBody Company input) {
+        Company company = companyRepository.save(new Company(input.companyName,
                 input.address));
-        return company.getId();
+        RestResponse response = new RestResponse( company.getId());
+        return new ResponseEntity<RestResponse>(response,  new HttpHeaders(),HttpStatus.OK);
 
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @RequestMapping(method = RequestMethod.DELETE)
-    long delete(@RequestBody String id) {
-        long res = CompanyRepository.deleteById(id);
-        return res;
+    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
+    ResponseEntity<RestResponse> delete(@PathVariable String id) {
+        long res = companyRepository.deleteById(id);
+        RestResponse response = new RestResponse( res);
+        return new ResponseEntity<RestResponse>(response,  new HttpHeaders(),HttpStatus.OK);
     }
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Company>> listAllCompanies() {
-        List<Company> companies = CompanyRepository.findAll();
+    public ResponseEntity<?> listAllCompanies() {
+        List<Company> companies = companyRepository.findAll();
         if (companies.isEmpty()) {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
-            // You many decide to return HttpStatus.NOT_FOUND
+            RestError restError = new RestError("No Companies found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
         }
-        return new ResponseEntity<List<Company>>(companies, HttpStatus.OK);
+        RestResponse response = new RestResponse( companies);
+        return new ResponseEntity<RestResponse>(response,  new HttpHeaders(),HttpStatus.OK);
     }
-
-    // -------------------Retrieve Single User------------------------------------------
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getUser(@PathVariable("id") String id) {
-        Company company = CompanyRepository.findById(id);
+        Company company = companyRepository.findById(id);
         if (company == null) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            RestError restError = new RestError("Company With: "+ id + " does not exist", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
+
         }
-        return new ResponseEntity<Company>(company, HttpStatus.OK);
+        RestResponse response = new RestResponse( company);
+        return new ResponseEntity<RestResponse>(response,  new HttpHeaders(),HttpStatus.OK);
+
     }
 }
