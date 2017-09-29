@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
@@ -27,7 +30,7 @@ public class CompanyController {
         this.companyRepository = companyRepository;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('CREATE_COMPANY')")
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity<RestResponse> add(@RequestBody Company input) {
         Company company = companyRepository.save(new Company(input.companyName,
@@ -37,7 +40,7 @@ public class CompanyController {
 
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('DELETE_COMPANY')")
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
     ResponseEntity<RestResponse> delete(@PathVariable String id) {
         long res = companyRepository.deleteById(id);
@@ -45,9 +48,10 @@ public class CompanyController {
         return new ResponseEntity<RestResponse>(response,  new HttpHeaders(),HttpStatus.OK);
     }
 
-
+    @PreAuthorize("hasAuthority('READ_COMPANY')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> listAllCompanies() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         List<Company> companies = companyRepository.findAll();
         if (companies.isEmpty()) {
             RestError restError = new RestError("No Companies found", HttpStatus.NOT_FOUND);
@@ -57,6 +61,7 @@ public class CompanyController {
         return new ResponseEntity<RestResponse>(response,  new HttpHeaders(),HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('READ_COMPANY')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getUser(@PathVariable("id") String id) {
         Company company = companyRepository.findById(id);
