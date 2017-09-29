@@ -21,6 +21,20 @@ public class Role {
 
     }
 
+    public Role(boolean isSuperUser){
+        if(isSuperUser){
+            this.permissions.add(PermissionType.CREATE_USER);
+            this.permissions.add(PermissionType.DELETE_USER);
+            this.permissions.add(PermissionType.READ_USER);
+            this.permissions.add(PermissionType.UPDATE_USER);
+
+            this.permissions.add(PermissionType.CREATE_ROLE);
+            this.permissions.add(PermissionType.DELETE_ROLE);
+            this.permissions.add(PermissionType.READ_ROLE);
+            this.permissions.add(PermissionType.UPDATE_ROLE);
+        }
+    }
+
     public Role(String name,List<PermissionType> permissions){
         this.name = name;
         this.permissions = permissions;

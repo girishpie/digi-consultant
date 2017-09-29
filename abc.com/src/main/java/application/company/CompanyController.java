@@ -33,8 +33,8 @@ public class CompanyController {
     @PreAuthorize("hasAuthority('CREATE_COMPANY')")
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity<RestResponse> add(@RequestBody Company input) {
-        Company company = companyRepository.save(new Company(input.companyName,
-                input.address));
+        Company company = companyRepository.save(new Company(input.getCompanyName(),
+                input.getAddress()));
         RestResponse response = new RestResponse( company.getId());
         return new ResponseEntity<RestResponse>(response,  new HttpHeaders(),HttpStatus.OK);
 
@@ -50,8 +50,7 @@ public class CompanyController {
 
     @PreAuthorize("hasAuthority('READ_COMPANY')")
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> listAllCompanies() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    public ResponseEntity<?> getAll() {
         List<Company> companies = companyRepository.findAll();
         if (companies.isEmpty()) {
             RestError restError = new RestError("No Companies found", HttpStatus.NOT_FOUND);
@@ -63,7 +62,7 @@ public class CompanyController {
 
     @PreAuthorize("hasAuthority('READ_COMPANY')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getUser(@PathVariable("id") String id) {
+    public ResponseEntity<?> get(@PathVariable("id") String id) {
         Company company = companyRepository.findById(id);
         if (company == null) {
             RestError restError = new RestError("Company With: "+ id + " does not exist", HttpStatus.NOT_FOUND);

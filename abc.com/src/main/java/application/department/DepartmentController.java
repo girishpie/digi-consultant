@@ -29,7 +29,7 @@ public class DepartmentController {
         this.departmentRepository = departmentRepository;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('CREATE_DEPARTMENT')")
     @RequestMapping(value = "/{companyId}", method = RequestMethod.POST)
     ResponseEntity<?> add(@PathVariable String companyId , @RequestBody Department input ) {
         Company company = companyRepository.findById(companyId);
@@ -37,7 +37,7 @@ public class DepartmentController {
             RestError restError = new RestError("Company With: "+ companyId + " does not exist", HttpStatus.NOT_FOUND);
             return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
         }
-        Department dept= new Department(input.name,company.getId());
+        Department dept= new Department(input.getName(),company.getId());
         Department Department = departmentRepository.save(dept);
         company.addDepartment(dept.getId());
         companyRepository.save(company);
@@ -46,7 +46,7 @@ public class DepartmentController {
     }
 
     //Delete Specific department
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('DELETE_DEPARTMENT')")
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
     ResponseEntity<?> delete(@PathVariable String id) {
         Department department = departmentRepository.findById(id);
@@ -55,9 +55,9 @@ public class DepartmentController {
             restError = new RestError("Department With: "+ id + " does not exist", HttpStatus.NOT_FOUND);
             return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
         }
-        Company company = companyRepository.findById(department.companyId);
+        Company company = companyRepository.findById(department.getId());
         if(company == null){
-            restError = new RestError("Company With: "+ department.companyId + " does not exist", HttpStatus.NOT_FOUND);
+            restError = new RestError("Company With: "+ department.getId() + " does not exist", HttpStatus.NOT_FOUND);
             return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
         }
         long res = departmentRepository.deleteById(id);
@@ -67,9 +67,9 @@ public class DepartmentController {
         return new ResponseEntity<Object>(response,  new HttpHeaders(),HttpStatus.OK);
     }
 
-
+    @PreAuthorize("hasAuthority('READ_DEPARTMENT')")
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> listAllCompanies() {
+    public ResponseEntity<?> getAll() {
         List<Department> companies = departmentRepository.findAll();
         if (companies.isEmpty()) {
             RestError restError = new RestError("No departments exist", HttpStatus.NOT_FOUND);
@@ -79,8 +79,9 @@ public class DepartmentController {
         return new ResponseEntity<Object>(response,  new HttpHeaders(),HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('READ_DEPARTMENT')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getDepartment(@PathVariable("id") String id) {
+    public ResponseEntity<?> get(@PathVariable("id") String id) {
         Department department = departmentRepository.findById(id);
         if (department == null) {
             RestError restError = new RestError("Department With: "+ id + " Does not exist", HttpStatus.NOT_FOUND);

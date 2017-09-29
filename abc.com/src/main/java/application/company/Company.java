@@ -22,8 +22,8 @@ public class Company {
     public String id;
 
     @NotNull
-    public String companyName;
-    public String address;
+    private String companyName;
+    private String address;
 
 
     private List<String> departmentIds = new ArrayList<String>();
@@ -33,6 +33,34 @@ public class Company {
     public Company(String companyName, String address) {
         this.companyName = companyName;
         this.address = address;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public List<String> getDepartmentIds() {
+        return departmentIds;
+    }
+
+    public void setDepartmentIds(List<String> departmentIds) {
+        this.departmentIds = departmentIds;
     }
 
     public void addDepartment(String departmentId){
@@ -50,5 +78,7 @@ public class Company {
             }
         }
     }
+
+
 
 }
