@@ -19,7 +19,7 @@ import java.util.List;
 public class Company {
 
     @Id
-    public String id;
+    private String id;
 
     @NotNull
     private String companyName;

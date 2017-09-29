@@ -1,7 +1,9 @@
 package application.auth.user;
 
-import application.RestError;
-import application.RestResponse;
+import application.response.IResponse;
+import application.response.ResponseWrapper;
+import application.response.RestError;
+import application.response.RestResponse;
 import application.auth.roles.Role;
 import application.auth.roles.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,20 +36,18 @@ public class UserController {
 
     @PreAuthorize("hasPriviledge('CREATE_USER')")
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<?> add(@RequestBody User input) {
+    ResponseEntity<IResponse> add(@RequestBody User input) {
         if(input.getUsername()== null || input.getUsername().isEmpty()){
-            RestError response = new RestError( "User name can not be null or empty", HttpStatus.BAD_REQUEST);
-            return new ResponseEntity<RestError>(response,  new HttpHeaders(), HttpStatus.BAD_REQUEST);
+            return ResponseWrapper.getResponse( new RestError( "User name can not be null or empty", HttpStatus.BAD_REQUEST));
         }
         User user = userRepository.save(input);
-        RestResponse response = new RestResponse( user.getUsername());
-        return new ResponseEntity<RestResponse>(response,  new HttpHeaders(), HttpStatus.OK);
+        return ResponseWrapper.getResponse( new RestResponse( user.getUsername()));
 
     }
 
     //TODO:Need to remove this later from production
     @RequestMapping(value = "/createsuperuser" , method = RequestMethod.POST)
-    ResponseEntity<?> addSuperUser() {
+    ResponseEntity<IResponse> addSuperUser() {
 
         Role role = new Role(true);
         role = roleRepository.save(role);
@@ -56,45 +56,41 @@ public class UserController {
         if(userRepository.findByUsername("superUser") == null){
             User user = userRepository.save(new User("superUser",
                     "superPassword",roleIds));
-            RestResponse response = new RestResponse( user.getUsername());
-            return new ResponseEntity<RestResponse>(response,  new HttpHeaders(), HttpStatus.OK);
+            return ResponseWrapper.getResponse(new RestResponse( user.getUsername()));
+
         }
-        RestError error = new RestError("Super user alrady exists",HttpStatus.NOT_MODIFIED);
-        return new ResponseEntity<RestError>(error,  new HttpHeaders(), HttpStatus.OK);
+        return ResponseWrapper.getResponse( new RestError("Super user alrady exists",HttpStatus.NOT_MODIFIED));
+
     }
 
 
     @PreAuthorize("hasAuthority('DELETE_USER')")
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
-    ResponseEntity<RestResponse> delete(@PathVariable String id) {
+    ResponseEntity<?> delete(@PathVariable String id) {
         long res = userRepository.deleteById(id);
-        RestResponse response = new RestResponse( res);
-        return new ResponseEntity<RestResponse>(response,  new HttpHeaders(),HttpStatus.OK);
-    }
+        return ResponseWrapper.getResponse( new RestResponse( res));
+     }
 
     @PreAuthorize("hasPriviledge('READ_USER')")
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<IResponse> getAll() {
         List<User> companies = userRepository.findAll();
         if (companies.isEmpty()) {
-            RestError restError = new RestError("No Users found", HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
+            return ResponseWrapper.getResponse( new RestError("No Users found", HttpStatus.NOT_FOUND));
         }
-        RestResponse response = new RestResponse( companies);
-        return new ResponseEntity<RestResponse>(response,  new HttpHeaders(),HttpStatus.OK);
+        return ResponseWrapper.getResponse( new RestResponse( companies));
+
     }
 
     @PreAuthorize("hasAuthority('READ_USER')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> get(@PathVariable("id") String id) {
+    public ResponseEntity<IResponse> get(@PathVariable("id") String id) {
         User user = userRepository.findById(id);
         if (user == null) {
-            RestError restError = new RestError("User With: "+ id + " does not exist", HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
-
+            return ResponseWrapper.getResponse( new RestError("User With: "+ id + " does not exist", HttpStatus.NOT_FOUND));
         }
-        RestResponse response = new RestResponse(user);
-        return new ResponseEntity<RestResponse>(response,  new HttpHeaders(),HttpStatus.OK);
+        return ResponseWrapper.getResponse( new RestResponse(user));
+
 
     }
 }

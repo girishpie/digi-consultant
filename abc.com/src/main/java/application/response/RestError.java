@@ -1,25 +1,25 @@
-package application;
+package application.response;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 /**
  * Created by gipai on 9/27/2017.
  */
-public class RestError {
+public class RestError extends Response {
 
     private String errorMessage;
-    private HttpStatus status;
+
 
     public RestError(String errorMessage, HttpStatus status){
+        super(status);
         this.errorMessage = errorMessage;
-        this.status = status;
     }
 
     public String getErrorMessage(){
         return this.errorMessage;
     }
 
-    public HttpStatus getStatus(){
-        return this.status;
-    }
+
 }

@@ -3,16 +3,12 @@
  */
 package application.company;
 
-import application.RestError;
-import application.RestResponse;
+import application.response.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
@@ -32,45 +28,37 @@ public class CompanyController {
 
     @PreAuthorize("hasAuthority('CREATE_COMPANY')")
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<RestResponse> add(@RequestBody Company input) {
+    ResponseEntity<IResponse> add(@RequestBody Company input) {
         Company company = companyRepository.save(new Company(input.getCompanyName(),
                 input.getAddress()));
-        RestResponse response = new RestResponse( company.getId());
-        return new ResponseEntity<RestResponse>(response,  new HttpHeaders(),HttpStatus.OK);
-
+        return ResponseWrapper.getResponse(new RestResponse( company.getId()));
     }
 
     @PreAuthorize("hasAuthority('DELETE_COMPANY')")
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
-    ResponseEntity<RestResponse> delete(@PathVariable String id) {
+    ResponseEntity<IResponse> delete(@PathVariable String id) {
         long res = companyRepository.deleteById(id);
-        RestResponse response = new RestResponse( res);
-        return new ResponseEntity<RestResponse>(response,  new HttpHeaders(),HttpStatus.OK);
+        return ResponseWrapper.getResponse( new RestResponse( res));
     }
 
     @PreAuthorize("hasAuthority('READ_COMPANY')")
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<IResponse> getAll() {
         List<Company> companies = companyRepository.findAll();
         if (companies.isEmpty()) {
-            RestError restError = new RestError("No Companies found", HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
+            return ResponseWrapper.getResponse(new RestError("No Companies found", HttpStatus.NOT_FOUND));
         }
-        RestResponse response = new RestResponse( companies);
-        return new ResponseEntity<RestResponse>(response,  new HttpHeaders(),HttpStatus.OK);
+        return ResponseWrapper.getResponse( new RestResponse( companies));
     }
 
     @PreAuthorize("hasAuthority('READ_COMPANY')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> get(@PathVariable("id") String id) {
+    public ResponseEntity<IResponse> get(@PathVariable("id") String id) {
         Company company = companyRepository.findById(id);
         if (company == null) {
-            RestError restError = new RestError("Company With: "+ id + " does not exist", HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
+            return ResponseWrapper.getResponse( new RestError("Company With: "+ id + " does not exist", HttpStatus.NOT_FOUND));
 
         }
-        RestResponse response = new RestResponse( company);
-        return new ResponseEntity<RestResponse>(response,  new HttpHeaders(),HttpStatus.OK);
-
+        return ResponseWrapper.getResponse(  new RestResponse( company));
     }
 }

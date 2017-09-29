@@ -1,7 +1,9 @@
 package application.department;
 
-import application.RestError;
-import application.RestResponse;
+import application.response.IResponse;
+import application.response.ResponseWrapper;
+import application.response.RestError;
+import application.response.RestResponse;
 import application.company.Company;
 import application.company.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,15 +36,14 @@ public class DepartmentController {
     ResponseEntity<?> add(@PathVariable String companyId , @RequestBody Department input ) {
         Company company = companyRepository.findById(companyId);
         if(company == null){
-            RestError restError = new RestError("Company With: "+ companyId + " does not exist", HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
+            return ResponseWrapper.getResponse(new RestError("Company With: "+ companyId + " does not exist", HttpStatus.NOT_FOUND));
+
         }
         Department dept= new Department(input.getName(),company.getId());
         Department Department = departmentRepository.save(dept);
         company.addDepartment(dept.getId());
         companyRepository.save(company);
-        RestResponse response = new RestResponse( Department.getId());
-        return new ResponseEntity<RestResponse>(response,  new HttpHeaders(),HttpStatus.OK);
+        return ResponseWrapper.getResponse(new RestResponse( Department.getId()));
     }
 
     //Delete Specific department
@@ -52,19 +53,17 @@ public class DepartmentController {
         Department department = departmentRepository.findById(id);
         RestError restError ;
         if(department == null){
-            restError = new RestError("Department With: "+ id + " does not exist", HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
+            return ResponseWrapper.getResponse( new RestError("Department With: "+ id + " does not exist", HttpStatus.NOT_FOUND));
         }
         Company company = companyRepository.findById(department.getId());
         if(company == null){
-            restError = new RestError("Company With: "+ department.getId() + " does not exist", HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
+            return ResponseWrapper.getResponse( new RestError("Company With: "+ department.getId() + " does not exist", HttpStatus.NOT_FOUND));
         }
         long res = departmentRepository.deleteById(id);
         company.deleteDepartment(id);
         companyRepository.save(company);
-        RestResponse response = new RestResponse(res);
-        return new ResponseEntity<Object>(response,  new HttpHeaders(),HttpStatus.OK);
+        return ResponseWrapper.getResponse( new RestResponse(res));
+
     }
 
     @PreAuthorize("hasAuthority('READ_DEPARTMENT')")
@@ -72,11 +71,10 @@ public class DepartmentController {
     public ResponseEntity<?> getAll() {
         List<Department> companies = departmentRepository.findAll();
         if (companies.isEmpty()) {
-            RestError restError = new RestError("No departments exist", HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
+            return ResponseWrapper.getResponse( new RestError("No departments exist", HttpStatus.NOT_FOUND));
          }
-        RestResponse response = new RestResponse(companies);
-        return new ResponseEntity<Object>(response,  new HttpHeaders(),HttpStatus.OK);
+        return ResponseWrapper.getResponse(new RestResponse(companies));
+
     }
 
     @PreAuthorize("hasAuthority('READ_DEPARTMENT')")
@@ -84,10 +82,8 @@ public class DepartmentController {
     public ResponseEntity<?> get(@PathVariable("id") String id) {
         Department department = departmentRepository.findById(id);
         if (department == null) {
-            RestError restError = new RestError("Department With: "+ id + " Does not exist", HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
+            return ResponseWrapper.getResponse( new RestError("Department With: " + id + " Does not exist", HttpStatus.NOT_FOUND));
         }
-        RestResponse response = new RestResponse(department);
-        return new ResponseEntity<Object>(response,  new HttpHeaders(),HttpStatus.OK);
+        return ResponseWrapper.getResponse( new RestResponse(department));
     }
 }

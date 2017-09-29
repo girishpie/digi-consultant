@@ -1,9 +1,8 @@
 package application.auth.roles;
 
 
-import application.RestError;
-import application.RestResponse;
-import application.company.Company;
+import application.response.RestError;
+import application.response.RestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
