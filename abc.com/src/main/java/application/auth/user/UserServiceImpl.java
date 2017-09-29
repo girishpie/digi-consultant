@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserDetailsService {
                     true, getAuthorities(roles));
         }
         //throw user not found exception
-      return null;
+      throw new UsernameNotFoundException(email);
     }
 
     private Collection<? extends GrantedAuthority> getAuthorities(

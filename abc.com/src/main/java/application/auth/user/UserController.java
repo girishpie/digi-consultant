@@ -34,9 +34,12 @@ public class UserController {
 
     @PreAuthorize("hasPriviledge('CREATE_USER')")
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<RestResponse> add(@RequestBody User input) {
-        User user = userRepository.save(new User(input.getUsername(),
-                input.getPassword(),null));
+    ResponseEntity<?> add(@RequestBody User input) {
+        if(input.getUsername()== null || input.getUsername().isEmpty()){
+            RestError response = new RestError( "User name can not be null or empty", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<RestError>(response,  new HttpHeaders(), HttpStatus.BAD_REQUEST);
+        }
+        User user = userRepository.save(input);
         RestResponse response = new RestResponse( user.getUsername());
         return new ResponseEntity<RestResponse>(response,  new HttpHeaders(), HttpStatus.OK);
 
