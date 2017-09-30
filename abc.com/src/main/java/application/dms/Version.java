@@ -1,15 +1,25 @@
 package application.dms;
 
+import application.common.BasicInfo;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import java.util.Date;
 
 /**
  * Created by gipai on 9/30/2017.
  */
-public class Version {
+public class Version  {
     private int versionNumber;
     private String fileStoreId;
     private String createdBy;
     private Date creationDate;
+
+    public Version(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        createdBy = auth.getName();
+        creationDate = new Date();
+    }
 
     public int getVersionNumber() {
         return versionNumber;

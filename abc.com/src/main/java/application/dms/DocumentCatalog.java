@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by gipai on 9/30/2017.
  */
-public class DocumentCatalog extends BasicInfo{
+public class DocumentCatalog {
     @Id
     private String id;
     private String displayName;
