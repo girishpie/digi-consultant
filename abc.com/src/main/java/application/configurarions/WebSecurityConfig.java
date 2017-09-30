@@ -74,10 +74,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();*/
-
+        http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/user/createsuperuser").permitAll().and().
-                 authorizeRequests()
                 .anyRequest().authenticated()
                 .and().httpBasic();
 

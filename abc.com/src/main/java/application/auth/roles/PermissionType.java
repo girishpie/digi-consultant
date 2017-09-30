@@ -23,6 +23,11 @@ public enum PermissionType {
     CREATE_ROLE,
     DELETE_ROLE,
     READ_ROLE,
-    UPDATE_ROLE;
+    UPDATE_ROLE,
+
+    CREATE_DOCUMENT,
+    DELETE_DOCUMENT,
+    READ_DOCUMENT,
+    UPDATE_DOCUMENT;
 
 }

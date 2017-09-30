@@ -34,7 +34,7 @@ public class UserController {
         this.roleRepository = roleRepository;
     }
 
-    @PreAuthorize("hasPriviledge('CREATE_USER')")
+    @PreAuthorize("hasAuthority('CREATE_USER')")
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity<IResponse> add(@RequestBody User input) {
         if(input.getUsername()== null || input.getUsername().isEmpty()){
@@ -71,7 +71,7 @@ public class UserController {
         return ResponseWrapper.getResponse( new RestResponse( res));
      }
 
-    @PreAuthorize("hasPriviledge('READ_USER')")
+    @PreAuthorize("hasAuthority('READ_USER')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<IResponse> getAll() {
         List<User> companies = userRepository.findAll();

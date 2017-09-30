@@ -1,8 +1,11 @@
 package application.auth.user;
 
+import application.audit.AuditAspect;
 import application.auth.roles.PermissionType;
 import application.auth.roles.Role;
 import application.auth.roles.RoleRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,6 +26,8 @@ public class UserServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
     @Autowired
     private final RoleRepository roleRepository;
+
+    private final Logger logger =  LoggerFactory.getLogger(UserServiceImpl.class);
 
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
@@ -46,9 +51,13 @@ public class UserServiceImpl implements UserDetailsService {
                 roles.add(role);
             }
 
-            return new org.springframework.security.core.userdetails.User(
+            UserDetails userDetails = new org.springframework.security.core.userdetails.User(
                     user.getUsername(), user.getPassword(), true, true, true,
                     true, getAuthorities(roles));
+
+            logger.info(userDetails.toString());
+            return userDetails;
+
         }
         //throw user not found exception
       throw new UsernameNotFoundException(email);
