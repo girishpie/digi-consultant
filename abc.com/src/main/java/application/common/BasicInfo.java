@@ -20,6 +20,7 @@ public class BasicInfo {
         createdBy = auth.getName();
         lastModifiedBy =  auth.getName();
         creationTime = new Date();
+        lastModifiedTime= new Date();
     }
 
     public String getCreatedBy() {
@@ -54,5 +55,10 @@ public class BasicInfo {
         this.lastModifiedTime = lastModifiedTime;
     }
 
+    public void update(){
+        lastModifiedTime= new Date();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        lastModifiedBy = auth.getName();
+    }
 
 }

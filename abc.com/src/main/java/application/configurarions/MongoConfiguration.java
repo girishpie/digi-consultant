@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 /**
  * Created by gipai on 9/30/2017.
  */
-@Configuration
+//@Configuration
 public class MongoConfiguration extends AbstractMongoConfiguration {
 
     //TODO: change this later
