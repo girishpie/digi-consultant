@@ -80,7 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();*/
-        http.cors();
+    //    http.cors().disable();
         http.csrf().disable();
         http.authorizeRequests()
                 .anyRequest().authenticated()

@@ -27,6 +27,7 @@ public class Company {
 
 
     private List<String> departmentIds = new ArrayList<String>();
+    private List<String> clientIds = new ArrayList<String>();
 
     public Company() {}
 
@@ -63,8 +64,21 @@ public class Company {
         this.departmentIds = departmentIds;
     }
 
+
+	public List<String> getClientIds() {
+		return clientIds;
+	}
+
+	public void setClientIds(List<String> clientIds) {
+		this.clientIds = clientIds;
+	}
+
     public void addDepartment(String departmentId){
         this.departmentIds.add(departmentId);
+    }
+    
+    public void addClient(String clientIds){
+        this.clientIds.add(clientIds);
     }
 
     public String getId(){
@@ -79,6 +93,13 @@ public class Company {
         }
     }
 
-
+	public void deleteClient(String id2) {
+		for (int i = 0; i < this.clientIds.size(); i++) {
+            if (this.clientIds.get(i) == id) {
+                this.clientIds.remove(i);
+            }
+        }
+		
+	}
 
 }
