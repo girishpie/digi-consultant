@@ -20,7 +20,7 @@ import java.util.List;
  * Created by gipai on 9/28/2017.
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired

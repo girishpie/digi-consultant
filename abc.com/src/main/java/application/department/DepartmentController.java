@@ -19,7 +19,7 @@ import java.util.List;
  * Created by gipai on 9/27/2017.
  */
 @RestController
-@RequestMapping("/department")
+@RequestMapping("/api/department")
 public class DepartmentController {
 
     private final DepartmentRepository departmentRepository;

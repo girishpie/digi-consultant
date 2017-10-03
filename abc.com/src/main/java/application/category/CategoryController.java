@@ -19,7 +19,7 @@ import java.util.Map;
  * Created by gipai on 10/1/2017.
  */
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/api/category")
 public class CategoryController {
 
     @Autowired

@@ -15,7 +15,7 @@ import java.util.*;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/company")
+@RequestMapping("/api/company")
 public class CompanyController {
 
     private final CompanyRepository companyRepository;
