@@ -1,2 +1,6 @@
 abc.com/.idea/**/*.*
 abc.com/build/**/*.*
+abc.com/build/**/*.*
+abc.com/build/
+abc.com/build/**/*
+*.class
