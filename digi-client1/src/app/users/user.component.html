@@ -1,0 +1,14 @@
+
+<table style="width:100%" text>
+      <tr>
+        <th class = "digi-table-text table-header">User Name</th>
+        <th class = "digi-table-text table-header">Password</th>
+     </tr>
+
+      <tr *ngFor="let user of users ">
+        <td class = "digi-table-text">{{ user.username }}</td>
+        <td class = "digi-table-text">{{ user.password }}</td>
+     </tr>
+
+ </table>
+
