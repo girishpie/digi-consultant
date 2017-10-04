@@ -1,11 +1,20 @@
-<div class="digi-menu">
-  <select class="custom-select d-block my-3 digi-menu-text" required>
-    <option value="">Admin</option>
-    <option value="Users">Users</option>
-    <option value="Roles">Roles</option>
-    <option value="Company">Company</option>
-  </select>
-  <button type="button" class="btn btn-menu btn-sm" >Admin</button>
-  <button type="button" class="btn btn-menu btn-sm" ></button>
-</div>
-
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Digi Consultation</a>
+    </div>
+    <ul class="nav navbar-nav">
+       <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
+          <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#/user">User</a></li>
+          <li><a href="#">Role</a></li>
+          <li><a href="#">Category</a></li>
+          <li><a href="#">Department</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Project</a></li>
+    </ul>
+  </div>
+</nav>

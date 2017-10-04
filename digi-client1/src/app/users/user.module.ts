@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { UserComponent } from './user.component';
 import {UserService} from './user.service';
 import {BrowserModule} from '@angular/platform-browser';
-import {HttpModule} from "@angular/http";
-
+import {HttpModule} from '@angular/http';
+import {NewUserModule} from './new/new-user.module';
+import {RoleService} from './role.service';
 
 @NgModule({
   declarations: [
@@ -11,10 +12,13 @@ import {HttpModule} from "@angular/http";
   ],
   imports: [
     BrowserModule,
-    HttpModule
+    HttpModule,
+    NewUserModule
   ],
   exports : [UserComponent],
-  providers: [UserService],
+  providers: [UserService,
+              RoleService,
+              ],
   bootstrap: []
 })
 export class  UserModule { }

@@ -40,6 +40,10 @@ public class UserController {
         if(input.getUsername()== null || input.getUsername().isEmpty()){
             return ResponseWrapper.getResponse( new RestError( "User name can not be null or empty", HttpStatus.BAD_REQUEST));
         }
+        if(userRepository.findByUsername(input.getUsername())!= null) {
+            return ResponseWrapper.getResponse( new RestError( "User with same id can not be created", HttpStatus.BAD_REQUEST));
+
+        }
         User user = userRepository.save(input);
         return ResponseWrapper.getResponse( new RestResponse( user.getUsername()));
 

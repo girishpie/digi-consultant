@@ -37,4 +37,29 @@ export class UserService {
         }
       );
   }
+
+
+  public save(user: User)  {
+    const endPoint = this.userUrl;
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    // Returns response
+    return this.http.post(endPoint,user)
+      .map(res => {
+          const res1 = res.json();
+          return res1.id;
+        }
+      );
+  }
+
+  public delete(id: string)  {
+    const endPoint = this.userUrl  + id ;
+      // Returns response
+    return this.http.delete(endPoint)
+      .map(res => {
+          const res1 = res.json();
+          return res1.id;
+        }
+      );
+  }
 }

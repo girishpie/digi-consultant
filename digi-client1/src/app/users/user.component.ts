@@ -6,7 +6,7 @@ import {User} from './user';
 @Component({
   selector: 'user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  styleUrls: ['./user.component.scss']
 })
 
 export class UserComponent {
@@ -18,10 +18,17 @@ export class UserComponent {
   }
 
   public getUsers() {
-    this.userService.getUsers().subscribe(users => {
-        this.users = users;
-      }
-    );
+    this.userService.getUsers().subscribe(data=> {
+        this.users = data;
+      },
+    error => {
+      window.alert(error._body.errorMessage);
+    });
+
+  }
+
+  public deleteUser(user:User){
+    this.userService.delete(user.getId()).subscribe();
   }
 }
 

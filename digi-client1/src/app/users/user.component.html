@@ -1,14 +1,27 @@
-
-<table style="width:100%" text>
-      <tr>
-        <th class = "digi-table-text table-header">User Name</th>
-        <th class = "digi-table-text table-header">Password</th>
-     </tr>
-
+<div class="container digi-user" >
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>User</th>
+    <th>Password</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
       <tr *ngFor="let user of users ">
-        <td class = "digi-table-text">{{ user.username }}</td>
-        <td class = "digi-table-text">{{ user.password }}</td>
+        <td class = "table-cell">{{ user.username }}</td>
+        <td class = "table-cell">{{ user.password }}</td>
+        <td class = "table-cell">
+          <button type="button" class="btn btn-primary" (click) = "deleteUser(user)">
+            <span class="glyphicon glyphicon-remove" ></span>
+          </button>
+          <button type="button" class="btn btn-primary">
+            <span class="glyphicon glyphicon-pencil"></span></button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newUser">
+             <span class="glyphicon glyphicon-plus" ></span></button>
+        </td>
      </tr>
-
+  </tbody>
  </table>
-
+  <new-user></new-user>
+</div>
