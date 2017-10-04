@@ -1,5 +1,6 @@
 package application.auth.user;
 
+import application.company.Company;
 import application.response.IResponse;
 import application.response.ResponseWrapper;
 import application.response.RestError;
@@ -7,11 +8,15 @@ import application.response.RestResponse;
 import application.auth.roles.Role;
 import application.auth.roles.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.expression.Lists;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +92,20 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('READ_USER')")
+    @RequestMapping(params = { "pageNumber", "size" } , method = RequestMethod.GET)
+    public ResponseEntity<IResponse> getAll(@RequestParam( "pageNumber" ) int pageNumber, @RequestParam( "size" ) int size) {
+        Pageable pageable = new PageRequest(pageNumber, size); //get 5 profiles on a page
+        Page<User> page = userRepository.findAll(pageable);
+
+        List<User> users = page.getContent();
+        if (users.isEmpty()) {
+            return ResponseWrapper.getResponse( new RestError("No Users found", HttpStatus.NOT_FOUND));
+        }
+        return ResponseWrapper.getResponse( new RestResponse( users));
+
+    }
+
+    @PreAuthorize("hasAuthority('READ_USER')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<IResponse> get(@PathVariable("id") String id) {
         User user = userRepository.findById(id);
@@ -94,7 +113,7 @@ public class UserController {
             return ResponseWrapper.getResponse( new RestError("User With: "+ id + " does not exist", HttpStatus.NOT_FOUND));
         }
         return ResponseWrapper.getResponse( new RestResponse(user));
-
-
     }
+
+
 }
