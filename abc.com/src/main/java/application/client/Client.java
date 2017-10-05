@@ -4,7 +4,9 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
 
-public class Client {
+import application.common.BasicInfo;
+
+public class Client extends BasicInfo  {
 	
 	@Id
 	private String id;

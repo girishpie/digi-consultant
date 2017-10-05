@@ -9,5 +9,6 @@ public interface RoleRepository  extends MongoRepository<Role, String> {
 
     Role findById(String id);
     Role findByName(String name);
+	long deleteById(String id);
 }
 

@@ -1,6 +1,7 @@
 package application.auth.roles;
 
-
+import application.response.IResponse;
+import application.response.ResponseWrapper;
 import application.response.RestError;
 import application.response.RestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,15 +39,48 @@ public class RoleController {
         return new ResponseEntity<RestResponse>(response,  new HttpHeaders(), HttpStatus.OK);
 
     }
+    
+    @PreAuthorize("hasAuthority('DELETE_ROLE')")
+    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
+    ResponseEntity<?> delete(@PathVariable String id) {
+        long res = roleRepository.deleteById(id);
+        return ResponseWrapper.getResponse( new RestResponse( res));
+     }
 
+    //Update Specific role
+    @PreAuthorize("hasAuthority('UPDATE_ROLE')")
+    @RequestMapping(value = "/{roleId}", method = RequestMethod.PATCH)
+    ResponseEntity<IResponse> update(@PathVariable String roleId, @RequestBody Role input){
+    	Role role = roleRepository.findById(roleId);
+        if(role == null){
+            return ResponseWrapper.getResponse(new RestError("Update failed as role with id " + roleId + " doesnot exist" , HttpStatus.NOT_FOUND));
+        }
+
+        role.setName(input.getName());
+        role.setPermissions(input.getPermissions());
+        role.update();
+        role = roleRepository.save(role);
+        return ResponseWrapper.getResponse(new RestResponse(role));
+    }
+    
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> listAllCompanies() {
-        List<Role> companies = roleRepository.findAll();
-        if (companies.isEmpty()) {
+    public ResponseEntity<?> listAllRoles() {
+        List<Role> roles = roleRepository.findAll();
+        if (roles.isEmpty()) {
             RestError restError = new RestError("No Roles found", HttpStatus.NOT_FOUND);
             return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
         }
-        RestResponse response = new RestResponse( companies);
+        RestResponse response = new RestResponse( roles);
         return new ResponseEntity<RestResponse>(response,  new HttpHeaders(),HttpStatus.OK);
+    }
+    
+    @PreAuthorize("hasAuthority('READ_ROLE')")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> get(@PathVariable("id") String id) {
+        Role role = roleRepository.findById(id);
+        if (role == null) {
+        	return ResponseWrapper.getResponse( new RestError("Role With: " + id + " Does not exist", HttpStatus.NOT_FOUND));
+        }
+        return ResponseWrapper.getResponse( new RestResponse(role));
     }
 }

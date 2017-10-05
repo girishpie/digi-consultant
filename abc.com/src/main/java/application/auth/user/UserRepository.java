@@ -9,11 +9,11 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  */
 public interface UserRepository  extends MongoRepository<User, String> {
 
-    User findByUsername(String email);
+    User findByUserId(String userId);
 
     User findById(String id);
 
     long deleteById(String id);
 
-    Page<User> findByUsernameLike(String searchString, Pageable pageable);
+    Page<User> findByUserIdLike(String searchString, Pageable pageable);
 }

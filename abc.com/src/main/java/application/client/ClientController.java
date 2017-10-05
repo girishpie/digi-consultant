@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import application.company.Company;
 import application.company.CompanyRepository;
+import application.response.IResponse;
 import application.response.ResponseWrapper;
 import application.response.RestError;
 import application.response.RestResponse;
@@ -66,6 +67,22 @@ public class ClientController {
         companyRepository.save(company);
         return ResponseWrapper.getResponse( new RestResponse(res));
 
+    }
+    
+    //Update Specific client
+    @PreAuthorize("hasAuthority('UPDATE_CLIENT')")
+    @RequestMapping(value = "/{clientId}", method = RequestMethod.PATCH)
+    ResponseEntity<IResponse> update(@PathVariable String clientId, @RequestBody Client input){
+        Client client = clientRepository.findById(clientId);
+        if(client == null){
+            return ResponseWrapper.getResponse(new RestError("Update failed as client with id " + clientId + " doesnot exist" , HttpStatus.NOT_FOUND));
+        }
+
+        client.setName(input.getName());
+        client.setAddress(input.getAddress());
+        client.update();
+        client = clientRepository.save(client);
+        return ResponseWrapper.getResponse(new RestResponse(client));
     }
 
     @PreAuthorize("hasAuthority('READ_CLIENT')")

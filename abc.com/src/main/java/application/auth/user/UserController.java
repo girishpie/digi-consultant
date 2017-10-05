@@ -1,9 +1,9 @@
 package application.auth.user;
 
-import application.company.Company;
 import application.response.*;
 import application.auth.roles.Role;
 import application.auth.roles.RoleRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.expression.Lists;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +24,13 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
 
-    @Autowired
+	@Autowired
     private final UserRepository userRepository;
-
-    @Autowired
+	
+	@Autowired
     private final RoleRepository roleRepository;
 
+    
     public UserController(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
@@ -39,15 +39,15 @@ public class UserController {
     @PreAuthorize("hasAuthority('CREATE_USER')")
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity<IResponse> add(@RequestBody User input) {
-        if(input.getUsername()== null || input.getUsername().isEmpty()){
+        if(input.getUserId()== null || input.getUserId().isEmpty()){
             return ResponseWrapper.getResponse( new RestError( "User name can not be null or empty", HttpStatus.BAD_REQUEST));
         }
-        if(userRepository.findByUsername(input.getUsername())!= null) {
+        if(userRepository.findByUserId(input.getUserId())!= null) {
             return ResponseWrapper.getResponse( new RestError( "User with same id can not be created", HttpStatus.BAD_REQUEST));
 
         }
         User user = userRepository.save(input);
-        return ResponseWrapper.getResponse( new RestResponse( user.getUsername()));
+        return ResponseWrapper.getResponse( new RestResponse( user.getUserId()));
 
     }
 
@@ -57,12 +57,12 @@ public class UserController {
 
         Role role = new Role(true);
         role = roleRepository.save(role);
-        List<String> roleIds = new ArrayList<String>();
-        roleIds.add(role.getId());
-        if(userRepository.findByUsername("superUser") == null){
-            User user = userRepository.save(new User("superUser",
-                    "superPassword",roleIds));
-            return ResponseWrapper.getResponse(new RestResponse( user.getUsername()));
+        List<String> roles= new ArrayList<String>();
+        roles.add(role.getName());
+        if(userRepository.findByUserId("superUser") == null){
+            User user = userRepository.save(new User("superUser", "superUser", "superUser", "abc@abc.com", "123456",
+                    "superPassword",roles));
+            return ResponseWrapper.getResponse(new RestResponse( user.getUserId()));
 
         }
         return ResponseWrapper.getResponse( new RestError("Super user alrady exists",HttpStatus.NOT_MODIFIED));
@@ -76,15 +76,34 @@ public class UserController {
         long res = userRepository.deleteById(id);
         return ResponseWrapper.getResponse( new RestResponse( res));
      }
+    
+    @PreAuthorize("hasAuthority('UPDATE_USER')")
+    @RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
+    ResponseEntity<IResponse> update(@PathVariable String id, @RequestBody User input){
+        User user = userRepository.findById(id);
+        if(user == null){
+            return ResponseWrapper.getResponse(new RestError("Update failed as user with id " + id + " doesnot exist" , HttpStatus.NOT_FOUND));
+        }
+        user.setUserId(input.getUserId());
+        user.setFirstName(input.getFirstName());
+        user.setLastName(input.getLastName());
+        user.setEmail(input.getEmail());
+        user.setPhoneNumber(input.getPhoneNumber());
+        user.setPassword(input.getPassword());
+        user.setRoleIds(input.getRoleIds());
+        user.update();
+        user = userRepository.save(user);
+        return ResponseWrapper.getResponse(new RestResponse(user));
+    }
 
     @PreAuthorize("hasAuthority('READ_USER')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<IResponse> getAll() {
-        List<User> companies = userRepository.findAll();
-        if (companies.isEmpty()) {
+        List<User> users = userRepository.findAll();
+        if (users.isEmpty()) {
             return ResponseWrapper.getResponse( new RestError("No Users found", HttpStatus.NOT_FOUND));
         }
-        return ResponseWrapper.getResponse( new RestResponse( companies));
+        return ResponseWrapper.getResponse( new RestResponse( users));
 
     }
 
@@ -108,7 +127,7 @@ public class UserController {
                                             @RequestParam( "size" ) int size,
                                             @RequestParam( "searchString" ) String searchString) {
         Pageable pageable = new PageRequest(pageNumber, size); //get 5 profiles on a page
-        Page<User> page =  userRepository.findByUsernameLike(searchString,pageable);
+        Page<User> page =  userRepository.findByUserIdLike(searchString,pageable);
 
 
         List<User> users = page.getContent();

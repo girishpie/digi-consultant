@@ -65,6 +65,21 @@ public class DepartmentController {
         return ResponseWrapper.getResponse( new RestResponse(res));
 
     }
+    
+   //Update Specific company
+    @PreAuthorize("hasAuthority('UPDATE_DEPARTMENT')")
+    @RequestMapping(value = "/{deptId}", method = RequestMethod.PATCH)
+    ResponseEntity<IResponse> update(@PathVariable String deptId, @RequestBody Department input){
+    	Department department = departmentRepository.findById(deptId);
+        if(department == null){
+            return ResponseWrapper.getResponse(new RestError("Update failed as department with id " + deptId + " doesnot exist" , HttpStatus.NOT_FOUND));
+        }
+
+        department.setName(input.getName());
+        department.update();
+        department = departmentRepository.save(department);
+        return ResponseWrapper.getResponse(new RestResponse(department));
+    }
 
     @PreAuthorize("hasAuthority('READ_DEPARTMENT')")
     @RequestMapping(method = RequestMethod.GET)

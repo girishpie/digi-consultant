@@ -1,5 +1,6 @@
 package application.department;
 
+import application.common.BasicInfo;
 import application.company.Company;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.data.annotation.Id;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * Created by gipai on 9/27/2017.
  */
-public class Department {
+public class Department extends BasicInfo {
 
     @Id
     private String id;

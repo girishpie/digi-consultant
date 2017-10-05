@@ -35,24 +35,23 @@ public class UserServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 
-        List<User> users = userRepository.findAll();
-        User user = userRepository.findByUsername(email);
+         User user = userRepository.findByUserId(userId);
 
         if(user !=null) {
             List<String> roleIds = user.getRoleIds();
             List <Role> roles = new ArrayList<Role>();
             int length = roleIds.size();
-            List<Role> roless = roleRepository.findAll();
+            
             for(int i= 0 ; i < length ; i++){
                 String roleName = roleIds.get(i);
-                Role role = roleRepository.findByName(roleName);
+                Role role = roleRepository.findById(roleName);
                 roles.add(role);
             }
 
             UserDetails userDetails = new org.springframework.security.core.userdetails.User(
-                    user.getUsername(), user.getPassword(), true, true, true,
+                    user.getUserId(), user.getPassword(), true, true, true,
                     true, getAuthorities(roles));
 
             logger.info(userDetails.toString());
@@ -60,7 +59,7 @@ public class UserServiceImpl implements UserDetailsService {
 
         }
         //throw user not found exception
-      throw new UsernameNotFoundException(email);
+      throw new UsernameNotFoundException(userId);
     }
 
     private Collection<? extends GrantedAuthority> getAuthorities(

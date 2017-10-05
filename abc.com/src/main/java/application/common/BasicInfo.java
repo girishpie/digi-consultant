@@ -17,8 +17,10 @@ public class BasicInfo {
     public BasicInfo() {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        createdBy = auth.getName();
-        lastModifiedBy =  auth.getName();
+        if(auth !=null) {
+	        createdBy = auth.getName();
+	        lastModifiedBy =  auth.getName();
+        }
         creationTime = new Date();
         lastModifiedTime= new Date();
     }

@@ -12,8 +12,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
-import org.springframework.web.bind.annotation.RestController;
-
 @RestController
 @RequestMapping("/api/company")
 public class CompanyController {
@@ -41,6 +39,22 @@ public class CompanyController {
         return ResponseWrapper.getResponse( new RestResponse( res));
     }
 
+    //Update Specific company
+    @PreAuthorize("hasAuthority('UPDATE_COMPANY')")
+    @RequestMapping(value = "/{companyId}", method = RequestMethod.PATCH)
+    ResponseEntity<IResponse> update(@PathVariable String companyId, @RequestBody Company input){
+        Company company = companyRepository.findById(companyId);
+        if(company == null){
+            return ResponseWrapper.getResponse(new RestError("Update failed as company with id " + companyId + " doesnot exist" , HttpStatus.NOT_FOUND));
+        }
+
+        company.setCompanyName(input.getCompanyName());
+        company.setAddress(input.getAddress());
+        company.update();
+        company = companyRepository.save(company);
+        return ResponseWrapper.getResponse(new RestResponse(company));
+    }
+    
     @PreAuthorize("hasAuthority('READ_COMPANY')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<IResponse> getAll() {

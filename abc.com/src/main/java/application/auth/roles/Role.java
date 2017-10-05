@@ -2,13 +2,15 @@ package application.auth.roles;
 
 import org.springframework.data.annotation.Id;
 
+import application.common.BasicInfo;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by gipai on 9/28/2017.
  */
-public class Role {
+public class Role extends BasicInfo {
 
     @Id
     private String id;
