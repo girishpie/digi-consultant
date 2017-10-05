@@ -7,6 +7,8 @@ import {UIRouterModule} from '@uirouter/angular';
 import {UserModule} from '../users/user.module';
 import { SearchModule} from '../search/search.module';
 import { PaginationModule} from '../pagination/pagination.module';
+import {QueryParamsService} from './query-obeservables/query-params.service';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 const userState = { name: 'user', url: '/user',  component: UserComponent };
 
@@ -16,6 +18,7 @@ const userState = { name: 'user', url: '/user',  component: UserComponent };
     HomeComponent
   ],
   imports: [
+    NgxPaginationModule,
     HeaderModule,
     UserModule,
     SearchModule,
@@ -23,7 +26,7 @@ const userState = { name: 'user', url: '/user',  component: UserComponent };
     UIRouterModule.forRoot({ states: [ userState ], useHash: true })
   ],
   exports : [HomeComponent],
-  providers: [],
+  providers: [QueryParamsService],
   bootstrap: []
 })
 export class  HomeModule { }

@@ -3,13 +3,14 @@
  */
 import { NgModule } from '@angular/core';
 import { PaginationComponent } from './pagination.component';
-
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
     PaginationComponent
   ],
   imports: [
+    NgxPaginationModule
   ],
   exports : [PaginationComponent],
   providers: [],

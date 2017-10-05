@@ -6,18 +6,35 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
 import {User} from './user';
+import {QueryParams} from "../home/query-obeservables/query-params";
+import {Users} from "./users";
 
 @Injectable()
 export class UserService {
 
 
   private userUrl = 'http://localhost:4200/api/user/';
-  constructor(private http: Http) {
+
+  constructor(private http: Http, private  users: Users ) {
 
   }
 
-  public getUsers()  {
-    const endPoint = this.userUrl;
+  public getUsers(queryParams: QueryParams)  {
+
+    let pageNumber = 0;
+    const pageSize = 3;
+    let searchString = null;
+
+    if (queryParams !== null) {
+      pageNumber = queryParams.pageNumber;
+      if (queryParams.searchString) {
+        searchString = queryParams.searchString;
+      }
+    }
+    let endPoint = this.userUrl + '?pageNumber=' + pageNumber + '&size=' + pageSize;
+    if (searchString) {
+      endPoint += '&searchString=' + searchString;
+    }
     // Returns response
     return this.http.get(endPoint)
       .map(res => {
@@ -33,10 +50,13 @@ export class UserService {
             user.setRoleIds(response[i].roleIds);
             users.push(user);
           }
-          return users;
+          this.users.setUsers(users);
+          this.users.setTotalItems(res1.totalElements);
+          return true;
         }
       );
   }
+
 
 
   public save(user: User)  {
@@ -47,6 +67,8 @@ export class UserService {
     return this.http.post(endPoint,user)
       .map(res => {
           const res1 = res.json();
+          user.setId(res1.id);
+          this.users.addUser(user);
           return res1.id;
         }
       );
@@ -58,7 +80,7 @@ export class UserService {
     return this.http.delete(endPoint)
       .map(res => {
           const res1 = res.json();
-          return res1.id;
+          this.users.deleteUser(res1.id);
         }
       );
   }

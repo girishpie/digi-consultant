@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import {QueryParamsService} from '../home/query-obeservables/query-params.service';
 
 
 
@@ -10,5 +11,15 @@ import { Component, Input } from '@angular/core';
 
 export class SearchComponent {
 
+  private searchString: string;
+
+  constructor(private queryParamsService: QueryParamsService)  {
+
+  }
+
+
+  OnSearch() {
+    this.queryParamsService.setSearchString( this.searchString);
+  }
 }
 

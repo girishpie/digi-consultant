@@ -5,6 +5,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {HttpModule} from '@angular/http';
 import {NewUserModule} from './new/new-user.module';
 import {RoleService} from './role.service';
+import {Users} from './users';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -13,11 +15,13 @@ import {RoleService} from './role.service';
   imports: [
     BrowserModule,
     HttpModule,
+    NgxPaginationModule,
     NewUserModule
   ],
   exports : [UserComponent],
-  providers: [UserService,
-              RoleService,
+  providers: [Users,
+              UserService,
+              RoleService
               ],
   bootstrap: []
 })

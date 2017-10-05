@@ -1,10 +1,7 @@
 package application.auth.user;
 
 import application.company.Company;
-import application.response.IResponse;
-import application.response.ResponseWrapper;
-import application.response.RestError;
-import application.response.RestResponse;
+import application.response.*;
 import application.auth.roles.Role;
 import application.auth.roles.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,7 +98,24 @@ public class UserController {
         if (users.isEmpty()) {
             return ResponseWrapper.getResponse( new RestError("No Users found", HttpStatus.NOT_FOUND));
         }
-        return ResponseWrapper.getResponse( new RestResponse( users));
+        return ResponseWrapper.getResponse(  new PageResponse(users,page.getTotalElements(), pageNumber,size));
+
+    }
+
+    @PreAuthorize("hasAuthority('READ_USER')")
+    @RequestMapping(params = { "pageNumber", "size" , "searchString" } , method = RequestMethod.GET)
+    public ResponseEntity<IResponse> getAll(@RequestParam( "pageNumber" ) int pageNumber,
+                                            @RequestParam( "size" ) int size,
+                                            @RequestParam( "searchString" ) String searchString) {
+        Pageable pageable = new PageRequest(pageNumber, size); //get 5 profiles on a page
+        Page<User> page =  userRepository.findByUsernameLike(searchString,pageable);
+
+
+        List<User> users = page.getContent();
+        if (users.isEmpty()) {
+            return ResponseWrapper.getResponse( new RestError("No Users found", HttpStatus.NOT_FOUND));
+        }
+        return ResponseWrapper.getResponse( new PageResponse(users,page.getTotalElements(), pageNumber,size));
 
     }
 
