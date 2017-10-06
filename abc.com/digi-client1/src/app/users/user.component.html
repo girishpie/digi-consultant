@@ -1,0 +1,28 @@
+<div class="container digi-user" >
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>User</th>
+    <th>Password</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let user of users.users | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: users.totalItems, id:'server'} ">
+        <td class = "table-cell">{{ user.username }}</td>
+        <td class = "table-cell">{{ user.password }}</td>
+        <td class = "table-cell">
+          <button type="button" class="btn btn-primary" (click) = "deleteUser(user)">
+            <span class="glyphicon glyphicon-remove" ></span>
+          </button>
+          <button type="button" class="btn btn-primary">
+            <span class="glyphicon glyphicon-pencil"></span></button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newUser">
+             <span class="glyphicon glyphicon-plus" ></span></button>
+        </td>
+     </tr>
+  </tbody>
+ </table>
+  <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+  <new-user></new-user>
+</div>

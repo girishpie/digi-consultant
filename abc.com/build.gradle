@@ -1,9 +1,15 @@
 buildscript {
     repositories {
         mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
+
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.7.RELEASE")
+        classpath('se.transmode.gradle:gradle-docker:1.2')
+        classpath "com.moowork.gradle:gradle-node-plugin:1.1.1"
     }
 }
 
@@ -11,11 +17,57 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin:"com.moowork.node"
+apply plugin: 'docker'
+
+repositories
+        {
+            mavenCentral()
+        }
+
+node
+{
+            version = "6.10.3"
+            download = false
+            nodeModulesDir = file("digi-client1")
+}
+
+task buildClientDev(type: NpmTask, dependsOn: 'npmInstall') {
+            group = 'build'
+            description = 'Compile client side folder for development'
+            args = ['run','buildDev']
+}
+
+task buildClientWatch(type: NpmTask, dependsOn: 'npmInstall') {
+            group = 'application'
+            description = "Build and watches the client side assets for rebuilding"
+            args = ['run','buildWatch']
+}
+task buildClient(type:NpmTask, dependsOn:'npmInstall') {
+            group = 'build'
+            description = "Compile client side folder for production"
+            args = ['run','build']
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+    applicationName = jar.baseName
+    dockerfile = file('Dockerfile')
+    doFirst {
+        copy {
+            from jar
+            into "${stageDir}/target"
+        }
+    }
+}
 
 jar {
-    baseName = 'gs-spring-boot'
+    baseName = 'abc'
     version =  '0.1.0'
 }
+
+bootRun.dependsOn(buildClientDev)
+jar.dependsOn(buildClient)
+
 
 repositories {
     mavenCentral()
