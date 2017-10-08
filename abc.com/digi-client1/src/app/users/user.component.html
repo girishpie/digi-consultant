@@ -7,7 +7,6 @@
     <th>Last Name</th>
     <th>email</th>
     <th>Phone Number</th>
-    <th>Password</th>
     <th>Actions</th>
   </tr>
   </thead>
@@ -18,8 +17,7 @@
         <td class = "table-cell">{{ user.lastName }}</td>
         <td class = "table-cell">{{ user.email }}</td>
         <td class = "table-cell">{{ user.phoneNumber }}</td>
-        <td class = "table-cell">{{ user.password }}</td>
-        <td class = "table-cell">
+         <td class = "table-cell">
           <button type="button" class="btn btn-primary" (click) = "deleteUser(user)">
             <span class="glyphicon glyphicon-remove" ></span>
           </button>
