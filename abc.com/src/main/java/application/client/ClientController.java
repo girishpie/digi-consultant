@@ -58,9 +58,9 @@ public class ClientController {
         if(client == null){
             return ResponseWrapper.getResponse( new RestError("Client With: "+ id + " does not exist", HttpStatus.NOT_FOUND));
         }
-        Company company = companyRepository.findById(client.getId());
+        Company company = companyRepository.findById(client.getCompanyId());
         if(company == null){
-            return ResponseWrapper.getResponse( new RestError("Company With: "+ client.getId() + " does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError("Company With: "+ client.getCompanyId() + " does not exist", HttpStatus.NOT_FOUND));
         }
         long res = clientRepository.deleteById(id);
         company.deleteClient(id);

@@ -29,6 +29,11 @@ public enum PermissionType {
     DELETE_ROLE,
     READ_ROLE,
     UPDATE_ROLE,
+    
+    CREATE_PROJECT,
+    DELETE_PROJECT,
+    READ_PROJECT,
+    UPDATE_PROJECT,
 
     CREATE_DOCUMENT,
     DELETE_DOCUMENT,

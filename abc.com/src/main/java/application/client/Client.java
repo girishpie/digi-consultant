@@ -1,5 +1,8 @@
 package application.client;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
@@ -15,6 +18,7 @@ public class Client extends BasicInfo  {
     @NotNull
     private String companyId;
     private String address;
+    private List<String> projectIds = new ArrayList<String>();
     
     public Client() {
 
@@ -49,6 +53,20 @@ public class Client extends BasicInfo  {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public void addProject(String id2) {
+		this.projectIds.add(id2);
+		
+	}
+
+	public void deleteProject(String id2) {
+		for (int i = 0; i < this.projectIds.size(); i++) {
+            if (this.projectIds.get(i) == id2) {
+                this.projectIds.remove(i);
+            }
+        }
+		
 	}
 	
 
