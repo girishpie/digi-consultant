@@ -12,8 +12,24 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
+            <label for="user-name" class="form-control-label">User Id:</label>
+            <input type="text" class="form-control" id="user-id" [(ngModel)]="userId" name="first">
+          </div>
+          <div class="form-group">
+            <label for="user-name" class="form-control-label">First Name:</label>
+            <input type="text" class="form-control" id="first-name" [(ngModel)]="firstName" name="first">
+          </div>
+          <div class="form-group">
+            <label for="user-name" class="form-control-label">Last Name:</label>
+            <input type="text" class="form-control" id="last-name" [(ngModel)]="lastName" name="first">
+          </div>
+          <div class="form-group">
             <label for="user-name" class="form-control-label">Email:</label>
-            <input type="text" class="form-control" id="user-name" [(ngModel)]="userName" name="first">
+            <input type="text" class="form-control" id="email-text" [(ngModel)]="email" name="first">
+          </div>
+          <div class="form-group">
+            <label for="user-name" class="form-control-label">Phone Number:</label>
+            <input type="text" class="form-control" id="phone-number" [(ngModel)]="phoneNumber" name="first">
           </div>
           <div class="form-group">
             <label for="password-text" class="form-control-label">Password:</label>

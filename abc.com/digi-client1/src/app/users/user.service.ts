@@ -44,7 +44,11 @@ export class UserService {
           const users: Array<User> =  new Array<User>();
           for ( i = 0 ; i < response.length ; i++) {
             const user: User = new User();
-            user.setUserName(response[i].username);
+            user.setUserId(response[i].userId);
+            user.setFirstName(response[i].firstName);
+            user.setLastName(response[i].lastName);
+            user.setEmail(response[i].firstEmail);
+            user.setPhoneNumber(response[i].phoneNumber);
             user.setPassword(response[i].password);
             user.setId(response[i].id);
             user.setRoleIds(response[i].roleIds);

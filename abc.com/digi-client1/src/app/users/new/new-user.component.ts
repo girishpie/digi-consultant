@@ -18,9 +18,13 @@ declare var jQuery:any;
 
 export class NewUserComponent implements OnInit {
 
-  private userName: string ;
+  private userId: string ;
+  private firstName: string;
+  private lastName: string;
+  private email: string;
+  private phoneNumber: string;
   private password: string;
-  private roles : Array<string>;
+  private roles: Array<string>;
   private availableRoles: Role[];
   private userRole: string;
 
@@ -39,9 +43,13 @@ export class NewUserComponent implements OnInit {
     this.roles = new Array<string>();
 
     this.roles.push(this.userRole);
-    console.log(this.userName + this.password + this.userRole);
+    console.log(this.userId + this.password + this.userRole);
     let user: User = new User();
-    user.setUserName(this.userName);
+    user.setUserId(this.userId);
+    user.setFirstName(this.firstName);
+    user.setLastName(this.lastName);
+    user.setEmail(this.email);
+    user.setPhoneNumber(this.phoneNumber);
     user.setPassword(this.password);
     user.setRoleIds(this.roles);
     this.userService.save(user).subscribe(data => {
@@ -60,7 +68,7 @@ export class NewUserComponent implements OnInit {
   getRoles() {
     this.roleService.getRoles().subscribe( data => {
       this.availableRoles = data;
-  }, error=> {
+  }, error => {
       window.alert(error._body);
     });
   }

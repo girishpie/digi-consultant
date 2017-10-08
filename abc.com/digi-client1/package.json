@@ -28,7 +28,7 @@
     "ng2-pagination": "^2.0.2",
     "ngx-pagination": "^3.0.1",
     "rxjs": "^5.4.2",
-    "ui-router-ng2": "^1.0.0-beta.5",
+    
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
