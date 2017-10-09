@@ -4,3 +4,4 @@ abc.com/build/**/*.*
 abc.com/build/
 abc.com/build/**/*
 *.class
+/abc.com/src/main/resources/static/*

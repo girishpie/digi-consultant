@@ -4,7 +4,7 @@ import {UserService} from './user.service';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpModule} from '@angular/http';
 import {NewUserModule} from './new/new-user.module';
-import {RoleService} from './role.service';
+import {RoleService} from '../roles/role.service';
 import {Users} from './users';
 import {NgxPaginationModule} from 'ngx-pagination';
 

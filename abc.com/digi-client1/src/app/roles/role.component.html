@@ -1,0 +1,21 @@
+<div class="container digi-user" >
+  <table class="table table-bordered">
+    <thead>
+    <tr >
+      <th>Permission</th>
+      <th *ngFor="let role of roles.roles" > {{ role.name }} </th>
+    </tr>
+
+    </thead>
+    <tbody>
+    <tr *ngFor="let permission of roleHelper.getPermissions() ">
+      <td class = "table-cell">{{ permission }}</td>
+      <td *ngFor="let role of roles.roles">
+      <input
+        type = "checkbox"  [checked]="roleMap.get(role.getId()).get(permission)"   (change)="save(role,permission)" />
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

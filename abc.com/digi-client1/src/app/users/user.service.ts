@@ -8,14 +8,15 @@ import {Observable} from 'rxjs/Observable';
 import {User} from './user';
 import {QueryParams} from "../home/query-obeservables/query-params";
 import {Users} from "./users";
+import {Globals} from "../globals/globals";
 
 @Injectable()
 export class UserService {
 
 
-  private userUrl = 'http://localhost:8080/api/user/';
+  private userUrl = this.globals.getBackendUrl() + 'user/';
 
-  constructor(private http: Http, private  users: Users ) {
+  constructor(private http: Http, private  users: Users , private globals : Globals ) {
 
   }
 

@@ -3,11 +3,12 @@
  */
 import { Component, Input } from '@angular/core';
 import {UserService} from '../user.service';
-import {RoleService} from '../role.service';
-import {Role} from '../role';
+import {RoleService} from '../../roles/role.service';
+import {Role} from '../../roles/role';
 import {User} from '../user';
 import { OnInit } from '@angular/core';
 import {Users} from "../users";
+import {Roles} from "../../roles/roles";
 declare var jQuery:any;
 @Component({
   selector: 'new-user',
@@ -24,13 +25,14 @@ export class NewUserComponent implements OnInit {
   private email: string;
   private phoneNumber: string;
   private password: string;
-  private roles: Array<string>;
+  private appliedRoles: Array<string>;
   private availableRoles: Role[];
   private userRole: string;
 
 
   constructor(private  userService: UserService,
               private  roleService: RoleService,
+              private roles: Roles,
               private users: Users)  {
 
   }
@@ -40,9 +42,9 @@ export class NewUserComponent implements OnInit {
   }
 
   addNewUser() {
-    this.roles = new Array<string>();
+    this.appliedRoles = new Array<string>();
 
-    this.roles.push(this.userRole);
+    this.appliedRoles.push(this.userRole);
     console.log(this.userId + this.password + this.userRole);
     let user: User = new User();
     user.setUserId(this.userId);
@@ -51,7 +53,7 @@ export class NewUserComponent implements OnInit {
     user.setEmail(this.email);
     user.setPhoneNumber(this.phoneNumber);
     user.setPassword(this.password);
-    user.setRoleIds(this.roles);
+    user.setRoleIds(this.appliedRoles);
     this.userService.save(user).subscribe(data => {
         console.log(data);
         user.setId(data);
@@ -66,8 +68,8 @@ export class NewUserComponent implements OnInit {
   }
 
   getRoles() {
-    this.roleService.getRoles().subscribe( data => {
-      this.availableRoles = data;
+    this.roleService.getRoles(null).subscribe( data => {
+      this.availableRoles = this.roles.getRoles();
   }, error => {
       window.alert(error._body);
     });

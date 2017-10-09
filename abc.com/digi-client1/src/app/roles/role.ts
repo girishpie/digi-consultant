@@ -37,4 +37,20 @@ export class Role {
   public getPermissions (): Array<string> {
     return this.permissions ;
   }
+
+  public  addPermission(permission:string) : void {
+    if(this.permissions.find(item=> item === permission)) {
+      return;
+    }
+    this.permissions.push(permission);
+  }
+
+  public  deletePermission(permission:string) : void {
+    let item = this.permissions.find(item => item === permission);
+    const index: number = this.permissions.indexOf(item);
+    if (index !== -1) {
+      this.permissions.splice(index, 1);
+    }
+  }
+
 }
