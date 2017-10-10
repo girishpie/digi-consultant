@@ -71,4 +71,10 @@ export class RoleComponent {
 
       this.roleService.patch(role).subscribe();
   }
+  
+  public deleteRole(role: Role) {
+    this.roleService.delete(role.getId()).subscribe(data => {
+
+    });
+  }
 }

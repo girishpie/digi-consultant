@@ -31,7 +31,7 @@ public class RoleController {
         this.roleRepository = roleRepository;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('CREATE_ROLE')")
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity<RestResponse> add(@RequestBody Role input) {
         Role role = roleRepository.save(new Role(input.getName(),input.getPermissions()));
@@ -63,6 +63,7 @@ public class RoleController {
         return ResponseWrapper.getResponse(new RestResponse(role));
     }
     
+    @PreAuthorize("hasAuthority('READ_ROLE')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> listAllRoles() {
         List<Role> roles = roleRepository.findAll();

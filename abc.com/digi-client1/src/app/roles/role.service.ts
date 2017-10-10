@@ -1,7 +1,4 @@
 /**
- * Created by gipai on 10/3/2017.
- */
-/**
  * Created by gipai on 10/2/2017.
  */
 import { Injectable } from '@angular/core';
@@ -55,6 +52,33 @@ export class RoleService {
       .map(res => {
           const res1 = res.json();
           return res1.id;
+        }
+      );
+  }
+  
+  public save(role: Role)  {
+    const endPoint = this.globals.getBackendUrl() + this.userUrl;
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+     let options = new RequestOptions({ headers: headers });
+    // Returns response
+    return this.http.post(endPoint, role,options)
+      .map(res => {
+          const res1 = res.json();
+          role.setId(res1.id);
+          this.roles.addRole(role);
+          return res1.id;
+        }
+      );
+  }
+
+  public delete(id: string)  {
+    const endPoint = this.userUrl  + id ;
+      // Returns response
+    return this.http.delete(endPoint)
+      .map(res => {
+          const res1 = res.json();
+          this.roles.deleteRole(res1.id);
         }
       );
   }

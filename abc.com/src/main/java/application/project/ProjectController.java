@@ -1,5 +1,6 @@
 package application.project;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -93,10 +94,17 @@ public class ProjectController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> getAll() {
         List<Project> projects = projectRepository.findAll();
+        
         if (projects.isEmpty()) {
             return ResponseWrapper.getResponse( new RestError("No projects are exist", HttpStatus.NOT_FOUND));
          }
-        return ResponseWrapper.getResponse(new RestResponse(projects));
+        List<ProjectDto> projectDtos = new ArrayList<ProjectDto>();
+        for(int i = 0; i < projects.size(); i++ ) {
+        	Client client = clientRepository.findById(projects.get(i).getClientId());
+            ProjectDto projectDto = new ProjectDto(projects.get(i), client.getName());
+        	projectDtos.add(projectDto);
+        }
+        return ResponseWrapper.getResponse(new RestResponse(projectDtos));
 
     }
 
@@ -107,6 +115,8 @@ public class ProjectController {
         if (project == null) {
             return ResponseWrapper.getResponse( new RestError("Project With: " + id + " Does not exist", HttpStatus.NOT_FOUND));
         }
-        return ResponseWrapper.getResponse( new RestResponse(project));
+        Client client = clientRepository.findById(project.getClientId());
+        ProjectDto projectDto = new ProjectDto(project, client.getName());
+        return ResponseWrapper.getResponse( new RestResponse(projectDto));
     }
 }

@@ -7,10 +7,11 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface ProjectRepository extends MongoRepository<Project, String>{
 
-	Project findById(String id);
+	public Project findById(String id);
 
-	List<Project> findAll();
+	public List<Project> findAll();
 
-	long deleteById(String id);
+	public long deleteById(String id);
+	
 
 }

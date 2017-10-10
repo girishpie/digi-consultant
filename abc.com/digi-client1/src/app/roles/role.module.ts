@@ -3,7 +3,7 @@
  */
 import {RoleComponent} from './role.component';
 import {RoleService} from "./role.service";
-import {NewUserModule} from "../users/new/new-user.module";
+import {NewRoleModule} from "../roles/new/new-role.module";
 import {NgxPaginationModule} from "ngx-pagination/dist/ngx-pagination";
 import {HttpModule} from '@angular/http';
 import {BrowserModule} from '@angular/platform-browser';
@@ -21,7 +21,7 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     HttpModule,
     NgxPaginationModule,
-    NewUserModule
+    NewRoleModule
   ],
   exports : [RoleComponent],
   providers: [

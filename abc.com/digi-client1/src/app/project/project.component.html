@@ -1,0 +1,34 @@
+<div class="container digi-user" >
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>Project Name</th>
+    <th>Job Number</th>
+    <th>Site Address</th>
+    <th>Description</th>
+    <th>Start Date</th>
+    <th>Client name</th>
+  </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let user of projects.projects | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: projects.totalItems, id:'server'} ">
+        <td class = "table-cell">{{ project.projectName }}</td>
+        <td class = "table-cell">{{ project.jobNumber }}</td>
+        <td class = "table-cell">{{ project.siteAddress }}</td>
+        <td class = "table-cell">{{ project.description }}</td>
+        <td class = "table-cell">{{ project.startDate }}</td>
+         <td class = "table-cell">
+          <button type="button" class="btn btn-primary" (click) = "deleteProject(project)">
+            <span class="glyphicon glyphicon-remove" ></span>
+          </button>
+          <button type="button" class="btn btn-primary">
+            <span class="glyphicon glyphicon-pencil"></span></button>
+<!--           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newProject"> -->
+<!--              <span class="glyphicon glyphicon-plus" ></span></button> -->
+        </td>
+     </tr>
+  </tbody>
+ </table>
+  <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+<!--   <new-project></new-project> -->
+</div>
