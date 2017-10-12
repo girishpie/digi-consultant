@@ -30,6 +30,7 @@ public class Company extends BasicInfo{
 
     private List<String> departmentIds = new ArrayList<String>();
     private List<String> clientIds = new ArrayList<String>();
+    private List<String> officeIds = new ArrayList<String>();
 
     public Company() {}
 
@@ -100,8 +101,19 @@ public class Company extends BasicInfo{
             if (this.clientIds.get(i) == id) {
                 this.clientIds.remove(i);
             }
-        }
-		
+        }		
+	}
+
+	public void deleteOffice(String id2) {
+		for (int i = 0; i < this.officeIds.size(); i++) {
+            if (this.officeIds.get(i) == id) {
+                this.officeIds.remove(i);
+            }
+        }		
+	}
+
+	public void addOffice(String id2) {
+		this.officeIds.add(id2);
 	}
 
 }

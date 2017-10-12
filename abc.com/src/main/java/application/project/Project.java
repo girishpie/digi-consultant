@@ -1,6 +1,8 @@
 package application.project;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
@@ -18,28 +20,31 @@ public class Project extends BasicInfo {
 	
 	@NotNull
 	private String projectName;
+	@NotNull
 	private String jobNumber;
+	private String phase;
 	private String siteAddress;
 	private String description;
 	private Date startDate;
 	@NotNull
 	private String clientId;
-	
+	private List<String> boqDepartmentIds = new ArrayList<String>();
 	
 	public Project() {
 		
 	}
 	
 	public Project(String projectName, String jobNumber, String siteAddress, String description,
-			Date startDate, String clientId) {
-		super();
-		this.id = id;
+			Date startDate, String clientId, String phase) {
+		
 		this.projectName = projectName;
 		this.jobNumber = jobNumber;
 		this.siteAddress = siteAddress;
 		this.description = description;
 		this.startDate = startDate;
 		this.clientId = clientId;
+		this.phase = phase;
+		
 	}
 	
 	public String getId() {
@@ -84,4 +89,25 @@ public class Project extends BasicInfo {
 	public void setClientId(String clientId) {
 		this.clientId = clientId;
 	}
+
+	public void addBoQDepartment(String id2) {
+		this.boqDepartmentIds.add(id2);
+	}
+
+	public void deleteBoQDepartment(String id2) {
+		for (int i = 0; i < this.boqDepartmentIds.size(); i++) {
+            if (this.boqDepartmentIds.get(i) == id2) {
+                this.boqDepartmentIds.remove(i);
+            }
+        }
+	}
+
+	public String getPhase() {
+		return phase;
+	}
+
+	public void setPhase(String phase) {
+		this.phase = phase;
+	}
+	
 }

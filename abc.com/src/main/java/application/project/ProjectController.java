@@ -45,11 +45,11 @@ public class ProjectController {
 
         }
         Project project = new Project(input.getProjectName(), input.getJobNumber(), input.getSiteAddress(), input.getDescription(),
-    			input.getStartDate(), input.getClientId());
+    			input.getStartDate(), input.getClientId(), input.getPhase());
         Project proj = projectRepository.save(project);
         client.addProject(proj.getId());
         clientRepository.save(client);
-        return ResponseWrapper.getResponse(new RestResponse(project.getId()));
+        return ResponseWrapper.getResponse(new RestResponse(proj.getId()));
     }
 
     //Delete Specific project
@@ -85,6 +85,7 @@ public class ProjectController {
         project.setJobNumber(input.getJobNumber());
         project.setSiteAddress(input.getSiteAddress());
         project.setDescription(input.getDescription());
+        project.setPhase(input.getPhase());
         project.update();
         project = projectRepository.save(project);
         return ResponseWrapper.getResponse(new RestResponse(project));

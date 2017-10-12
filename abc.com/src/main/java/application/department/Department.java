@@ -7,6 +7,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import javax.validation.constraints.NotNull;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +22,9 @@ public class Department extends BasicInfo {
     private String name;
     @NotNull
     private String companyId;
-
+    
+    private List<String> employeeIds = new ArrayList<String>();
+    
     public Department() {
 
     }
@@ -53,5 +57,18 @@ public class Department extends BasicInfo {
     public void setCompanyId(String companyId) {
         this.companyId = companyId;
     }
+
+	public void addEmployee(String id2) {
+		this.employeeIds.add(id2);
+		
+	}
+
+	public void deleteEmployee(String id2) {
+		for (int i = 0; i < this.employeeIds.size(); i++) {
+            if (this.employeeIds.get(i) == id2) {
+                this.employeeIds.remove(i);
+            }
+        }
+	}
 }
 
