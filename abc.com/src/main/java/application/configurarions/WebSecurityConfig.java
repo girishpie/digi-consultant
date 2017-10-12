@@ -46,42 +46,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new UserServiceImpl(userRepository, roleRepository);
     }
 
-  /*  @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http
-                .authorizeRequests()
-                .antMatchers("/", "/index").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll();
-
-        http.csrf().disable().authorizeRequests()
-                .anyRequest().authenticated()
-                .and().httpBasic();
-
-
-    }*/
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-     /*   http.authorizeRequests()
-                .antMatchers("/public").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll();*/
-    //    http.cors().disable();
-        http.csrf().disable();
+      http.csrf().disable();
         http.authorizeRequests()
                 .anyRequest().authenticated()
                 .and().httpBasic();
@@ -97,9 +65,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
         UserDetailsService userDetailsService = mongoUserDetails();
         auth.userDetailsService(userDetailsService);
+        auth.inMemoryAuthentication().withUser("user").password("password").roles("CREATE_USER","READ_USER","DELETE_USER","UPDATE_USER","CREATE_ROLE","DELETE_ROLE","UPDATE_ROLE","DELETE_ROLE");
     }
 
     //need to be removed for production
