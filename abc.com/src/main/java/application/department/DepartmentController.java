@@ -21,11 +21,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/department")
 public class DepartmentController {
-
+	@Autowired
     private final DepartmentRepository departmentRepository;
-
+	@Autowired
     private final CompanyRepository companyRepository;
-    @Autowired
+    
     DepartmentController(CompanyRepository companyRepository , DepartmentRepository departmentRepository) {
         this.companyRepository = companyRepository;
         this.departmentRepository = departmentRepository;
@@ -40,10 +40,10 @@ public class DepartmentController {
 
         }
         Department dept= new Department(input.getName(),company.getId());
-        Department Department = departmentRepository.save(dept);
+        Department department = departmentRepository.save(dept);
         company.addDepartment(dept.getId());
         companyRepository.save(company);
-        return ResponseWrapper.getResponse(new RestResponse( Department.getId()));
+        return ResponseWrapper.getResponse(new RestResponse( department.getId()));
     }
 
     //Delete Specific department
@@ -66,7 +66,7 @@ public class DepartmentController {
 
     }
     
-   //Update Specific company
+   //Update Specific department
     @PreAuthorize("hasAuthority('UPDATE_DEPARTMENT')")
     @RequestMapping(value = "/{deptId}", method = RequestMethod.PATCH)
     ResponseEntity<IResponse> update(@PathVariable String deptId, @RequestBody Department input){
