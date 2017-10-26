@@ -6,9 +6,11 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import application.common.BasicInfo;
 
+@Document
 public class Client extends BasicInfo  {
 	
 	@Id
@@ -19,8 +21,8 @@ public class Client extends BasicInfo  {
     private String companyId;
     private String address;
     private List<String> projectIds = new ArrayList<String>();
-    
-    public Client() {
+
+	public Client() {
 
     }
 
@@ -69,5 +71,12 @@ public class Client extends BasicInfo  {
 		
 	}
 	
+	public List<String> getProjectIds() {
+		return projectIds;
+	}
+
+	public void setProjectIds(List<String> projectIds) {
+		this.projectIds = projectIds;
+	}
 
 }

@@ -1,7 +1,110 @@
 <header class="body1"></header>
-<div class="row">
-<search></search>
-  <div>
-<div class="row">
-<ui-view></ui-view>
+<div id = "layoutContainer" class ="row"  >
+  <div class="col-xs-6 col-md-3">
+  <div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="accordion-toggle glyphicon glyphicon-home" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+         OVERVIEW
+        </a>
+      </h4>
+    </div>
+
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="accordion-toggle glyphicon glyphicon-cog" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+          PROJECT MANAGEMENT
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse">
+      <div class="panel-body">
+        <a href="#/project">Manage Projects</a>
+      </div>
+      <div class="panel-body">
+        <a href="#/department">Manage Departments</a>
+      </div>
+      <div class="panel-body">
+        <a href="#/phase">Manage Phases</a>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="accordion-toggle glyphicon glyphicon-user " data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+          USER MANAGEMENT
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div><a href="#/role">Roles and Permissions</a> </div>
+
+        <div><a href="#/user"> Manage Users</a></div>
+
+        <div>Employee Directory</div>
+      </div>
+    </div>
+  </div>
+	<div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="accordion-toggle glyphicon glyphicon-user " data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+          CLIENT MANAGEMENT
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFour" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div><a href="#/client">Manage Clients</a> </div>
+        <div>Employee Directory</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="accordion-toggle glyphicon glyphicon-user " data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+          COMPAMY MANAGEMENT
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div><a href="#/company">Manage Companies</a> </div>
+        <div>Employee Directory</div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="accordion-toggle glyphicon glyphicon-file" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+         DOCUMENTS
+        </a>
+      </h4>
+    </div>
+    <div id="#collapseSix" class="panel-collapse collapse">
+      <div class="panel-body">
+<!--         <div><a href="#/client">Clients</a> </div> -->
+        <div></div>
+      </div>
+    </div>   
+  </div>
+  
 </div>
+  </div>
+  <div class="col-xs-6 col-md-9">
+   <div class="column">
+	  <div><search ></search></div>
+	  <div><ui-view></ui-view></div>
+	  </div>
+  </div>
+</div>
+

@@ -19,6 +19,11 @@ public enum PermissionType {
     DELETE_CLIENT,
     READ_CLIENT,
     UPDATE_CLIENT,
+    
+    CREATE_PHASE,
+    DELETE_PHASE,
+    READ_PHASE,
+    UPDATE_PHASE,
 
     CREATE_USER,
     DELETE_USER,

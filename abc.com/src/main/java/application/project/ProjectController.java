@@ -3,11 +3,14 @@ package application.project;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,7 +47,11 @@ public class ProjectController {
             return ResponseWrapper.getResponse(new RestError("Client With: "+ clientId + " does not exist", HttpStatus.NOT_FOUND));
 
         }
-        Project project = new Project(input.getProjectName(), input.getJobNumber(), input.getSiteAddress(), input.getDescription(),
+        Random rand = new Random(); 
+        int value = rand.nextInt(100); 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String loggedinUser = auth.getPrincipal().toString() + Integer.toString(value);
+        Project project = new Project(input.getProjectName(), loggedinUser, input.getSiteAddress(), input.getDescription(),
     			input.getStartDate(), input.getClientId(), input.getPhase());
         Project proj = projectRepository.save(project);
         client.addProject(proj.getId());

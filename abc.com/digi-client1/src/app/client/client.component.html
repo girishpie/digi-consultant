@@ -1,0 +1,33 @@
+<div class="container digi-client" >
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>Client Name</th>
+    <th>Job Number</th>
+    <th>Address</th>
+    <th>Client's Company</th>
+    <th>Projects</th>
+  </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let client of clients.clients | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: clients.totalItems, id:'server'} ">
+        <td class = "table-cell">{{ client.name }}</td>
+        <td class = "table-cell">{{ client.address }}</td>
+        <td class = "table-cell">{{ client.companyName }}</td>
+        <td class = "table-cell">{{ client.projectNames }}</td>
+        
+         <td class = "table-cell">
+          <button type="button" class="btn btn-primary" (click) = "deleteClient(client)">
+            <span class="glyphicon glyphicon-remove" ></span>
+          </button>
+          <button type="button" class="btn btn-primary">
+            <span class="glyphicon glyphicon-pencil"></span></button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newClient">
+             <span class="glyphicon glyphicon-plus" ></span></button>
+        </td>
+     </tr>
+  </tbody>
+ </table>
+  <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+  <new-client></new-client>
+</div>

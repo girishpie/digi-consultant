@@ -9,7 +9,7 @@ export class Project {
   private  description: string;
   private  startDate: Date;
   private  clientName: string;
-  
+  private  phaseName: string;
 
   constructor() {
   }
@@ -60,4 +60,10 @@ export class Project {
     return this.clientName ;
   }
   
+  public setPhaseName( phaseName: string ) {
+    this.phaseName = phaseName;
+  }
+  public getPhaseName (): string {
+    return this.phaseName;
+  }
 }

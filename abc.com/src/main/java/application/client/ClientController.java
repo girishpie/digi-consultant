@@ -1,5 +1,6 @@
 package application.client;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import application.company.Company;
 import application.company.CompanyRepository;
+import application.project.Project;
+import application.project.ProjectDto;
+import application.project.ProjectRepository;
 import application.response.IResponse;
 import application.response.ResponseWrapper;
 import application.response.RestError;
@@ -22,15 +26,17 @@ import application.response.RestResponse;
 @RestController
 @RequestMapping("/api/client")
 public class ClientController {
-
+	@Autowired
 	private final ClientRepository clientRepository;
-
+	@Autowired
     private final CompanyRepository companyRepository;
-    
-    @Autowired
-    ClientController(CompanyRepository companyRepository , ClientRepository clientRepository) {
+	@Autowired
+    private final ProjectRepository projectRepository;
+ 
+    ClientController(CompanyRepository companyRepository , ClientRepository clientRepository, ProjectRepository projectRepository) {
         this.companyRepository = companyRepository;
         this.clientRepository = clientRepository;
+        this.projectRepository = projectRepository;
     }
     
     
@@ -92,7 +98,18 @@ public class ClientController {
         if (clients.isEmpty()) {
             return ResponseWrapper.getResponse( new RestError("No clients exist", HttpStatus.NOT_FOUND));
          }
-        return ResponseWrapper.getResponse(new RestResponse(clients));
+        List<ClientDto> clientDtos = new ArrayList<ClientDto>();
+        for(int i = 0; i < clients.size(); i++ ) {
+        	List<String> projectNames = new ArrayList<String>();
+        	for(int j =0; j < clients.get(i).getProjectIds().size(); j++) {
+        		Project project = projectRepository.findById(clients.get(i).getProjectIds().get(j));
+        		projectNames.add(project.getProjectName());
+        	}
+        	Company company = companyRepository.findById(clients.get(i).getCompanyId());
+        	ClientDto clientDto = new ClientDto(clients.get(i), company.getCompanyName(), projectNames);
+        	clientDtos.add(clientDto);
+        }
+        return ResponseWrapper.getResponse(new RestResponse(clientDtos));
 
     }
 
@@ -100,10 +117,17 @@ public class ClientController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> get(@PathVariable("id") String id) {
     	Client client = clientRepository.findById(id);
+    	List<String> projectNames = new ArrayList<String>();
+    	for(int j =0; j < client.getProjectIds().size(); j++) {
+    		Project project = projectRepository.findById(client.getProjectIds().get(j));
+    		projectNames.add(project.getProjectName());
+    	}
+    	Company company = companyRepository.findById(client.getCompanyId());
+    	ClientDto clientDto = new ClientDto(client, company.getCompanyName(), projectNames);
         if (client == null) {
             return ResponseWrapper.getResponse( new RestError("Client With: " + id + " Does not exist", HttpStatus.NOT_FOUND));
         }
-        return ResponseWrapper.getResponse( new RestResponse(client));
+        return ResponseWrapper.getResponse( new RestResponse(clientDto));
     }
     
 }

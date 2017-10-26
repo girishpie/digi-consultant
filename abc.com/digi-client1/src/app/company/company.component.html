@@ -1,0 +1,27 @@
+<div class="container digi-project" >
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>Company Name</th>
+    <th>Address</th>
+  </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let company of companies.companies | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: companies.totalItems, id:'server'} ">
+        <td class = "table-cell">{{ company.companyName }}</td>
+        <td class = "table-cell">{{ company.address }}</td>
+         <td class = "table-cell">
+          <button type="button" class="btn btn-primary" (click) = "deleteComapny(company)">
+            <span class="glyphicon glyphicon-remove" ></span>
+          </button>
+          <button type="button" class="btn btn-primary">
+            <span class="glyphicon glyphicon-pencil"></span></button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newCompany">
+             <span class="glyphicon glyphicon-plus" ></span></button>
+        </td>
+     </tr>
+  </tbody>
+ </table>
+  <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+  <new-company></new-company>
+</div>

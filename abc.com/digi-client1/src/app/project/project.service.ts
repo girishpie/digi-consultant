@@ -5,14 +5,15 @@ import {Observable} from 'rxjs/Observable';
 import {Project} from './project';
 import {QueryParams} from "../home/query-obeservables/query-params";
 import {Projects} from "./projects";
+import {Globals} from "../globals/globals";
 
 @Injectable()
 export class ProjectService {
 
 
-  private userUrl = 'http://localhost:8080/api/project/';
+  private projectUrl = this.globals.getBackendUrl() +  'project/';
 
-  constructor(private http: Http, private  projects: Projects ) {
+  constructor(private http: Http, private  projects: Projects, private globals: Globals ) {
 
   }
 
@@ -28,7 +29,7 @@ export class ProjectService {
         searchString = queryParams.searchString;
       }
     }
-    let endPoint = this.userUrl + '?pageNumber=' + pageNumber + '&size=' + pageSize;
+    let endPoint = this.projectUrl + '?pageNumber=' + pageNumber + '&size=' + pageSize;
     if (searchString) {
       endPoint += '&searchString=' + searchString;
     }
@@ -60,7 +61,7 @@ export class ProjectService {
 
 
   public save(project: Project)  {
-    const endPoint = this.userUrl;
+    const endPoint = this.projectUrl;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     // Returns response
@@ -75,7 +76,7 @@ export class ProjectService {
   }
 
   public delete(id: string)  {
-    const endPoint = this.userUrl  + id ;
+    const endPoint = this.projectUrl  + id ;
       // Returns response
     return this.http.delete(endPoint)
       .map(res => {

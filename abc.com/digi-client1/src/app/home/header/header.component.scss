@@ -1,18 +1,36 @@
-.btn-menu{
-  background-color: white;
-  color: black;
-  font-family: 'Open Sans Reg';
-  font-size: 14px;
-  font-weight: bold;
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+html {
+  box-sizing: border-box;
+  
+}
+img {
+  border-radius: 50%;
 }
 
-.digi-menu {
-  box-shadow: 0 0 1px #aaa;
- // border: 1px solid #fff;
+.grid {
+  display: flex;
+  flex-flow: row; 
+  flex-wrap: wrap;
+  width: 100%;
+  background: #eee;
+
+}
+.grid-logo-cell {
+  flex: 1;
 }
 
-.digi-menu-text{
-  font-family: 'Open Sans Reg';
-  font-size: 14px;
-  font-weight: bold;
+
+.grid-user-cell {
+  flex : 1 0 10%;
+}
+.grid-right {
+  justify-content: flex-end;
+}
+
+
+
+.loggedinUser{
+   justify-content: flex-end;
 }

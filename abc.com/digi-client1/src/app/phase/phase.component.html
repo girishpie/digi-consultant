@@ -1,0 +1,26 @@
+<div class="container digi-phase" >
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>Phase Name</th>
+  </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let phase of phases.phases | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: phases.totalItems, id:'server'} ">
+        <td class = "table-cell">{{ phase.name }}</td>
+        
+         <td class = "table-cell">
+          <button type="button" class="btn btn-primary" (click) = "deletePhase(phase)">
+            <span class="glyphicon glyphicon-remove" ></span>
+          </button>
+          <button type="button" class="btn btn-primary">
+            <span class="glyphicon glyphicon-pencil"></span></button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newPhase">
+             <span class="glyphicon glyphicon-plus" ></span></button>
+        </td>
+     </tr>
+  </tbody>
+ </table>
+  <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+  <new-phase></new-phase>
+</div>
