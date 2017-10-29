@@ -1,9 +1,12 @@
-<div class="container digi-client" >
-<table class="table table-bordered">
+<div class="container digi-client rounded" >
+<div class="column">
+<div class = "glyphicon glyphicon-cog">MANAGE CLIENTS</div>
+	<button class = "btn btn-primary round pull-right" data-toggle="modal" data-target="#newClient">+Add Client</button>
+</div>
+<table class="table">
   <thead>
   <tr>
     <th>Client Name</th>
-    <th>Job Number</th>
     <th>Address</th>
     <th>Client's Company</th>
     <th>Projects</th>
@@ -22,9 +25,7 @@
           </button>
           <button type="button" class="btn btn-primary">
             <span class="glyphicon glyphicon-pencil"></span></button>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newClient">
-             <span class="glyphicon glyphicon-plus" ></span></button>
-        </td>
+         </td>
      </tr>
   </tbody>
  </table>

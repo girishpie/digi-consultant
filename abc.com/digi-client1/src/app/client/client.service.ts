@@ -46,7 +46,6 @@ export class ClientService {
             client.setAddress(response[i].address);
             client.setCompanyName(response[i].companyName);
             client.setProjectNames(response[i].projectNames);
-           
             client.setId(response[i].id);
             clients.push(client);
           }
@@ -60,7 +59,7 @@ export class ClientService {
 
 
   public save(client: Client)  {
-    const endPoint = this.clientUrl;
+    const endPoint = this.clientUrl + client.getCompanyId();
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     // Returns response

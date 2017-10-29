@@ -11,6 +11,8 @@ export class Project {
   private  clientName: string;
   private  phaseName: string;
 
+  private  clientId: string;
+  private  phase: string;
   constructor() {
   }
   
@@ -65,5 +67,17 @@ export class Project {
   }
   public getPhaseName (): string {
     return this.phaseName;
+  }
+   public setClientId( clientId: string ) {
+    this.clientId = clientId;
+  }
+  public getClientId(): string {
+    return this.clientId;
+  }
+   public setPhase(phase: string ) {
+    this.phase = phase;
+  }
+  public getPhase(): string {
+    return this.phase;
   }
 }

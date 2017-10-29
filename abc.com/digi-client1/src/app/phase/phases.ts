@@ -12,7 +12,7 @@ export class Phases {
     this.phases = phases;
   }
   public getPhases(): Array<Phase> {
-    return this.getPhases();
+    return this.phases;
   }
 
   public addPhase(phase: Phase) {

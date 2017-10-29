@@ -15,7 +15,7 @@ export class NewClientComponent implements OnInit {
    private availableCompanies: Company[];
    private name: string ;
    private address: string ;
-   private companyName: string ;
+   private companyId: string ;
 
   constructor(private  clientService: ClientService, 
               private companyService: CompanyService, 
@@ -32,7 +32,7 @@ export class NewClientComponent implements OnInit {
     
     let client: Client = new Client();
     client.setName(this.name);
-    client.setCompanyName(this.companyName);
+    client.setCompanyId(this.companyId);
     client.setAddress(this.address);
     this.clientService.save(client).subscribe(data => {
         console.log(data);

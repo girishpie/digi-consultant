@@ -22,9 +22,9 @@
 
           <div class="form-group" >
             <label for="company-option" class="form-control-label">Companies:</label>
-            <select id="company-option" class="form-control"   [(ngModel)]="companyName" name="clients">
-              <option *ngFor="let company of availableCompanies" [value]="company.name">
-                {{ company.id }}
+            <select id="company-option" class="form-control"   [(ngModel)]="companyId" name="companies">
+              <option *ngFor="let company of availableCompanies" [value]="company.id">
+                {{ company.companyName }}
               </option>
             </select>
           </div>

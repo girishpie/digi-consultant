@@ -24,8 +24,8 @@ export class NewProjectComponent implements OnInit {
    private siteAddress: string ;
    private description: string ;
    private startDate: Date ;
-   private clientName: string ;
-   private phaseName: string ;
+   private clientId: string ;
+   private phase: string ;
 
   constructor(private  projectService: ProjectService,private  clientService: ClientService,
               private phaseService: PhaseService,private projects: Projects, 
@@ -41,12 +41,11 @@ export class NewProjectComponent implements OnInit {
   addNewProject() {
     let project: Project = new Project();
     project.setProjectName(this.projectName);
-    project.setJobNumber(this.jobNumber);
     project.setSiteAddress(this.siteAddress);
     project.setDescription(this.description);
     project.setStartDate(this.startDate);
-    project.setClientName(this.clientName);
-    project.setPhaseName(this.phaseName);
+    project.setClientId(this.clientId);
+    project.setPhase(this.phase);
     this.projectService.save(project).subscribe(data => {
         console.log(data);
         project.setId(data);

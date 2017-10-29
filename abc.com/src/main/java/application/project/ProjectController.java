@@ -49,8 +49,8 @@ public class ProjectController {
         }
         Random rand = new Random(); 
         int value = rand.nextInt(100); 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String loggedinUser = auth.getPrincipal().toString() + Integer.toString(value);
+        String loggedinUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        loggedinUser = loggedinUser + Integer.toString(value);
         Project project = new Project(input.getProjectName(), loggedinUser, input.getSiteAddress(), input.getDescription(),
     			input.getStartDate(), input.getClientId(), input.getPhase());
         Project proj = projectRepository.save(project);

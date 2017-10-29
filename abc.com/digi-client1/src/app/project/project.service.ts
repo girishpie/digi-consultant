@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, RequestOptions ,Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
 import {Project} from './project';
@@ -61,11 +61,12 @@ export class ProjectService {
 
 
   public save(project: Project)  {
-    const endPoint = this.projectUrl;
+    const endPoint = this.projectUrl + project.getClientId();
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
+    let options = new RequestOptions({ headers: headers });
     // Returns response
-    return this.http.post(endPoint, project)
+    return this.http.post(endPoint, project, options)
       .map(res => {
           const res1 = res.json();
           project.setId(res1.id);

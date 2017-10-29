@@ -5,6 +5,7 @@ export class Client {
   private  id: string;
   private  name: string;
   private  companyName: string;
+  private  companyId: string;
   private  projectNames: Array<string>;
   private  address: string;
 
@@ -31,6 +32,12 @@ export class Client {
   }
   public getCompanyName (): string {
     return this.companyName ;
+  }
+  public setCompanyId ( companyId: string ) {
+    this.companyId = companyId;
+  }
+  public getCompanyId (): string {
+    return this.companyId ;
   }
   public setAddress ( address: string ) {
     this.address = address;

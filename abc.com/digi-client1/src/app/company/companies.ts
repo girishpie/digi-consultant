@@ -6,13 +6,13 @@ import {Company} from "./company";
 export class Companies {
 
   private  companies: Array<Company> = new Array<Company>();
-  private  totalItems:number;
+  private  totalItems: number;
 
   public setCompanies (companies: Array<Company>) {
     this.companies = companies;
   }
-  public getCompanies () : Array<Company> {
-    return this.getCompanies();
+  public getCompanies(): Array<Company> {
+    return this.companies;
   }
   
    public deleteCompany(companyId: string) {

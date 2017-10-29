@@ -8,11 +8,11 @@ export class Clients {
   private  clients: Array<Client> = new Array<Client>();
   private  totalItems:number;
 
-  public setClients (clients : Array<Client>) {
+  public setClients(clients: Array<Client>) {
     this.clients = clients;
   }
-  public getClients () : Array<Client> {
-    return this.getClients ();
+  public getClients(): Array<Client> {
+    return this.clients;
   }
   
    public deleteClient(clientId: string) {

@@ -14,4 +14,4 @@ import { BrowserModule } from '@angular/platform-browser';
   providers: [],
   bootstrap: []
 })
-export class  NewDeapartmentModule { }
+export class  NewDepartmentModule { }
