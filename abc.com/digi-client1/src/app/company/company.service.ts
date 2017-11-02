@@ -44,7 +44,7 @@ export class CompanyService {
             const company: Company = new Company();
             company.setCompanyName(response[i].companyName);
             company.setAddress(response[i].address);
-            company.setDepartmentNames(response[i].departmentNames);
+            company.setEmployeeNames(response[i].employeeNames);
             company.setClientNames(response[i].clientNames);
             company.setOfficeNames(response[i].officeNames);
             company.setId(response[i].id);

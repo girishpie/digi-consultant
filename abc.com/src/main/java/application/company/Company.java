@@ -28,7 +28,7 @@ public class Company extends BasicInfo{
     private String address;
 
 
-    private List<String> departmentIds = new ArrayList<String>();
+    private List<String> employeeIds = new ArrayList<String>();
     private List<String> clientIds = new ArrayList<String>();
     private List<String> officeIds = new ArrayList<String>();
 
@@ -59,12 +59,12 @@ public class Company extends BasicInfo{
         this.address = address;
     }
 
-    public List<String> getDepartmentIds() {
-        return departmentIds;
+    public List<String> getEmployeeIds() {
+        return employeeIds;
     }
 
-    public void setDepartmentIds(List<String> departmentIds) {
-        this.departmentIds = departmentIds;
+    public void setEmployeeIds(List<String> employeeIds) {
+        this.employeeIds = employeeIds;
     }
 
 
@@ -75,10 +75,6 @@ public class Company extends BasicInfo{
 	public void setClientIds(List<String> clientIds) {
 		this.clientIds = clientIds;
 	}
-
-    public void addDepartment(String departmentId){
-        this.departmentIds.add(departmentId);
-    }
     
     public void addClient(String clientIds){
         this.clientIds.add(clientIds);
@@ -88,17 +84,9 @@ public class Company extends BasicInfo{
         return this.id;
     }
 
-    public void deleteDepartment(String id) {
-        for (int i = 0; i < this.departmentIds.size(); i++) {
-            if (this.departmentIds.get(i) == id) {
-                this.departmentIds.remove(i);
-            }
-        }
-    }
-
 	public void deleteClient(String id2) {
 		for (int i = 0; i < this.clientIds.size(); i++) {
-            if (this.clientIds.get(i) == id) {
+            if (this.clientIds.get(i) == id2) {
                 this.clientIds.remove(i);
             }
         }		
@@ -106,7 +94,7 @@ public class Company extends BasicInfo{
 
 	public void deleteOffice(String id2) {
 		for (int i = 0; i < this.officeIds.size(); i++) {
-            if (this.officeIds.get(i) == id) {
+            if (this.officeIds.get(i) == id2) {
                 this.officeIds.remove(i);
             }
         }		
@@ -116,4 +104,26 @@ public class Company extends BasicInfo{
 		this.officeIds.add(id2);
 	}
 
+	public void addEmployee(String id2) {
+		this.employeeIds.add(id2);
+		
+	}
+
+	public void deleteEmployee(String id2) {
+		for (int i = 0; i < this.employeeIds.size(); i++) {
+            if (this.employeeIds.get(i) == id2) {
+                this.employeeIds.remove(i);
+            }
+        }
+	}
+
+	public void addDepartment(String id2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void deleteDepartment(String id2) {
+		// TODO Auto-generated method stub
+		
+	}
 }

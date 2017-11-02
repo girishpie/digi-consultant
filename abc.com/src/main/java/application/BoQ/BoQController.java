@@ -45,7 +45,7 @@ public class BoQController {
         }
         BoQ boq = new BoQ(bodDepartId, input.getSectionIds(), input.getVersion());
         BoQ boq1 = boQRepository.save(boq);
-        boqDepartment.addBoQ(boq1.getId());
+        boqDepartment.setBoqId(boq1.getId());
         boqDepartmentRepository.save(boqDepartment);
         return ResponseWrapper.getResponse(new RestResponse(boq1.getId()));
     }
@@ -63,7 +63,7 @@ public class BoQController {
             return ResponseWrapper.getResponse( new RestError("BoQ Department With: "+ boq.getBoqDepartmentId() + " does not exist", HttpStatus.NOT_FOUND));
         }
         long res = boQRepository.deleteById(id);
-        boqDepartment.deleteBoQ(id);
+        boqDepartment.setBoqId("");
         boqDepartmentRepository.save(boqDepartment);
         return ResponseWrapper.getResponse( new RestResponse(res));
 

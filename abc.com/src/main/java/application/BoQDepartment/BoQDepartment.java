@@ -19,7 +19,7 @@ public class BoQDepartment extends BasicInfo {
 	@NotNull
 	private String departmentName;
 	private String projectId;
-	private List<String> boQs = new ArrayList<String>();
+	private String boQId ;
 	
 	public BoQDepartment(String departmentName, String projectId) {
 		
@@ -44,15 +44,12 @@ public class BoQDepartment extends BasicInfo {
 	public void setProjectId(String projectId) {
 		this.projectId = projectId;
 	}
-	public void addBoQ(String id2) {
-		  this.boQs.add(id2);		
+	public void setBoqId(String id2) {
+		  this.boQId = id2;		
 	}
-	public void deleteBoQ(String id2) {
-		for (int i = 0; i < this.boQs.size(); i++) {
-            if (this.boQs.get(i) == id2) {
-                this.boQs.remove(i);
-            }
-        }
+	public String getBoQId() {
+		return this.boQId;
 	}
+
 	
 }

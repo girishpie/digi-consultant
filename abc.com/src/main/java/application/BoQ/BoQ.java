@@ -63,5 +63,20 @@ public class BoQ extends BasicInfo{
 	public void setTotalVersions(int totalVersions) {
 		this.totalVersions = totalVersions;
 	}
+
+
+	public void addSection(String id2) {
+		this.sectionIds.add(id2);
+		
+	}
+
+	public void deleteSection(String id2) {
+		for (int i = 0; i < this.sectionIds.size(); i++) {
+            if (this.sectionIds.get(i) == id2) {
+                this.sectionIds.remove(i);
+            }
+        }	
+		
+	}
 	
 }

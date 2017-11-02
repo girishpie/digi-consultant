@@ -13,14 +13,14 @@ public class Employee extends BasicInfo{
 	private String name;
 	private String email;
 	private String skypeId;
-	private String departmentId;
+	private String companyId;
 	
 	
 	public Employee(String name, String email, String skypeId, String companyId) {
 		this.name = name;
 		this.email = email;
 		this.skypeId = skypeId;
-		this.departmentId = companyId;
+		this.companyId = companyId;
 	}
 	public String getId() {
 		return id;
@@ -46,11 +46,11 @@ public class Employee extends BasicInfo{
 	public void setSkypeId(String skypeId) {
 		this.skypeId = skypeId;
 	}
-	public String getDepartmentId() {
-		return departmentId;
+	public String getCompanyId() {
+		return companyId;
 	}
-	public void setDepartmentId(String companyId) {
-		this.departmentId = companyId;
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
 	}
 	
 

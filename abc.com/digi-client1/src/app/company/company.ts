@@ -5,7 +5,7 @@ export class Company {
   private  id: string;
   private  companyName: string;
   private  address: string;
-  private  departmentNames: Array<string>;
+  private  employeeNames: Array<string>;
   private  clientNames: Array<string>;
   private  officeNames: Array<string>;
 
@@ -31,11 +31,11 @@ export class Company {
   public getCompanyName (): string {
     return this.companyName ;
   }
-  public setDepartmentNames( departmentNames: Array<string> ) {
-    this.departmentNames = departmentNames;
+  public setEmployeeNames( employeeNames: Array<string> ) {
+    this.employeeNames = employeeNames;
   }
-  public getDepartmentNames(): Array<string> {
-    return this.departmentNames;
+  public getEmployeeNames(): Array<string> {
+    return this.employeeNames;
   }
   public setClientNames( clientNames: Array<string> ) {
     this.clientNames = clientNames;

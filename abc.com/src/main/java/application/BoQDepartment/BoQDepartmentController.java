@@ -69,7 +69,7 @@ import application.response.RestResponse;
 
 	    }
 	    
-	    //Update Specific project
+	    //Update Specific department
 	    @PreAuthorize("hasAuthority('UPDATE_BOQDEPARTMENT')")
 	    @RequestMapping(value = "/{boqId}", method = RequestMethod.PATCH)
 	    ResponseEntity<IResponse> update(@PathVariable String boqId, @RequestBody BoQDepartment input){

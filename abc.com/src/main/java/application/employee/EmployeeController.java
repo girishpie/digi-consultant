@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import application.department.Department;
-import application.department.DepartmentRepository;
+import application.company.Company;
+import application.company.CompanyRepository;
 
 import application.response.IResponse;
 import application.response.ResponseWrapper;
@@ -28,26 +28,26 @@ public class EmployeeController {
 	@Autowired
 	private final EmployeeRepository employeeRepository;
 	@Autowired
-	private final DepartmentRepository departmentRepository;
+	private final CompanyRepository companyRepository;
 	
 	
-	EmployeeController(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository) {
+	EmployeeController(EmployeeRepository employeeRepository, CompanyRepository companyRepository) {
         this.employeeRepository = employeeRepository;
-        this.departmentRepository = departmentRepository;
+        this.companyRepository = companyRepository;
     }
 	
 	@PreAuthorize("hasAuthority('CREATE_EMPLOYEE')")
-    @RequestMapping(value = "/{departmentId}", method = RequestMethod.POST)
-    ResponseEntity<?> add(@PathVariable String departmentId , @RequestBody Employee input ) {
-        Department department = departmentRepository.findById(departmentId);
-        if(department == null){
-            return ResponseWrapper.getResponse(new RestError("Department With: "+ departmentId + " does not exist", HttpStatus.NOT_FOUND));
+    @RequestMapping(value = "/{companyId}", method = RequestMethod.POST)
+    ResponseEntity<?> add(@PathVariable String companyId , @RequestBody Employee input ) {
+		Company company = companyRepository.findById(companyId);
+        if(company == null){
+            return ResponseWrapper.getResponse(new RestError("Company With: "+ companyId + " does not exist", HttpStatus.NOT_FOUND));
 
         }
-        Employee employee = new Employee(input.getName(), input.getEmail(), input.getSkypeId(), input.getDepartmentId());
+        Employee employee = new Employee(input.getName(), input.getEmail(), input.getSkypeId(), input.getCompanyId());
         Employee emp = employeeRepository.save(employee);
-        department.addEmployee(emp.getId());
-        departmentRepository.save(department);
+        company.addEmployee(emp.getId());
+        companyRepository.save(company);
         return ResponseWrapper.getResponse(new RestResponse(emp.getId()));
     }
 
@@ -59,13 +59,13 @@ public class EmployeeController {
         if(employee == null){
             return ResponseWrapper.getResponse( new RestError("Employee With: "+ id + " does not exist", HttpStatus.NOT_FOUND));
         }
-        Department department = departmentRepository.findById(employee.getDepartmentId());
-        if(department == null){
-            return ResponseWrapper.getResponse( new RestError("Client With: "+ department.getId() + " does not exist", HttpStatus.NOT_FOUND));
+        Company company = companyRepository.findById(employee.getCompanyId());
+        if(company == null){
+            return ResponseWrapper.getResponse( new RestError("Company With: "+ company.getId() + " does not exist", HttpStatus.NOT_FOUND));
         }
         long res = employeeRepository.deleteById(id);
-        department.deleteEmployee(id);
-        departmentRepository.save(department);
+        company.deleteEmployee(id);
+        companyRepository.save(company);
         return ResponseWrapper.getResponse( new RestResponse(res));
 
     }
@@ -81,7 +81,7 @@ public class EmployeeController {
         employee.setName(input.getName());
         employee.setEmail(input.getEmail());
         employee.setSkypeId(input.getSkypeId());
-        employee.setDepartmentId(input.getDepartmentId());
+        employee.setCompanyId(input.getCompanyId());
         employee.update();
         employee = employeeRepository.save(employee);
         return ResponseWrapper.getResponse(new RestResponse(employee));
@@ -97,8 +97,8 @@ public class EmployeeController {
          }
         List<EmployeeDto> employeeDtos = new ArrayList<EmployeeDto>();
         for(int i = 0; i < employees.size(); i++ ) {
-        	Department department = departmentRepository.findById(employees.get(i).getDepartmentId());
-        	EmployeeDto employeeDto = new EmployeeDto(employees.get(i), department.getName());
+        	 Company company = companyRepository.findById(employees.get(i).getCompanyId());
+        	EmployeeDto employeeDto = new EmployeeDto(employees.get(i), company.getCompanyName());
             employeeDtos.add(employeeDto);
         }
         return ResponseWrapper.getResponse(new RestResponse(employeeDtos));
@@ -112,8 +112,8 @@ public class EmployeeController {
         if (employee == null) {
             return ResponseWrapper.getResponse( new RestError("Employee With: " + id + " Does not exist", HttpStatus.NOT_FOUND));
         }
-        Department department = departmentRepository.findById(employee.getDepartmentId());
-        EmployeeDto employeeDto = new EmployeeDto(employee, department.getName());
+        Company company = companyRepository.findById(employee.getCompanyId());
+        EmployeeDto employeeDto = new EmployeeDto(employee, company.getCompanyName());
         return ResponseWrapper.getResponse( new RestResponse(employeeDto));
     }
 

@@ -6,14 +6,14 @@ public class EmployeeDto {
 	private String name;
 	private String email;
 	private String skypeId;
-	private String departmentName;
+	private String companyName;
 	
 	public EmployeeDto(Employee employee, String name) {
 		this.id = employee.getId();
 		this.name = employee.getName();
 		this.email = employee.getEmail();
 		this.skypeId = employee.getSkypeId();
-		this.departmentName = name;
+		this.companyName = name;
 		
 	}
 
@@ -49,12 +49,12 @@ public class EmployeeDto {
 		this.skypeId = skypeId;
 	}
 
-	public String getDepartmentName() {
-		return departmentName;
+	public String getCompanyName() {
+		return companyName;
 	}
 
-	public void setDepartmentName(String departmentName) {
-		this.departmentName = departmentName;
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 
 }
