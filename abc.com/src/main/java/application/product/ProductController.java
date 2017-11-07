@@ -1,5 +1,6 @@
 package application.product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import application.response.IResponse;
 import application.response.ResponseWrapper;
 import application.response.RestError;
 import application.response.RestResponse;
+import application.section.Section;
+import application.section.SectionRepository;
 
 @RestController
 @RequestMapping("/api/product")
@@ -23,17 +26,26 @@ public class ProductController {
 
 		@Autowired
 	    private final ProductRepository productRepository;
+		@Autowired
+	    private final SectionRepository sectionRepository;
 	    
-		ProductController(ProductRepository productRepository) {
+		ProductController(ProductRepository productRepository, SectionRepository sectionRepository) {
 	        this.productRepository = productRepository;
+	        this.sectionRepository = sectionRepository;
 	    }
 
 	    @PreAuthorize("hasAuthority('CREATE_PRODUCT')")
-	    @RequestMapping( method = RequestMethod.POST)
-	    ResponseEntity<?> add(@RequestBody Product input ) {
-	    	Product prod = new Product(input.getName(), input.getQuantity(), input.getRate(), input.getAmount(), input.getUnit(), 
-	    			input.getProductCat(), input.getProductSubCat());
+	    @RequestMapping(value = "/{sectionId}", method = RequestMethod.POST)
+	    ResponseEntity<?> add(@PathVariable String sectionId, @RequestBody Product input ) {
+	    	Section section = sectionRepository.findById(sectionId);
+	        if(section == null){
+	            return ResponseWrapper.getResponse(new RestError("Section With: "+ sectionId + " does not exist", HttpStatus.NOT_FOUND));
+	        }
+	    	Product prod = new Product(input.getName(), input.getQuantity(), input.getBimId(), input.getAmount(), input.getUnit(), 
+	    			input.getProductCat(), input.getProductSubCat(), sectionId, input.getDescription());
 	    	Product product = productRepository.save(prod);
+	    	section.addSection(product.getId());
+	    	sectionRepository.save(section);
 	        return ResponseWrapper.getResponse(new RestResponse( product.getId()));
 	    }
 
@@ -45,7 +57,13 @@ public class ProductController {
 	        if(product == null){
 	            return ResponseWrapper.getResponse( new RestError("product With: "+ id + " does not exist", HttpStatus.NOT_FOUND));
 	        }
+	        Section section = sectionRepository.findById(product.getSectionId());
+	        if(section == null){
+	            return ResponseWrapper.getResponse( new RestError("Company With: "+ product.getSectionId() + " does not exist", HttpStatus.NOT_FOUND));
+	        }
 	        long res = productRepository.deleteById(id);
+	        section.deleteSection(id);
+	        productRepository.save(product);
 	        return ResponseWrapper.getResponse( new RestResponse(res));
 
 	    }
@@ -61,10 +79,12 @@ public class ProductController {
 	        product.setName(input.getName());
 	        product.setQuantity(input.getQuantity());
 	        product.setAmount(input.getAmount());
-	        product.setRate(input.getRate());
+	        product.setBimId(input.getBimId());
 	        product.setUnit(input.getUnit());
 	        product.setProductCat(input.getProductCat());
 	        product.setProductSubCat(input.getProductSubCat());
+	        product.setSectionId(input.getSectionId());
+	        product.setDescription(input.getDescription());
 	        product.update();
 	        product = productRepository.save(product);
 	        return ResponseWrapper.getResponse(new RestResponse(product));
@@ -77,8 +97,13 @@ public class ProductController {
 	        if (products.isEmpty()) {
 	            return ResponseWrapper.getResponse( new RestError("No products exist", HttpStatus.NOT_FOUND));
 	         }
-	        return ResponseWrapper.getResponse(new RestResponse(products));
-
+	        List<ProductDto> productDtos = new ArrayList<ProductDto>();
+	        for(int i = 0; i < products.size(); i++ ) {
+	        	Section section = sectionRepository.findById(products.get(i).getSectionId());
+		        ProductDto productDto = new ProductDto(products.get(i), section.getSectionName());
+		        productDtos.add(productDto);
+	        }
+	        return ResponseWrapper.getResponse(new RestResponse(productDtos));
 	    }
 
 	    @PreAuthorize("hasAuthority('READ_PRODUCT')")
@@ -88,6 +113,8 @@ public class ProductController {
 	        if (product == null) {
 	            return ResponseWrapper.getResponse( new RestError("Product With: " + id + " Does not exist", HttpStatus.NOT_FOUND));
 	        }
-	        return ResponseWrapper.getResponse( new RestResponse(product));
+	        Section section = sectionRepository.findById(product.getSectionId());
+	        ProductDto productDto = new ProductDto(product, section.getSectionName());
+	        return ResponseWrapper.getResponse( new RestResponse(productDto));
 	    }
 }

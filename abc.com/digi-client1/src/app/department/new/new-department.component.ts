@@ -1,6 +1,9 @@
 import { Department } from '../department';
 import { Departments } from '../departments';
 import { DepartmentService } from '../department.service';
+import { Project } from '../../project/project';
+import { Projects } from '../../project/projects';
+import { ProjectService } from '../../project/project.service';
 
 import { Component, Input, OnInit } from '@angular/core';
 declare var jQuery:any;
@@ -10,24 +13,23 @@ declare var jQuery:any;
   styleUrls: []
 })
 export class NewDepartmentComponent implements OnInit {
-
-   private companyName: string ;
+   private availableProjects: Project[];
    private name: string ;
+   private projectName: string;
 
-
-  constructor(private departmentService: DepartmentService,
-              private departments: Departments)  {
+  constructor(private departmentService: DepartmentService, private projectService: ProjectService,
+              private departments: Departments, private projects: Projects)  {
 
   }
 
   ngOnInit() {
+     this.getProjects();
   }
-  
+
   addNewDepartment() {
-    
     let department: Department = new Department();
     department.setName(this.name);
-    department.setCompanyName(this.companyName);
+    department.setProjectName(this.projectName);
     this.departmentService.save(department).subscribe(data => {
         console.log(data);
         department.setId(data);
@@ -37,7 +39,13 @@ export class NewDepartmentComponent implements OnInit {
     }, error => {
       window.alert(error._body);
     });
-
-
+  }
+  
+getProjects(){
+    this.projectService.getProjects(null).subscribe( data => {
+      this.availableProjects = this.projects.getProjects();
+    }, error => {
+      window.alert(error._body);
+    });
   }
 }

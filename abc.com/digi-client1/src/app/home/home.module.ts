@@ -16,8 +16,10 @@ import { PhaseComponent } from '../phase/phase.component';
 import { PhaseModule } from '../phase/phase.module';
 import {QueryParamsService} from './query-obeservables/query-params.service';
 import {NgxPaginationModule} from 'ngx-pagination';
-import {RoleComponent} from "../roles/role.component";
-import {RoleModule} from "../roles/role.module";
+import {RoleComponent} from '../roles/role.component';
+import {RoleModule} from '../roles/role.module';
+import { DocumentComponent } from '../document/document.component';
+import { DocumentModule } from '../document/document.module';
 
 const userState = { name: 'user', url: '/user',  component: UserComponent };
 const roleState = { name: 'role', url: '/role',  component: RoleComponent };
@@ -25,6 +27,7 @@ const projectState = { name: 'project', url: '/project',  component: ProjectComp
 const clientState = { name: 'client', url: '/client',  component: ClientComponent };
 const companyState = { name: 'company', url: '/company',  component: CompanyComponent };
 const phaseState = { name: 'phase', url: '/phase',  component: PhaseComponent };
+const documentState = { name: 'document', url: '/document',  component: DocumentComponent };
 
 @NgModule({
   declarations: [
@@ -39,9 +42,10 @@ const phaseState = { name: 'phase', url: '/phase',  component: PhaseComponent };
     ClientModule,
     CompanyModule,
     PhaseModule,
+    DocumentModule,
     SearchModule,
     PaginationModule,
-    UIRouterModule.forRoot({ states: [ userState,roleState,projectState,clientState,companyState,phaseState], useHash: true })
+    UIRouterModule.forRoot({ states: [ userState,roleState,projectState,clientState,companyState,phaseState,documentState], useHash: true })
   ],
   exports : [HomeComponent],
   providers: [QueryParamsService],

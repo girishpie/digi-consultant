@@ -9,12 +9,12 @@ import java.util.List;
 /**
  * Created by gipai on 9/30/2017.
  */
-public class DocumentCatalog {
+public class DocumentCatalog extends BasicInfo  {
     @Id
     private String id;
     private String displayName;
     private List<Version> versions = new ArrayList<Version>();
-
+    private String projectId;
 
     public String getId() {
         return id;
@@ -67,4 +67,13 @@ public class DocumentCatalog {
         }
         return null;
     }
+
+	public String getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
+	}
+    
 }

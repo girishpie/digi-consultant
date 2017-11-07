@@ -1,0 +1,25 @@
+
+<div class="container" id="uploadDocument">
+ 	<div class = "glyphicon glyphicon-cog">UPLOAD DOCUMENT</div>
+      <div >
+        <form>
+
+          <div class="form-group" >
+            <label for="project-option" class="form-control-label">Projects:</label>
+            <select id="project-option" class="form-control"   [(ngModel)]="projectId" name="projects">
+              <option *ngFor="let project of availableProjects" [value]="project.id">
+                {{ project.projectName }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+           <input type="file" (change)="addNewDocument($event)" required class="form-control " name="attach_file" id="attach_file">
+          </div>
+
+
+        </form>
+      </div>
+
+</div>
+
+

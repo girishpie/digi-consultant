@@ -1,5 +1,10 @@
 package application.dms;
 
+import application.client.Client;
+import application.client.ClientDto;
+import application.company.Company;
+import application.project.Project;
+import application.project.ProjectRepository;
 import application.response.*;
 import org.eclipse.jetty.http.HttpHeader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,29 +18,38 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by gipai on 9/30/2017.
  */
 @RestController
-@RequestMapping("/document")
+@RequestMapping("/api/document")
 public class DocumentController {
 
     @Autowired
     private final DocumentCatalogRepository documentCatalogRepository;
     @Autowired
     private final DocumentRepository documentRepository;
-    public DocumentController(DocumentCatalogRepository documentCatalogRepository, DocumentRepository documentRepository) {
+    @Autowired
+    private final ProjectRepository projectRepository;
+    
+    public DocumentController(DocumentCatalogRepository documentCatalogRepository, DocumentRepository documentRepository, ProjectRepository projectRepository) {
         this.documentCatalogRepository = documentCatalogRepository;
         this.documentRepository = documentRepository;
+        this.projectRepository =  projectRepository;
     }
 
     @PreAuthorize("hasAuthority('CREATE_DOCUMENT')")
-    @RequestMapping(headers = "content-type=multipart/*", method = RequestMethod.POST)
-    ResponseEntity<IResponse> add(@RequestParam("file")  MultipartFile file) {
-        try {
+    @RequestMapping(value = "/{projectId}", headers = "content-type=multipart/*", method = RequestMethod.POST)
+    ResponseEntity<IResponse> add(@PathVariable("projectId") String projectId, @RequestParam("file")  MultipartFile file) {
+    	Project project = projectRepository.findById(projectId);
+        if(project == null){
+            return ResponseWrapper.getResponse(new RestError("Project With: "+ projectId + " does not exist", HttpStatus.NOT_FOUND));
 
+        }
+        try {
             //First store the file
             String id = documentRepository.storeDocument(file.getOriginalFilename(),
                                                         file.getContentType(),
@@ -52,6 +66,7 @@ public class DocumentController {
             } else {
                 catalog = new DocumentCatalog();
                 catalog.setDisplayName(file.getOriginalFilename());
+                catalog.setProjectId(projectId);
             }
             //create a new catalog
             Version version = new Version();
@@ -106,6 +121,23 @@ public class DocumentController {
             return ResponseWrapper.getResponse( new RestError("Document with : "+ id + " does not exist", HttpStatus.NOT_FOUND));
         }
         return ResponseWrapper.getResponse( new RestResponse(catalog.getVersions()));
+    }
+    
+    @PreAuthorize("hasAuthority('READ_DOCUMENT')")
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<?> getAll() {
+        List<DocumentCatalog> catalogs = documentCatalogRepository.findAll();
+        if (catalogs.isEmpty()) {
+            return ResponseWrapper.getResponse( new RestError("No docuemnts exist", HttpStatus.NOT_FOUND));
+         }
+        List<DocumentCatalogDto> catalogDtos = new ArrayList<DocumentCatalogDto>();
+        for(int i = 0; i < catalogs.size(); i++ ) {
+        	Project project = projectRepository.findById(catalogs.get(i).getProjectId());
+        	DocumentCatalogDto catalogDto = new DocumentCatalogDto(catalogs.get(i), project.getProjectName());
+        	catalogDtos.add(catalogDto);
+        }
+        return ResponseWrapper.getResponse(new RestResponse(catalogDtos));
+
     }
 
 }

@@ -2,22 +2,22 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
-import {Department} from './department';
+import {Section} from './section';
 import {QueryParams} from "../home/query-obeservables/query-params";
-import {Departments} from "./departments";
+import {Sections} from "./sections";
 import {Globals} from "../globals/globals";
 
 @Injectable()
-export class DepartmentService {
+export class SectionService {
 
 
-  private departmentUrl = this.globals.getBackendUrl() +  'boqdepartment/';
+  private sectionUrl = this.globals.getBackendUrl() +  'section/';
 
-  constructor(private http: Http, private  departments: Departments, private globals: Globals ) {
+  constructor(private http: Http, private  sections: Sections, private globals: Globals ) {
 
   }
 
-  public getDepartments(queryParams: QueryParams)  {
+  public getSections(queryParams: QueryParams)  {
 
     let pageNumber = 0;
     const pageSize = 3;
@@ -29,7 +29,7 @@ export class DepartmentService {
         searchString = queryParams.searchString;
       }
     }
-    let endPoint = this.departmentUrl + '?pageNumber=' + pageNumber + '&size=' + pageSize;
+    let endPoint = this.sectionUrl + '?pageNumber=' + pageNumber + '&size=' + pageSize;
     if (searchString) {
       endPoint += '&searchString=' + searchString;
     }
@@ -39,16 +39,17 @@ export class DepartmentService {
           const res1 = res.json();
           const response = res1.response;
           let i = 0;
-          const departments: Array<Department> =  new Array<Department>();
+          const sections: Array<Section> =  new Array<Section>();
           for ( i = 0 ; i < response.length ; i++) {
-            const department: Department = new Department();
-            department.setName(response[i].boqDepartmentName);
-            department.setProjectName(response[i].projectName);
-            department.setId(response[i].id);
-            departments.push(department);
+            const section: Section = new Section();
+            section.setSectionName(response[i].sectionName);
+            section.setSpecificationName(response[i].sepecificationName);
+            section.setProductNames(response[i].productNames);
+            section.setId(response[i].id);
+            sections.push(section);
           }
-          this.departments.setDepartments(departments);
-          this.departments.setTotalItems(res1.totalElements);
+          this.sections.setSections(sections);
+          this.sections.setTotalItems(res1.totalElements);
           return true;
         }
       );
@@ -56,28 +57,28 @@ export class DepartmentService {
 
 
 
-  public save(department: Department)  {
-    const endPoint = this.departmentUrl;
+  public save(section: Section)  {
+    const endPoint = this.sectionUrl + section.getBoqId();
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     // Returns response
-    return this.http.post(endPoint, department)
+    return this.http.post(endPoint, section)
       .map(res => {
           const res1 = res.json();
-          department.setId(res1.id);
-          this.departments.addDepartment(department);
+          section.setId(res1.id);
+          this.sections.addSection(section);
           return res1.id;
         }
       );
   }
 
   public delete(id: string)  {
-    const endPoint = this.departmentUrl  + id ;
+    const endPoint = this.sectionUrl  + id ;
       // Returns response
     return this.http.delete(endPoint)
       .map(res => {
           const res1 = res.json();
-          this.departments.deleteDepartment(res1.id);
+          this.sections.deleteSection(res1.id);
         }
       );
   }

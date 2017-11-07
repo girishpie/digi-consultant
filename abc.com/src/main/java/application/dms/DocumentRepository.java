@@ -51,7 +51,7 @@ public class DocumentRepository {
                 document = new Document();
                 document.setOs(os);
                 document.setContentType(created.get().getContentType());
-                return document;
+                return document;   
             } catch (IOException e) {
                 e.printStackTrace();
                 logger.error(e.getLocalizedMessage());

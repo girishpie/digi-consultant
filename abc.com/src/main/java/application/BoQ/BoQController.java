@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import application.BoQDepartment.BoQDepartment;
 import application.BoQDepartment.BoQDepartmentRepository;
+import application.dms.Version;
 import application.response.IResponse;
 import application.response.ResponseWrapper;
 import application.response.RestError;
@@ -43,11 +44,28 @@ public class BoQController {
             return ResponseWrapper.getResponse(new RestError("BoQ Department With: "+ bodDepartId + " does not exist", HttpStatus.NOT_FOUND));
 
         }
-        BoQ boq = new BoQ(bodDepartId, input.getSectionIds(), input.getVersion());
-        BoQ boq1 = boQRepository.save(boq);
-        boqDepartment.setBoqId(boq1.getId());
+        BoQ boq = new BoQ(bodDepartId);  
+        int majorVersion = 1;
+//        if(input.getId() != null) {
+//        	 boq = boQRepository.findById(input.getId());     	
+//        	 if(boq != null) {
+//        		 List<BoQVersion> versions = boq.getVersions();
+//                 majorVersion = versions.get(versions.size()-1).getVersionNumber() + 1;
+//        	 }
+//        }
+//        else {
+//        	boq = 
+//        }
+        BoQVersion version = new BoQVersion();
+        version.setVersionNumber(majorVersion);
+        boq.addVersion(version);
+        boq = boQRepository.save(boq);
+        version.setBoQId(boq.getId());
+        boq.setParentBoQId(boq.getId());
+        boq = boQRepository.save(boq);
+        boqDepartment.setBoqId(boq.getId());
         boqDepartmentRepository.save(boqDepartment);
-        return ResponseWrapper.getResponse(new RestResponse(boq1.getId()));
+        return ResponseWrapper.getResponse(new RestResponse(boq.getId()));
     }
  
     @PreAuthorize("hasAuthority('DELETE_BOQ')")
@@ -76,14 +94,22 @@ public class BoQController {
         if(boq == null){
             return ResponseWrapper.getResponse(new RestError("Update failed as project with id " + boqId + " doesnot exist" , HttpStatus.NOT_FOUND));
         }
-
-        boq.setBoqDepartmentId(input.getBoqDepartmentId());
-        boq.setSectionIds(input.getSectionIds());
-        boq.setVersion(input.getVersion());
-        boq.setTotalVersions(input.getTotalVersions() +1);
-        boq.update();
+        List<BoQVersion> versions = boq.getVersions();
+        int majorVersion = versions.get(versions.size()-1).getVersionNumber() + 1;
+        BoQVersion version = new BoQVersion();
+        version.setVersionNumber(majorVersion);
+        
+              
+        BoQ  boqNew = new BoQ(input.getBoqDepartmentId()); 
+        BoQVersion version1= new BoQVersion();
+        version1.setVersionNumber(majorVersion);
+        boqNew.addVersion(version);
+        boqNew.setParentBoQId(boqId);
+        boqNew = boQRepository.save(boqNew);
+        version.setBoQId(boqNew.getId());
+        boq.addVersion(version);
         boq = boQRepository.save(boq);
-        return ResponseWrapper.getResponse(new RestResponse(boq));
+        return ResponseWrapper.getResponse(new RestResponse(boqNew));
     }
 
     @PreAuthorize("hasAuthority('READ_BOQ')")

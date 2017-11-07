@@ -12,7 +12,7 @@ export class Projects {
     this.projects = projects;
   }
   public getProjects() : Array<Project> {
-    return this.getProjects();
+    return this.projects;
   }
 
   public addProject(project: Project) {

@@ -15,9 +15,13 @@
             <label for="department-name" class="form-control-label">Department Name:</label>
             <input type="text" class="form-control" id="department-name" [(ngModel)]="name" name="first">
           </div>
-          <div class="form-group">
-            <label for="company-name" class="form-control-label">Company:</label>
-            <input type="text" class="form-control" id="company-name" [(ngModel)]="companyName" name="first">
+          <div class="form-group" >
+            <label for="project-option" class="form-control-label">Projects:</label>
+            <select id="project-option" class="form-control"   [(ngModel)]="projectId" name="projects">
+              <option *ngFor="let company of availableProjects" [value]="project.id">
+                {{ project.projectName }}
+              </option>
+            </select>
           </div>
 
         </form>

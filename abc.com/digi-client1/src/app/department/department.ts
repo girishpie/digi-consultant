@@ -3,9 +3,8 @@ import { Class } from '@angular/core';
 export class Department {
 
   private  id: string;
-  private  companyName: string;
   private  name: string;
-  private  employeeNames: Array<string>;
+  private  projectName: string;
  
   constructor() {
   }
@@ -22,19 +21,12 @@ export class Department {
   public getName (): string {
     return this.name ;
   }
-  public setCompanyName ( companyName: string ) {
-    this.companyName = companyName;
+  public setProjectName ( projectName: string ) {
+    this.projectName = projectName;
   }
   
-  public getCompanyName (): string {
-    return this.companyName ;
-  }
-  public setEmployeeNames( employeeNames: Array<string> ) {
-    this.employeeNames = employeeNames;
-  }
-  
-  public getEmployeeNames(): Array<string> {
-    return this.employeeNames;
+  public getProjectName (): string {
+    return this.projectName ;
   }
  
  }

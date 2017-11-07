@@ -18,17 +18,24 @@ public class BoQ extends BasicInfo{
 	@NotNull
 	private String boqDepartmentId;
 	private List<String> sectionIds = new ArrayList<String>();
-	private String version;
-	private int totalVersions;
+	private List<BoQVersion> versions = new ArrayList<BoQVersion>();
+	private String parentBoQId;
 	
-	
-	public BoQ(String boqDepartmentId, List<String> sectionIds, String version) {
+	public BoQ(String boqDepartmentId) {
 		this.boqDepartmentId = boqDepartmentId;
-		this.sectionIds = sectionIds;
-		this.version = version;
-		this.totalVersions = 0;
 	}
 
+	public BoQ() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getParentBoQId() {
+		return parentBoQId;
+	}
+
+	public void setParentBoQId(String parentBoQId) {
+		this.parentBoQId = parentBoQId;
+	}
 
 	public String getId() {
 		return id;
@@ -49,21 +56,41 @@ public class BoQ extends BasicInfo{
     public void setSectionIds(List<String> sectionIds) {
         this.sectionIds = sectionIds;
     }
+    public List<BoQVersion> getVersions() {
+        return versions;
+    }
 
-	public String getVersion() {
-		return version;
-	}
-	public void setVersion(String version) {
-		this.version = version;
-	}
+    public void setVersions(List<BoQVersion> versions) {
+        this.versions = versions;
+    }
 
-	public int getTotalVersions() {
-		return totalVersions;
-	}
-	public void setTotalVersions(int totalVersions) {
-		this.totalVersions = totalVersions;
-	}
+    public void addVersion(BoQVersion version){
+        versions.add(version);
+    }
 
+    public boolean deleteVersion(int versionId){
+        for(int i= 0 ; i< versions.size(); i++ ){
+            if(versions.get(i).getVersionNumber() == versionId){
+                versions.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public BoQVersion getLatestVersion() {
+        return versions.get(versions.size()-1);
+    }
+
+
+    public BoQVersion getVersion(int versionId){
+        for(int i= 0 ; i< versions.size(); i++ ){
+            if(versions.get(i).getVersionNumber() == versionId){
+                return versions.get(i);
+            }
+        }
+        return null;
+    }
 
 	public void addSection(String id2) {
 		this.sectionIds.add(id2);

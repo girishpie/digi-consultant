@@ -16,6 +16,7 @@ public class Section extends BasicInfo{
 	    private String sectionName;
 	    private List<String> productIds = new ArrayList<String>();
 	    private List<String> drawingIds = new ArrayList<String>();
+	    private List<String> sectionIds = new ArrayList<String>();
 	    private String specId;
 	    private String boqId;
 	    
@@ -59,6 +60,18 @@ public class Section extends BasicInfo{
 		}
 		public void setBoqId(String boqId) {
 			this.boqId = boqId;
+		}
+		public void deleteSection(String id2) {
+			for (int i = 0; i < this.sectionIds.size(); i++) {
+	            if (this.sectionIds.get(i) == id2) {
+	                this.sectionIds.remove(i);
+	            }
+	        }	
+			
+		}
+		public void addSection(String id2) {
+			sectionIds.add(id2);
+			
 		}
 
 }

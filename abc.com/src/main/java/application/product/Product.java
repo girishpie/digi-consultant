@@ -11,25 +11,44 @@ public class Product extends BasicInfo {
 	private String id;
 	private String name;
 	private int quantity;
-	private double rate;
+	private double bimId;
 	private double amount;
 	private int totalVersions;
 	private int unit; 
+	private String description;
 	private String productCat;
 	private String productSubCat;
-	
-	
-	public Product( String name, int quantity, double rate, double amount,int unit,
-			String productCat, String productSubCat) {
+	private String sectionId;
+
+	public Product( String name, int quantity, double bimId, double amount,int unit,
+			String productCat, String productSubCat, String sectionId, String description) {
 		this.name = name;
 		this.quantity = quantity;
-		this.rate = rate;
+		this.bimId = bimId;
 		this.amount = amount;
 		this.unit = unit;
 		this.productCat = productCat;
 		this.productSubCat = productSubCat;
+		this.sectionId = sectionId;
+		this.description = description;
 	}
 	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getSectionId() {
+		return sectionId;
+	}
+
+	public void setSectionId(String sectionId) {
+		this.sectionId = sectionId;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -48,11 +67,11 @@ public class Product extends BasicInfo {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public double getRate() {
-		return rate;
+	public double getBimId() {
+		return bimId;
 	}
-	public void setRate(double rate) {
-		this.rate = rate;
+	public void setBimId(double bimId) {
+		this.bimId = bimId;
 	}
 	public double getAmount() {
 		return amount;

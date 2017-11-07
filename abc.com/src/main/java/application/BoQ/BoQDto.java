@@ -8,16 +8,16 @@ public class BoQDto {
     private String id;
 	private String departmentName;
 	private List<String> sectionIds = new ArrayList<String>();
-	private String version;
+	private int version;
 	private int totalVersions;
 
 	public BoQDto(BoQ boQ, String departmentName) {
 		this.id = boQ.getId();
 		this.departmentName = departmentName;
 		this.sectionIds = boQ.getSectionIds();
-		this.version = boQ.getVersion();
-		this.totalVersions = boQ.getTotalVersions();
-		
+		BoQVersion boQVersion = boQ.getLatestVersion();
+		this.version = boQVersion.getVersionNumber();
+		this.totalVersions = boQ.getVersions().size();
 	}
 	
 	public String getId() {
@@ -44,11 +44,11 @@ public class BoQDto {
 		this.sectionIds = sectionIds;
 	}
 
-	public String getVersion() {
+	public int getVersion() {
 		return version;
 	}
 
-	public void setVersion(String version) {
+	public void setVersion(int version) {
 		this.version = version;
 	}
 
