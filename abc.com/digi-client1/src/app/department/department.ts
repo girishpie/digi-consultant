@@ -5,7 +5,8 @@ export class Department {
   private  id: string;
   private  name: string;
   private  projectName: string;
- 
+  private projectId: string;
+  
   constructor() {
   }
   
@@ -28,5 +29,11 @@ export class Department {
   public getProjectName (): string {
     return this.projectName ;
   }
- 
+  public setProjectId ( projectId: string ) {
+    this.projectId = projectId;
+  }
+  
+  public getProjectId (): string {
+    return this.projectId ;
+  }
  }

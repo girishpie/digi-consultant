@@ -20,7 +20,9 @@ public class Section extends BasicInfo{
 	    private String specId;
 	    private String boqId;
 	    
-	    
+	    public Section() {
+	    	
+	    }
 		public Section(String sectionName, String boqId) {
 			this.sectionName = sectionName;
 			this.boqId = boqId;

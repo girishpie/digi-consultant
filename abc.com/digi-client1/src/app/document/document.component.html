@@ -2,7 +2,7 @@
 <div class="column">
 <div class = "glyphicon glyphicon-cog">DOCUMENTS - All Documents</div>
 	<button class = "btn btn-primary round pull-right" data-target="#uploadDocument" >
-		+Add Document
+		<a href="/new-boq">+Add Document</a>
 	</button>
 </div>
 <table class="table">
@@ -32,5 +32,4 @@
   </tbody>
  </table>
   <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
-  <new-file></new-file>
 </div>

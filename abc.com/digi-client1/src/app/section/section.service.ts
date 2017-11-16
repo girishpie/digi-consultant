@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
 import {Section} from './section';
 import {QueryParams} from "../home/query-obeservables/query-params";
-import {Sections} from "./sections";
+import {Sections} from './sections';
 import {Globals} from "../globals/globals";
 
 @Injectable()

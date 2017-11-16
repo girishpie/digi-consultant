@@ -20,7 +20,7 @@
             <label for="boq-option" class="form-control-label">BoQs:</label>
             <select id="boq-option" class="form-control"   [(ngModel)]="boqId" name="boqs">
               <option *ngFor="let boq of availableBoQs" [value]="boq.id">
-                {{ boq.departmentName }}
+                {{ boq.boQDepartmentName }}
               </option>
             </select>
           </div>

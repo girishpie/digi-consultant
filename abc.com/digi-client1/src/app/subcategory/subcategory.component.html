@@ -1,0 +1,33 @@
+<div class="container digi-subcategory rounded" >
+<div class="column">
+	<div class = "glyphicon glyphicon-cog">MANAGE SUBCATEGORIES</div>
+	<button class = "btn btn-primary round pull-right"><a href="#/new-subcategory">+Add SubCategory</a></button>
+</div>
+<div class="column">
+	
+</div>
+<table class="table ">
+  <thead>
+  <tr>
+  	<th>SubCategory Name</th>
+    <th>Description</th>
+    <th>Parent Category</th>
+  </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let subcategory of subcategories.subcategories | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: subcategories.totalItems, id:'server'} ">
+        <td class = "table-cell">{{ subcategory.name }}</td>
+        <td class = "table-cell">{{ subcategory.description }}</td>
+         <td class = "table-cell">{{ subcategory.parentName }}</td>
+         <td class = "table-cell">
+          <button type="button" class="btn btn-primary round" (click) = "deleteSubcategory(subcategory)">
+            <span class="glyphicon glyphicon-remove" ></span>
+          </button>
+          <button type="button" class="btn btn-primary round">
+            <span class="glyphicon glyphicon-pencil"></span></button>
+        </td>
+     </tr>
+  </tbody>
+ </table>
+  <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+</div>

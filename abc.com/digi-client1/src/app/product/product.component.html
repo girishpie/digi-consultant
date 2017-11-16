@@ -1,0 +1,43 @@
+<div class="container digi-product rounded" >
+<div class="column">
+	<div class = "glyphicon glyphicon-cog">MANAGE PRODUCTS</div>
+	<label for="section-option" class="form-control-label" >Section:</label>
+     <select width = "50%" id="section-option" class="form-control"   [(ngModel)]="sectionId" name="sections">
+       <option *ngFor="let section of availableSections" [value]="section.id">
+                {{ section.sectionName }} 
+       </option> 
+     </select>
+	<button class = "btn btn-primary round pull-right"><a href="#/new-product">+Add Product</a></button>
+</div>
+
+<table class="table ">
+  <thead>
+  <tr>
+  	<th>Product Name</th>
+    <th>Unit</th>
+    <th>Quantity</th>
+    <th>Amount</th>    
+    <th>Description</th>
+    <th>Bim Id</th>
+  </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let product of products.products | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: products.totalItems, id:'server'} ">
+        <td class = "table-cell">{{ product.name }}</td>
+        <td class = "table-cell">{{ product.unit }}</td>
+        <td class = "table-cell">{{ product.quantity }}</td>
+        <td class = "table-cell">{{ product.amount }}</td>
+        <td class = "table-cell">{{ product.descrition }}</td>
+        <td class = "table-cell">{{ product.bimId }}</td>
+         <td class = "table-cell">
+          <button type="button" class="btn btn-primary round" (click) = "deleteProduct(product)">
+            <span class="glyphicon glyphicon-remove" ></span>
+          </button>
+          <button type="button" class="btn btn-primary round">
+            <span class="glyphicon glyphicon-pencil"></span></button>
+        </td>
+     </tr>
+  </tbody>
+ </table>
+  <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+</div>

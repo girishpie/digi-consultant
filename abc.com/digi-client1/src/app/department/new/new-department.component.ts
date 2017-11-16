@@ -15,7 +15,7 @@ declare var jQuery:any;
 export class NewDepartmentComponent implements OnInit {
    private availableProjects: Project[];
    private name: string ;
-   private projectName: string;
+   private projectId: string;
 
   constructor(private departmentService: DepartmentService, private projectService: ProjectService,
               private departments: Departments, private projects: Projects)  {
@@ -29,7 +29,7 @@ export class NewDepartmentComponent implements OnInit {
   addNewDepartment() {
     let department: Department = new Department();
     department.setName(this.name);
-    department.setProjectName(this.projectName);
+    department.setProjectId(this.projectId);
     this.departmentService.save(department).subscribe(data => {
         console.log(data);
         department.setId(data);

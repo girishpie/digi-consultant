@@ -49,7 +49,7 @@ public class Category extends BasicInfo {
         this.description = description;
     }
 
-    private Category findCategoryByName(String categoryName){
+    public Category findCategoryByName(String categoryName){
         for (Map.Entry<String, Category> entry : subCategories.entrySet()) {
             if(entry.getValue().getName().equals(categoryName) )
                 return entry.getValue();
@@ -57,7 +57,7 @@ public class Category extends BasicInfo {
         return null;
     }
 
-    private Category findCategoryById(String id){
+    public Category findCategoryById(String id){
         for (Map.Entry<String, Category> entry : subCategories.entrySet()) {
             if(entry.getValue().getId().equals(id) )
                 return entry.getValue();

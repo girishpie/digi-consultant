@@ -3,9 +3,9 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
 import {Department} from './department';
-import {QueryParams} from "../home/query-obeservables/query-params";
-import {Departments} from "./departments";
-import {Globals} from "../globals/globals";
+import {QueryParams} from '../home/query-obeservables/query-params';
+import {Departments} from './departments';
+import {Globals} from '../globals/globals';
 
 @Injectable()
 export class DepartmentService {
@@ -57,7 +57,7 @@ export class DepartmentService {
 
 
   public save(department: Department)  {
-    const endPoint = this.departmentUrl;
+    const endPoint = this.departmentUrl + department.getProjectId();
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     // Returns response

@@ -24,7 +24,7 @@ export class RoleHelper{
     this.permissions.push('UPDATE_COMPNAY');
   }
 
-  public getPermissions() :Array<string>{
+  public getPermissions(): Array<string>{
     return this.permissions;
   }
 }

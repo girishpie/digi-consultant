@@ -20,6 +20,9 @@ public class BoQDepartment extends BasicInfo {
 	private String departmentName;
 	private String projectId;
 	private String boQId ;
+	public BoQDepartment() {
+		
+	}
 	
 	public BoQDepartment(String departmentName, String projectId) {
 		

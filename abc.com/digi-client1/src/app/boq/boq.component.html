@@ -1,0 +1,33 @@
+<div class="container digi-boq rounded" >
+<div class="column">
+	<div class = "glyphicon glyphicon-cog">MANAGE BOQS</div>
+	<button class = "btn btn-primary round pull-right"><a href="#/new-boq">+Add BoQ</a></button>
+</div>
+
+<table class="table ">
+  <thead>
+  <tr>
+  	<th>Project Id</th>
+    <th>Department Name</th>
+    <th>Current Version</th>
+    <th>Total BoQ Versions</th>
+  </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let boq of boqs.boqs | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: boqs.totalItems, id:'server'} ">
+        <td class = "table-cell">{{ boq.projectId }}</td>
+        <td class = "table-cell">{{ boq.boQDepartmentName }}</td>
+        <td class = "table-cell">{{ boq.version }}</td>
+        <td class = "table-cell">{{ boq.totalVersions }}</td>
+         <td class = "table-cell">
+          <button type="button" class="btn btn-primary round" (click) = "deleteBoQ(boq)">
+            <span class="glyphicon glyphicon-remove" ></span>
+          </button>
+          <button type="button" class="btn btn-primary round">
+            <span class="glyphicon glyphicon-pencil"></span></button>
+        </td>
+     </tr>
+  </tbody>
+ </table>
+  <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+</div>

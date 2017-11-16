@@ -20,6 +20,28 @@ import {RoleComponent} from '../roles/role.component';
 import {RoleModule} from '../roles/role.module';
 import { DocumentComponent } from '../document/document.component';
 import { DocumentModule } from '../document/document.module';
+import { NewDocumentComponent } from '../document/new/new-file.component';
+import { NewDocumentModule } from '../document/new/new-file.module';
+import { BoQComponent } from '../boq/boq.component';
+import { BoQModule } from '../boq/boq.module';
+import { NewBoQComponent } from '../boq/new/new-boq.component';
+import { NewBoQModule } from '../boq/new/new-boq.module';
+import { DepartmentComponent } from '../department/department.component';
+import { DepartmentModule } from '../department/department.module';
+import { SectionComponent } from '../section/section.component';
+import { SectionModule } from '../section/section.module';
+import { ProductComponent } from '../product/product.component';
+import { ProductModule } from '../product/product.module';
+import { NewProductComponent } from '../product/new/new-product.component';
+import { NewProductModule } from '../product/new/new-product.module';
+import { CategoryComponent } from '../category/category.component';
+import { CategoryModule } from '../category/category.module';
+import { NewCategoryComponent } from '../category/new/new-category.component';
+import { NewCategoryModule } from '../category/new/new-category.module';
+import { SubcategoryComponent } from '../subcategory/subcategory.component';
+import { SubcategoryModule } from '../subcategory/subcategory.module';
+import { NewSubcategoryComponent } from '../subcategory/new/new-subcategory.component';
+import { NewSubcategoryModule } from '../subcategory/new/new-subcategory.module';
 
 const userState = { name: 'user', url: '/user',  component: UserComponent };
 const roleState = { name: 'role', url: '/role',  component: RoleComponent };
@@ -28,6 +50,17 @@ const clientState = { name: 'client', url: '/client',  component: ClientComponen
 const companyState = { name: 'company', url: '/company',  component: CompanyComponent };
 const phaseState = { name: 'phase', url: '/phase',  component: PhaseComponent };
 const documentState = { name: 'document', url: '/document',  component: DocumentComponent };
+const newDocumentState = { name: 'new-file', url: '/new-file',  component: NewDocumentComponent };
+const boqState = { name: 'boq', url: '/boq',  component: BoQComponent };
+const newBoQState = { name: 'new-boq', url: '/new-boq',  component: NewBoQComponent };
+const departmentState = { name: 'department', url: '/department',  component: DepartmentComponent };
+const sectionState = { name: 'section', url: '/section',  component: SectionComponent };
+const productState = { name: 'product', url: '/product',  component: ProductComponent };
+const newProductState = { name: 'new-product', url: '/new-product',  component: NewProductComponent };
+const categoryState = { name: 'category', url: '/category',  component: CategoryComponent };
+const newCategoryState = { name: 'new-category', url: '/new-category',  component: NewCategoryComponent };
+const subcategoryState = { name: 'subcategory', url: '/subcategory',  component: SubcategoryComponent };
+const newSubcategoryState = { name: 'new-subcategory', url: '/new-subcategory',  component: NewSubcategoryComponent };
 
 @NgModule({
   declarations: [
@@ -43,9 +76,22 @@ const documentState = { name: 'document', url: '/document',  component: Document
     CompanyModule,
     PhaseModule,
     DocumentModule,
+    NewDocumentModule,
+    DepartmentModule,
     SearchModule,
     PaginationModule,
-    UIRouterModule.forRoot({ states: [ userState,roleState,projectState,clientState,companyState,phaseState,documentState], useHash: true })
+    BoQModule,
+    NewBoQModule,
+    SectionModule,
+    ProductModule,
+    NewProductModule,
+    CategoryModule,
+    NewCategoryModule,
+    SubcategoryModule,
+    NewSubcategoryModule,
+    UIRouterModule.forRoot({ states: [ userState, roleState, projectState, clientState, companyState,
+      phaseState, documentState, newDocumentState, boqState, newBoQState, departmentState, sectionState,
+      productState, newProductState, categoryState, newCategoryState, subcategoryState, newSubcategoryState], useHash: true })
   ],
   exports : [HomeComponent],
   providers: [QueryParamsService],

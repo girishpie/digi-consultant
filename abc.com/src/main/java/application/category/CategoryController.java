@@ -11,9 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.xml.ws.Response;
+
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Created by gipai on 10/1/2017.
@@ -101,19 +104,19 @@ public class CategoryController {
 
 
 
-    @RequestMapping(value = "/{categoryId}" ,method = RequestMethod.GET)
-    ResponseEntity<IResponse> get(@PathVariable String categoryId){
-        if(categoryId== null || categoryId.isEmpty()){
-            return ResponseWrapper.getResponse(new RestError("Id of category must not be null or empty", HttpStatus.BAD_REQUEST));
-        }
-        Category category = categoryRepository.findById(categoryId);
-        if(category == null){
-            return ResponseWrapper.getResponse(new RestError("Parent Category with id: " + categoryId+  "does not exist", HttpStatus.NOT_FOUND));
-
-        }
-       return ResponseWrapper.getResponse(new RestResponse(category));
-
-    }
+//    @RequestMapping(value = "/{categoryId}" ,method = RequestMethod.GET)
+//    ResponseEntity<IResponse> get(@PathVariable String categoryId){
+//        if(categoryId== null || categoryId.isEmpty()){
+//            return ResponseWrapper.getResponse(new RestError("Id of category must not be null or empty", HttpStatus.BAD_REQUEST));
+//        }
+//        Category category = categoryRepository.findById(categoryId);
+//        if(category == null){
+//            return ResponseWrapper.getResponse(new RestError("Parent Category with id: " + categoryId+  "does not exist", HttpStatus.NOT_FOUND));
+//
+//        }
+//       return ResponseWrapper.getResponse(new RestResponse(category));
+//
+//    }
 
 
     @RequestMapping(value = "/{categoryId}/{path}" ,method = RequestMethod.GET)
@@ -138,13 +141,42 @@ public class CategoryController {
 
     @RequestMapping(method = RequestMethod.GET)
     ResponseEntity<IResponse> get(){
-            List<Category> categories = categoryRepository.findAll();
+        List<Category> categories = categoryRepository.findAll();
         if(categories.isEmpty()){
             return ResponseWrapper.getResponse(new RestError("No categories found", HttpStatus.NOT_FOUND));
         }
-        return ResponseWrapper.getResponse(new RestResponse(categories));
+        List<CategoryDto> categoryDtos = new ArrayList<CategoryDto>();
+        for(int i = 0; i < categories.size(); i++ ) {
+        	List<String> subCatNames = new ArrayList<String>();
+        	if(categories.get(i).getSubCategories() != null) {
+         		for(Entry<String, Category> entry: categories.get(i).getSubCategories().entrySet()) {
+        			subCatNames.add(entry.getValue().getName());
+        	    }
+        	}
+        	categoryDtos.add(new CategoryDto(categories.get(i).getId(), categories.get(i).getName(), categories.get(i).getDescription(), subCatNames));
+        }
+        
+        return ResponseWrapper.getResponse(new RestResponse(categoryDtos));
     }
 
+    @RequestMapping(value = "/{categoryId}" ,method = RequestMethod.GET)
+    ResponseEntity<IResponse> get(@PathVariable String categoryId){
+    	List<Category> categories = categoryRepository.findAll();
+        if(categories.isEmpty()){
+            return ResponseWrapper.getResponse(new RestError("No categories found", HttpStatus.NOT_FOUND));
+        }
+        List<CategoryDto> categoryDtos = new ArrayList<CategoryDto>();
+        for(int i = 0; i < categories.size(); i++ ) {
+        	List<String> subCatNames = new ArrayList<String>();
+        	if(categories.get(i).getSubCategories() != null) {
+         		for(Entry<String, Category> entry: categories.get(i).getSubCategories().entrySet()) {
+        			categoryDtos.add(new CategoryDto(entry.getValue().getName(), entry.getValue().getDescription(), categories.get(i).getName()));
+        	    }
+        	}
+        }
+        
+        return ResponseWrapper.getResponse(new RestResponse(categoryDtos));
+    }
 
     @RequestMapping(value = "/{categoryId}", method = RequestMethod.PATCH)
     ResponseEntity<IResponse> update(@PathVariable String categoryId, @RequestBody Category input){

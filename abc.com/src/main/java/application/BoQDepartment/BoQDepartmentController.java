@@ -43,7 +43,7 @@ import application.response.RestResponse;
 	            return ResponseWrapper.getResponse(new RestError("Project With: "+ projectId + " does not exist", HttpStatus.NOT_FOUND));
 
 	        }
-	        BoQDepartment boqDepartment = new BoQDepartment(input.getDepartmentName(), input.getProjectId());
+	        BoQDepartment boqDepartment = new BoQDepartment(input.getDepartmentName(), project.getId());
 	        BoQDepartment boqDepart = boqDepartmentRepository.save(boqDepartment);
 	        project.addBoQDepartment(boqDepart.getId());
 	        projectRepository.save(project);

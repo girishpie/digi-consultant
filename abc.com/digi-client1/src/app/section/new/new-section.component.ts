@@ -1,6 +1,6 @@
-//import { BoQ } from '../../boq/boq';
-//import { BoQs } from '../../boq/boqs';
-//import { BoQService } from '../../boq/boq.service';
+import { BoQ } from '../../boq/boq';
+import { BoQs } from '../../boq/boqs';
+import { BoQService } from '../../boq/boq.service';
 import { Section } from '../section';
 import { SectionService } from '../section.service';
 import { Sections } from '../sections';
@@ -9,23 +9,23 @@ declare var jQuery:any;
 @Component({
   selector: 'new-section',
   templateUrl: './new-section.component.html',
-  styleUrls: ['./new-section.component.scss']
+  //styleUrls: ['./new-section.component.scss']
 })
 export class NewSectionComponent implements OnInit {
-  // private availableBoQs: BoQ[];
+   private availableBoQs: BoQ[];
    private sectionName: string ;
    private boqId: string ;
   
   constructor(private sectionService: SectionService, 
-             // private boQService: BoQService, 
-              private sections: Sections) {
-              //private boQs: BoQs)  {
+              private boQService: BoQService, 
+              private sections: Sections,
+              private boQs: BoQs)  {
   }
 
   ngOnInit() {
     this.getBoQs();
   }
-  
+
   addNewSection(){
     let section: Section = new Section();
     section.setSectionName(this.sectionName);
@@ -43,11 +43,11 @@ export class NewSectionComponent implements OnInit {
 
   }
   getBoQs() {
-//    this.boQService.getBoQs(null).subscribe( data => {
-//      this.availableBoQs = this.boQs.getCompanies();
-//    }, error => {
-//      window.alert(error._body);
-//    });
+    this.boQService.getBoQs(null).subscribe( data => {
+      this.availableBoQs = this.boQs.getBoQs();
+    }, error => {
+      window.alert(error._body);
+    });
   }
 
 }

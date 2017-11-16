@@ -11,24 +11,26 @@ public class Product extends BasicInfo {
 	private String id;
 	private String name;
 	private int quantity;
-	private double bimId;
+	private String bimId;
 	private double amount;
-	private int totalVersions;
-	private int unit; 
+	private String unit; 
 	private String description;
-	private String productCat;
-	private String productSubCat;
+	private String productCatId;
+	private String productSubCatId;
 	private String sectionId;
+	
+	public Product() {
+		// TODO Auto-generated constructor stub
+	}
 
-	public Product( String name, int quantity, double bimId, double amount,int unit,
-			String productCat, String productSubCat, String sectionId, String description) {
+	public Product( String name, int quantity, String bimId, double amount, String unit,
+			 String sectionId, String description, String productCatId) {
 		this.name = name;
 		this.quantity = quantity;
 		this.bimId = bimId;
 		this.amount = amount;
 		this.unit = unit;
-		this.productCat = productCat;
-		this.productSubCat = productSubCat;
+		this.productCatId = productCatId;
 		this.sectionId = sectionId;
 		this.description = description;
 	}
@@ -67,10 +69,10 @@ public class Product extends BasicInfo {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public double getBimId() {
+	public String getBimId() {
 		return bimId;
 	}
-	public void setBimId(double bimId) {
+	public void setBimId(String bimId) {
 		this.bimId = bimId;
 	}
 	public double getAmount() {
@@ -79,24 +81,23 @@ public class Product extends BasicInfo {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	public int getUnit() {
+	public String getUnit() {
 		return unit;
 	}
-	public void setUnit(int unit) {
+	public void setUnit(String unit) {
 		this.unit = unit;
 	}
-	public String getProductCat() {
-		return productCat;
+	public String getProductCatId() {
+		return productCatId;
 	}
-	public void setProductCat(String productCat) {
-		this.productCat = productCat;
+	public void setProductCatId(String productCatId) {
+		this.productCatId = productCatId;
 	}
-	public String getProductSubCat() {
-		return productSubCat;
+	public String getProductSubCatId() {
+		return productSubCatId;
 	}
-	public void setProductSubCat(String productSubCat) {
-		this.productSubCat = productSubCat;
+	public void setProductSubCatId(String productSubCatId) {
+		this.productSubCatId = productSubCatId;
 	}
-	
 	
 }

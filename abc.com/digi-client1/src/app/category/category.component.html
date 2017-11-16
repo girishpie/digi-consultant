@@ -1,0 +1,38 @@
+<div class="container digi-category rounded" >
+<div class="column">
+	<div class = "glyphicon glyphicon-cog">MANAGE CATEGORIES</div>
+
+	<button class = "btn btn-primary round pull-right"><a href="#/new-category">+Add Category</a></button>
+</div>
+
+<table class="table ">
+  <thead>
+  <tr>
+  	<th>Category Name</th>
+    <th>Description</th>
+    <th>SubCategories</th>
+  </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let category of categories.categories | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: categories.totalItems, id:'server'} ">
+        <td class = "table-cell">{{ category.name }}</td>
+        <td class = "table-cell">{{ category.description }}</td>
+         <td class = "table-cell">
+            <select id="subCat-option" class="subCat-control" name="subCategories">
+              <option *ngFor="let subcatName of category.subCategories" [value]="subcatName">
+                {{ subcatName }}
+              </option>
+            </select>
+           </td>
+           <td>
+          <button type="button" class="btn btn-primary round" (click) = "deleteCategory(category)">
+            <span class="glyphicon glyphicon-remove" ></span>
+          </button>
+          <button type="button" class="btn btn-primary round">
+            <span class="glyphicon glyphicon-pencil"></span></button>
+        </td>
+     </tr>
+  </tbody>
+ </table>
+  <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+</div>

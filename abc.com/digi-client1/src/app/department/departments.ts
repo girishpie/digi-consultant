@@ -12,7 +12,7 @@ export class Departments {
     this.departments = departments;
   }
   public getDepartments (): Array<Department> {
-    return this.getDepartments();
+    return this.departments;
   }
    public deleteDepartment(departmentId: string) {
     let departmentFound: Department = this.departments.find(department => departmentId === department.getId());

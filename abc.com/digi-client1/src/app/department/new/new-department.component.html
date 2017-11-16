@@ -18,7 +18,7 @@
           <div class="form-group" >
             <label for="project-option" class="form-control-label">Projects:</label>
             <select id="project-option" class="form-control"   [(ngModel)]="projectId" name="projects">
-              <option *ngFor="let company of availableProjects" [value]="project.id">
+              <option *ngFor="let project of availableProjects" [value]="project.id">
                 {{ project.projectName }}
               </option>
             </select>

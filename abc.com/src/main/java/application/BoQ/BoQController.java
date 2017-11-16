@@ -123,7 +123,7 @@ public class BoQController {
         List<BoQDto> boQDtos = new ArrayList<BoQDto>();
         for(int i = 0; i < boqs.size(); i++ ) {
         	BoQDepartment boQDepartment = boqDepartmentRepository.findById(boqs.get(i).getBoqDepartmentId());
-        	BoQDto boQDto = new BoQDto(boqs.get(i), boQDepartment.getDepartmentName());
+        	BoQDto boQDto = new BoQDto(boqs.get(i), boQDepartment.getDepartmentName(), boQDepartment.getProjectId());
         	boQDtos.add(boQDto);
         }
         return ResponseWrapper.getResponse(new RestResponse(boQDtos));
@@ -138,7 +138,7 @@ public class BoQController {
             return ResponseWrapper.getResponse( new RestError("BoQ With: " + id + " Does not exist", HttpStatus.NOT_FOUND));
         }
         BoQDepartment boQDepartment = boqDepartmentRepository.findById(boq.getBoqDepartmentId());
-        BoQDto boqDto = new BoQDto(boq, boQDepartment.getDepartmentName());
+        BoQDto boqDto = new BoQDto(boq, boQDepartment.getDepartmentName(), boQDepartment.getProjectId());
         return ResponseWrapper.getResponse( new RestResponse(boqDto));
     }
 }

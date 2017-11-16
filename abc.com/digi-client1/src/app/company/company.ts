@@ -11,8 +11,7 @@ export class Company {
 
   constructor() {
   }
-  
-   public setId ( id: string ) {
+  public setId ( id: string ) {
     this.id = id;
   }
   public getId (): string {

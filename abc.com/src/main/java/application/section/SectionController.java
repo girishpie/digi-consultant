@@ -104,12 +104,18 @@ public class SectionController {
          }
         for(int i = 0; i < sections.size(); i++ ) {
         	List<String> productNames = new ArrayList<String>();
-        	for(int j =0; j < sections.get(i).getProductIds().size(); j++) {
-        		Product product = productRepository.findById(sections.get(i).getProductIds().get(j));
-        		productNames.add(product.getName());
+        	if(!sections.get(i).getProductIds().isEmpty()) {
+	        	for(int j =0; j < sections.get(i).getProductIds().size(); j++) {
+	        		Product product = productRepository.findById(sections.get(i).getProductIds().get(j));
+	        		productNames.add(product.getName());
+	        	}
         	}
-        	Specification specification = specificationRepository.findById(sections.get(i).getSpecId());
-        	SectionDto sectionDto = new SectionDto(sections.get(i), specification.getSpecificationName(), productNames);
+        	String specName = ""; 
+        	if(sections.get(i).getSpecId() != null) {
+        		Specification specification = specificationRepository.findById(sections.get(i).getSpecId());
+        		specName = specification.getSpecificationName();
+        	}
+        	SectionDto sectionDto = new SectionDto(sections.get(i), specName , productNames);
         	
         	sectionDtos.add(sectionDto);
         }
@@ -125,12 +131,18 @@ public class SectionController {
             return ResponseWrapper.getResponse( new RestError("Section With: " + id + " Does not exist", HttpStatus.NOT_FOUND));
         }
     	List<String> productNames = new ArrayList<String>();
-    	for(int j =0; j < section.getProductIds().size(); j++) {
-    		Product product = productRepository.findById(section.getProductIds().get(j));
-    		productNames.add(product.getName());
+    	if(!section.getProductIds().isEmpty()) {
+	    	for(int j =0; j < section.getProductIds().size(); j++) {
+	    		Product product = productRepository.findById(section.getProductIds().get(j));
+	    		productNames.add(product.getName());
+	    	}
     	}
-    	Specification specification = specificationRepository.findById(section.getSpecId());
-    	SectionDto sectionDto = new SectionDto(section, specification.getSpecificationName(), productNames);
+    	String specName = ""; 
+    	if(section.getSpecId() != null) {
+    		Specification specification = specificationRepository.findById(section.getSpecId());
+    		specName = specification.getSpecificationName();
+    	}
+    	SectionDto sectionDto = new SectionDto(section, specName, productNames);
 
        
         return ResponseWrapper.getResponse( new RestResponse(sectionDto));

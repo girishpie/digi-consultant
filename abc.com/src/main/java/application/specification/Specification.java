@@ -43,6 +43,5 @@ public class Specification extends BasicInfo{
 		this.specificationName = specificationName;
 	}
 	
-	
 
 }
