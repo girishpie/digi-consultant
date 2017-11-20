@@ -29,6 +29,7 @@ public class Project extends BasicInfo {
 	@NotNull
 	private String clientId;
 	private List<String> boqDepartmentIds = new ArrayList<String>();
+	private List<String> crIds = new ArrayList<String>();
 	
 	public Project() {
 		
@@ -108,6 +109,18 @@ public class Project extends BasicInfo {
 
 	public void setPhase(String phase) {
 		this.phase = phase;
+	}
+
+	public void addCR(String id2) {
+		this.crIds.add(id2);		
+	}
+	
+	public void deleteCR(String id2) {
+		for (int i = 0; i < this.crIds.size(); i++) {
+            if (this.crIds.get(i) == id2) {
+                this.crIds.remove(i);
+            }
+        }
 	}
 	
 }
