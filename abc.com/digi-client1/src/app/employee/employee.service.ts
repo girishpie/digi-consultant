@@ -41,10 +41,11 @@ export class EmployeeService {
           const employees: Array<Employee> =  new Array<Employee>();
           for ( i = 0 ; i < response.length ; i++) {
             const employee: Employee = new Employee();
-            employee.setName(response[i].name);
-            employee.setEmail(response[i].email);
-            employee.setSkypeId(response[i].skypeId);
+            employee.setFirstname(response[i].firstname);
+            employee.setRole(response[i].role);
+            employee.setTelephone(response[i].telephone);
             employee.setCompanyName(response[i].companyName);
+            employee.setNoOfProjects(response[i].noOfProjects);
             employee.setId(response[i].id);
             employees.push(employee);
           }

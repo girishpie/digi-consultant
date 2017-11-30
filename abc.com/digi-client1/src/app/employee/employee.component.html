@@ -1,24 +1,26 @@
 <div class="container digi-employee rounded" >
 <div class="column">
 	<div class = "glyphicon glyphicon-cog">MANAGE EMPLOYEES</div>
-	<button class = "btn btn-primary round" data-toggle="modal" data-target="#newEmployee">+Add Employee</button>
+	<button class = "btn btn-primary round pull-right"><a href="#/new-employee">+Add Employee</a></button>
 </div>
 
 <table class="table ">
   <thead>
   <tr>
     <th>Employee Name</th>
-    <th>Email</th>
-    <th>Skype Id</th>
-    <th>Company Name</th>    
+    <th>Role</th>
+    <th>Phone</th>
+    <th>Company</th> 
+    <th>Projects</th>    
   </tr>
   </thead>
   <tbody>
       <tr *ngFor="let employee of employees.employees | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: employees.totalItems, id:'server'} ">
-        <td class = "table-cell">{{ employee.name }}</td>
-        <td class = "table-cell">{{ employee.email }}</td>
-        <td class = "table-cell">{{ employee.skypeId }}</td>
+        <td class = "table-cell">{{ employee.firstname }}</td>
+        <td class = "table-cell">{{ employee.role }}</td>
+        <td class = "table-cell">{{ employee.telephone }}</td>
         <td class = "table-cell">{{ employee.companyName }}</td>
+        <td class = "table-cell">{{ employee.noOfProjects }}</td>
          <td class = "table-cell">
           <button type="button" class="btn btn-primary round" (click) = "deleteEmployee(employee)">
             <span class="glyphicon glyphicon-remove" ></span>
@@ -30,5 +32,4 @@
   </tbody>
  </table>
   <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
-  <new-employee></new-employee>
 </div>

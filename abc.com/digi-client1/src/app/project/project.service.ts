@@ -46,7 +46,7 @@ export class ProjectService {
             project.setJobNumber(response[i].jobNumber);
             project.setSiteAddress(response[i].siteAddress);
             project.setDescription(response[i].description);
-            project.setStartDate(response[i].startDate);
+            project.setStartDate(new Date(response[i].startDate));
             project.setClientName(response[i].clientName);
             project.setId(response[i].id);
             projects.push(project);

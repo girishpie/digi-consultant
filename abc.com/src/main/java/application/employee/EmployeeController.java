@@ -44,7 +44,8 @@ public class EmployeeController {
             return ResponseWrapper.getResponse(new RestError("Company With: "+ companyId + " does not exist", HttpStatus.NOT_FOUND));
 
         }
-        Employee employee = new Employee(input.getName(), input.getEmail(), input.getSkypeId(), input.getCompanyId());
+        Employee employee = new Employee(input.getFirstname(), input.getLastname(), input.getDOB(), input.getGender(), input.getRole(), input.getEmail(),
+    			input.getAddress(), input.getCity(), input.getCountry(), input.getMobile(), input.getTelephone(), input.getCompanyId(), input.getProjectIds());
         Employee emp = employeeRepository.save(employee);
         company.addEmployee(emp.getId());
         companyRepository.save(company);
@@ -78,9 +79,17 @@ public class EmployeeController {
             return ResponseWrapper.getResponse(new RestError("Update failed as employee with id " + empId + " doesnot exist" , HttpStatus.NOT_FOUND));
         }
 
-        employee.setName(input.getName());
+        employee.setFirstname(input.getFirstname());
+        employee.setLastname(input.getLastname());
         employee.setEmail(input.getEmail());
-        employee.setSkypeId(input.getSkypeId());
+        employee.setDOB(input.getDOB());
+        employee.setGender(input.getGender());
+        employee.setRole(input.getRole());
+        employee.setCountry(input.getCountry());
+        employee.setAddress(input.getAddress());
+        employee.setCity(input.getCity());
+        employee.setMobile(input.getMobile());
+        employee.setTelephone(input.getTelephone());
         employee.setCompanyId(input.getCompanyId());
         employee.update();
         employee = employeeRepository.save(employee);

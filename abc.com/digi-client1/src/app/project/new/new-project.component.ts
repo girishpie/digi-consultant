@@ -43,7 +43,7 @@ export class NewProjectComponent implements OnInit {
     project.setProjectName(this.projectName);
     project.setSiteAddress(this.siteAddress);
     project.setDescription(this.description);
-    project.setStartDate(this.startDate);
+    project.setStartDate(new Date(this.startDate));
     project.setClientId(this.clientId);
     project.setPhase(this.phase);
     this.projectService.save(project).subscribe(data => {

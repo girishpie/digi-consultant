@@ -42,6 +42,10 @@ import { SubcategoryComponent } from '../subcategory/subcategory.component';
 import { SubcategoryModule } from '../subcategory/subcategory.module';
 import { NewSubcategoryComponent } from '../subcategory/new/new-subcategory.component';
 import { NewSubcategoryModule } from '../subcategory/new/new-subcategory.module';
+import { EmployeeComponent } from '../employee/employee.component';
+import { EmployeeModule } from '../employee/employee.module';
+import { NewEmployeeComponent } from '../employee/new/new-employee.component';
+import { NewEmployeeModule } from '../employee/new/new-employee.module';
 
 const userState = { name: 'user', url: '/user',  component: UserComponent };
 const roleState = { name: 'role', url: '/role',  component: RoleComponent };
@@ -61,6 +65,8 @@ const categoryState = { name: 'category', url: '/category',  component: Category
 const newCategoryState = { name: 'new-category', url: '/new-category',  component: NewCategoryComponent };
 const subcategoryState = { name: 'subcategory', url: '/subcategory',  component: SubcategoryComponent };
 const newSubcategoryState = { name: 'new-subcategory', url: '/new-subcategory',  component: NewSubcategoryComponent };
+const employeeState = { name: 'employee', url: '/employee',  component: EmployeeComponent };
+const newEmployeeState = { name: 'new-employee', url: '/new-employee',  component: NewEmployeeComponent };
 
 @NgModule({
   declarations: [
@@ -89,9 +95,12 @@ const newSubcategoryState = { name: 'new-subcategory', url: '/new-subcategory', 
     NewCategoryModule,
     SubcategoryModule,
     NewSubcategoryModule,
+    EmployeeModule,
+    NewEmployeeModule,
     UIRouterModule.forRoot({ states: [ userState, roleState, projectState, clientState, companyState,
       phaseState, documentState, newDocumentState, boqState, newBoQState, departmentState, sectionState,
-      productState, newProductState, categoryState, newCategoryState, subcategoryState, newSubcategoryState], useHash: true })
+      productState, newProductState, categoryState, newCategoryState, subcategoryState, newSubcategoryState,
+      employeeState, newEmployeeState], useHash: true })
   ],
   exports : [HomeComponent],
   providers: [QueryParamsService],

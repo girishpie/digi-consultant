@@ -1,8 +1,8 @@
 <div class="container digi-document rounded" >
 <div class="column">
 <div class = "glyphicon glyphicon-cog">DOCUMENTS - All Documents</div>
-	<button class = "btn btn-primary round pull-right" data-target="#uploadDocument" >
-		<a href="/new-boq">+Add Document</a>
+	<button class = "btn btn-primary round pull-right"  >
+		<a href="#/new-file">+Add Document</a>
 	</button>
 </div>
 <table class="table">
@@ -21,7 +21,7 @@
         <td class = "table-cell">{{ document.projectName }}</td>
         <td class = "table-cell">{{ document.createdBy }}</td>
          <td class = "table-cell">{{ document.version }}</td>
-        <td class = "table-cell">{{ document.creationTime }}</td>
+        <td class = "table-cell">{{ document.creationTime |  date:'MM/dd/yyyy'}}</td>
         
          <td class = "table-cell">
           <button type="button" class="btn btn-primary" (click) = "deleteDocument(document)">

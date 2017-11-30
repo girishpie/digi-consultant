@@ -21,7 +21,7 @@
         <td class = "table-cell">{{ project.jobNumber }}</td>
         <td class = "table-cell">{{ project.siteAddress }}</td>
         <td class = "table-cell">{{ project.description }}</td>
-        <td class = "table-cell">{{ project.startDate }}</td>
+        <td class = "table-cell">{{ project.startDate |  date:'MM/dd/yyyy' }}</td>
          <td class = "table-cell">
           <button type="button" class="btn btn-primary round" (click) = "deleteProject(project)">
             <span class="glyphicon glyphicon-remove" ></span>
