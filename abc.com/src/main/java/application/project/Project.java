@@ -30,6 +30,7 @@ public class Project extends BasicInfo {
 	private String clientId;
 	private List<String> boqDepartmentIds = new ArrayList<String>();
 	private List<String> crIds = new ArrayList<String>();
+	private List<String> meetingIds = new ArrayList<String>();
 	
 	public Project() {
 		
@@ -122,5 +123,17 @@ public class Project extends BasicInfo {
             }
         }
 	}
+
+	public void addMeeting(String id2) {
+		this.meetingIds.add(id2);
+		
+	}
 	
+	public void deleteMeeting(String id2) {
+		for (int i = 0; i < this.meetingIds.size(); i++) {
+            if (this.meetingIds.get(i) == id2) {
+                this.meetingIds.remove(i);
+            }
+        }
+	}
 }

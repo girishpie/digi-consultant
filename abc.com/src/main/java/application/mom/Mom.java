@@ -14,11 +14,11 @@ public class Mom  extends BasicInfo{
 	@Id
 	private String id;
 	private String title;
+	private String projectId;
 	private String objective;
 	private Date date;
-	private String meetingCommenced;
-	private String meetingAdjourned;
 	private String meetingNo;
+	private String venue;
 	private List<String> attendees = new ArrayList<String>();
 	private List<String> absentees = new ArrayList<String>(); 
 	private List<DiscussionItem> discussionItems = new ArrayList<DiscussionItem>(); 
@@ -28,14 +28,14 @@ public class Mom  extends BasicInfo{
 	public Mom() {
 		
 	}
-	public Mom(String title, String objective, Date date, String meetingCommenced, String meetingAdjourned,
-			String meetingNo, List<String> attendees, List<String> absentees, List<DiscussionItem> discussionItems,
+	public Mom(String title, String projectId, String objective, Date date, String venue, String meetingNo, 
+			List<String> attendees, List<String> absentees, List<DiscussionItem> discussionItems,
 			List<DiscussionItem> discussedItems, List<Agenda> agenda) {
 		this.title = title;
+		this.projectId = projectId;
 		this.objective = objective;
 		this.date = date;
-		this.meetingCommenced = meetingCommenced;
-		this.meetingAdjourned = meetingAdjourned;
+		this.venue = venue;
 		this.meetingNo = meetingNo;
 		this.attendees = attendees;
 		this.absentees = absentees;
@@ -60,6 +60,12 @@ public class Mom  extends BasicInfo{
 		this.title = title;
 	}
 
+	public String getProjectId() {
+		return projectId;
+	}
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
+	}
 	public String getObjective() {
 		return objective;
 	}
@@ -76,20 +82,12 @@ public class Mom  extends BasicInfo{
 		this.date = date;
 	}
 
-	public String getMeetingCommenced() {
-		return meetingCommenced;
+	public String getVenue() {
+		return venue;
 	}
 
-	public void setMeetingCommenced(String meetingCommenced) {
-		this.meetingCommenced = meetingCommenced;
-	}
-
-	public String getMeetingAdjourned() {
-		return meetingAdjourned;
-	}
-
-	public void setMeetingAdjourned(String meetingAdjourned) {
-		this.meetingAdjourned = meetingAdjourned;
+	public void setVenue(String venue) {
+		this.venue = venue;
 	}
 
 	public String getMeetingNo() {

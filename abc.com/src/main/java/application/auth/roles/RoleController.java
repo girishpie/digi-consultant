@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -71,7 +72,11 @@ public class RoleController {
             RestError restError = new RestError("No Roles found", HttpStatus.NOT_FOUND);
             return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
         }
-        RestResponse response = new RestResponse( roles);
+        List<RoleDto> roleDtos = new ArrayList<RoleDto>();
+        for(int i = 0; i < roles.size(); i++ ) { 
+        	roleDtos.add(new RoleDto(roles.get(i)));
+        }
+        RestResponse response = new RestResponse( roleDtos);
         return new ResponseEntity<RestResponse>(response,  new HttpHeaders(),HttpStatus.OK);
     }
     
@@ -82,6 +87,6 @@ public class RoleController {
         if (role == null) {
         	return ResponseWrapper.getResponse( new RestError("Role With: " + id + " Does not exist", HttpStatus.NOT_FOUND));
         }
-        return ResponseWrapper.getResponse( new RestResponse(role));
+        return ResponseWrapper.getResponse( new RestResponse(new RoleDto(role)));
     }
 }

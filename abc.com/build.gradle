@@ -27,9 +27,9 @@ repositories
 
 node
 {
-            version = "6.10.3"
+            version = "6.11.3"
             download = false
-            nodeModulesDir = file("digi-client1")
+            nodeModulesDir = file("digi-client")
 }
 
 task buildClientDev(type: NpmTask, dependsOn: 'npmInstall') {
@@ -61,7 +61,7 @@ task buildDocker(type: Docker, dependsOn: build) {
 }
 
 jar {
-    baseName = 'abc'
+    baseName = 'DigiConsultant'
     version =  '0.1.0'
 }
 
@@ -81,6 +81,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web") {
         exclude module: "spring-boot-starter-tomcat"
     }
+  
     compile("org.springframework.boot:spring-boot-starter-jetty")
     // end::jetty[]
     // tag::actuator[]

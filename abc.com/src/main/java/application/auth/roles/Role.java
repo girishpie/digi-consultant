@@ -15,8 +15,6 @@ public class Role extends BasicInfo {
     @Id
     private String id;
     private String name;
-
-
     private List<PermissionType> permissions = new ArrayList<PermissionType>();
 
     public Role(){
