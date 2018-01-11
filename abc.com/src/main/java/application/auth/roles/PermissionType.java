@@ -78,6 +78,11 @@ public enum PermissionType {
     CREATE_EMPLOYEE,
     DELETE_EMPLOYEE,
     READ_EMPLOYEE,
-    UPDATE_EMPLOYEE;
+    UPDATE_EMPLOYEE,
+    
+    CREATE_CR,
+    DELETE_CR,
+    READ_CR,
+    UPDATE_CR;
 
 }

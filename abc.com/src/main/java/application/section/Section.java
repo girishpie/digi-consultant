@@ -63,16 +63,16 @@ public class Section extends BasicInfo{
 		public void setBoqId(String boqId) {
 			this.boqId = boqId;
 		}
-		public void deleteSection(String id2) {
-			for (int i = 0; i < this.sectionIds.size(); i++) {
-	            if (this.sectionIds.get(i) == id2) {
-	                this.sectionIds.remove(i);
+		public void deleteProduct(String id2) {
+			for (int i = 0; i < this.productIds.size(); i++) {
+	            if (this.productIds.get(i) == id2) {
+	                this.productIds.remove(i);
 	            }
 	        }	
 			
 		}
-		public void addSection(String id2) {
-			sectionIds.add(id2);
+		public void addProduct(String id2) {
+			productIds.add(id2);
 			
 		}
 

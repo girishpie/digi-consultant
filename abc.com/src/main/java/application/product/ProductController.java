@@ -49,7 +49,7 @@ public class ProductController {
 	    	Product prod = new Product(input.getName(), input.getQuantity(), input.getBimId(), input.getAmount(), input.getUnit(), 
 	    			 sectionId, input.getDescription(), input.getProductCatId());
 	    	Product product = productRepository.save(prod);
-	    	section.addSection(product.getId());
+	    	section.addProduct(product.getId());
 	    	sectionRepository.save(section);
 	        return ResponseWrapper.getResponse(new RestResponse( product.getId()));
 	    }
@@ -67,7 +67,7 @@ public class ProductController {
 	            return ResponseWrapper.getResponse( new RestError("Company With: "+ product.getSectionId() + " does not exist", HttpStatus.NOT_FOUND));
 	        }
 	        long res = productRepository.deleteById(id);
-	        section.deleteSection(id);
+	        section.deleteProduct(id);
 	        productRepository.save(product);
 	        return ResponseWrapper.getResponse( new RestResponse(res));
 
