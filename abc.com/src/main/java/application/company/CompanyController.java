@@ -36,7 +36,7 @@ public class CompanyController {
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
     ResponseEntity<IResponse> delete(@PathVariable String id) {
         long res = companyRepository.deleteById(id);
-        return ResponseWrapper.getResponse( new RestResponse( res));
+        return ResponseWrapper.getResponse( new RestResponse( id));
     }
 
     //Update Specific company

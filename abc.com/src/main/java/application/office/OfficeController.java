@@ -63,7 +63,7 @@ public class OfficeController {
         long res = officeRepository.deleteById(id);
         company.deleteOffice(id);
         companyRepository.save(company);
-        RestResponse response = new RestResponse(res);
+        RestResponse response = new RestResponse(id);
         return new ResponseEntity<Object>(response,  new HttpHeaders(),HttpStatus.OK);
     }
 

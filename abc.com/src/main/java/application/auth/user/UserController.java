@@ -74,7 +74,7 @@ public class UserController {
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
     ResponseEntity<?> delete(@PathVariable String id) {
         long res = userRepository.deleteById(id);
-        return ResponseWrapper.getResponse( new RestResponse( res));
+        return ResponseWrapper.getResponse( new RestResponse( id));
      }
     
     @PreAuthorize("hasAuthority('UPDATE_USER')")

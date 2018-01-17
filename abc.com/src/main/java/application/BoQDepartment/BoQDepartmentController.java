@@ -65,7 +65,7 @@ import application.response.RestResponse;
 	        long res = boqDepartmentRepository.deleteById(id);
 	        project.deleteBoQDepartment(id);
 	        projectRepository.save(project);
-	        return ResponseWrapper.getResponse( new RestResponse(res));
+	        return ResponseWrapper.getResponse( new RestResponse(id));
 
 	    }
 	    

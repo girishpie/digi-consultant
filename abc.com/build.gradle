@@ -83,10 +83,17 @@ dependencies {
     }
   
     compile("org.springframework.boot:spring-boot-starter-jetty")
+   
     // end::jetty[]
     // tag::actuator[]
     compile("org.springframework.boot:spring-boot-starter-actuator")
     // end::actuator[]
+    
+    compile("org.springframework.boot:spring-boot-starter-mail")
+    compile (group: 'org.springframework', name: 'spring-context')
+    compile (group: 'org.springframework', name: 'spring-context-support')
+    compile (group: 'com.sun.mail', name: 'javax.mail', version: '1.6.0')
+
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-data-mongodb")
@@ -94,5 +101,6 @@ dependencies {
     compile (group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.9.1')
     compile (group: 'org.springframework.security.oauth', name: 'spring-security-oauth2')
     compile("org.aspectj:aspectjweaver")
+ 
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }

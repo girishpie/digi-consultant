@@ -83,7 +83,7 @@ public class BoQController {
         long res = boQRepository.deleteById(id);
         boqDepartment.setBoqId("");
         boqDepartmentRepository.save(boqDepartment);
-        return ResponseWrapper.getResponse( new RestResponse(res));
+        return ResponseWrapper.getResponse( new RestResponse(id));
 
     }
     

@@ -24,6 +24,7 @@ public class User extends BasicInfo {
     private String email;
     private String phoneNumber;
     private String password;
+    private String resetToken;
     
     private  List<String> roleIds = new ArrayList<String>();
 
@@ -107,6 +108,13 @@ public class User extends BasicInfo {
     public void setRoleIds(List<String> roleIds) {
         this.roleIds = roleIds;
     }
+    
+    public String getResetToken() {
+		return resetToken;
+	}
 
+	public void setResetToken(String resetToken) {
+		this.resetToken = resetToken;
+	}
 
 }

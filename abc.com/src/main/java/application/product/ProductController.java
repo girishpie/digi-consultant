@@ -69,7 +69,7 @@ public class ProductController {
 	        long res = productRepository.deleteById(id);
 	        section.deleteProduct(id);
 	        productRepository.save(product);
-	        return ResponseWrapper.getResponse( new RestResponse(res));
+	        return ResponseWrapper.getResponse( new RestResponse(id));
 
 	    }
 	    

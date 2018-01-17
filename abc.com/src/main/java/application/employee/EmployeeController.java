@@ -67,7 +67,7 @@ public class EmployeeController {
         long res = employeeRepository.deleteById(id);
         company.deleteEmployee(id);
         companyRepository.save(company);
-        return ResponseWrapper.getResponse( new RestResponse(res));
+        return ResponseWrapper.getResponse( new RestResponse(id));
 
     }
     

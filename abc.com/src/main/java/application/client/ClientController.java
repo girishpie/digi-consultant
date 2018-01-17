@@ -71,7 +71,7 @@ public class ClientController {
         long res = clientRepository.deleteById(id);
         company.deleteClient(id);
         companyRepository.save(company);
-        return ResponseWrapper.getResponse( new RestResponse(res));
+        return ResponseWrapper.getResponse( new RestResponse(id));
 
     }
     

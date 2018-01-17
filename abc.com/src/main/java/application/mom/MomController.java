@@ -49,8 +49,8 @@ public class MomController {
 		mom.setDate(input.getDate());
 		mom.setVenue(input.getVenue());
 		mom.setMeetingNo(input.getMeetingNo());
-		mom.setAttendees(input.getAttendees());
-		mom.setAbsentees(input.getAbsentees());
+		//mom.setAttendees(input.getAttendees());
+		///mom.setAbsentees(input.getAbsentees());
 		mom.setDiscussionItems(input.getDiscussionItems());
 		mom.setDiscussedItems(input.getDiscussedItems());
 		mom = momRepository.save(mom);
@@ -88,8 +88,8 @@ public class MomController {
 			mom.setDate(input.getDate());
 			mom.setVenue(input.getVenue());
 			mom.setMeetingNo(input.getMeetingNo());
-			mom.setAttendees(input.getAttendees());
-			mom.setAbsentees(input.getAbsentees());
+			//mom.setAttendees(input.getAttendees());
+			//mom.setAbsentees(input.getAbsentees());
 			mom.setDiscussionItems(input.getDiscussionItems());
 			mom.setDiscussedItems(input.getDiscussedItems());
 			mom.update();

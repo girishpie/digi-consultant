@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by gipai on 9/28/2017.
@@ -33,6 +34,8 @@ public class UserServiceImpl implements UserDetailsService {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
     }
+    
+   
 
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {

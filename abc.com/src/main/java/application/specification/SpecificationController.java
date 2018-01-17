@@ -57,7 +57,7 @@ public class SpecificationController {
         long res = specificationRepository.deleteById(id);
         section.setSpecId("");
         sectionRepository.save(section);
-        return ResponseWrapper.getResponse( new RestResponse(res));
+        return ResponseWrapper.getResponse( new RestResponse(id));
 
     }
     

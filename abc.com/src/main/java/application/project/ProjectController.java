@@ -75,7 +75,7 @@ public class ProjectController {
         long res = projectRepository.deleteById(id);
         client.deleteProject(id);
         clientRepository.save(client);
-        return ResponseWrapper.getResponse( new RestResponse(res));
+        return ResponseWrapper.getResponse( new RestResponse(id));
 
     }
     
@@ -109,7 +109,13 @@ public class ProjectController {
         List<ProjectDto> projectDtos = new ArrayList<ProjectDto>();
         for(int i = 0; i < projects.size(); i++ ) {
         	Client client = clientRepository.findById(projects.get(i).getClientId());
-            ProjectDto projectDto = new ProjectDto(projects.get(i), client.getName());
+        	ProjectDto projectDto = null;
+        	if(client == null){
+        		 projectDto = new ProjectDto(projects.get(i), "");
+            }
+        	else {
+        		 projectDto = new ProjectDto(projects.get(i), client.getName());
+        	}
         	projectDtos.add(projectDto);
         }
         return ResponseWrapper.getResponse(new RestResponse(projectDtos));

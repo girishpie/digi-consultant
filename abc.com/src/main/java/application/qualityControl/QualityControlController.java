@@ -83,7 +83,7 @@ public class QualityControlController {
         long res = qualityControlRepository.deleteById(id);
         project.deleteCR(id);
         projectRepository.save(project);
-        return ResponseWrapper.getResponse( new RestResponse(res));
+        return ResponseWrapper.getResponse( new RestResponse(id));
 
     }
     

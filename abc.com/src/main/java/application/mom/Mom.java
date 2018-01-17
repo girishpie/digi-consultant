@@ -16,11 +16,11 @@ public class Mom  extends BasicInfo{
 	private String title;
 	private String projectId;
 	private String objective;
+	private String meetingType;
 	private Date date;
 	private String meetingNo;
 	private String venue;
-	private List<String> attendees = new ArrayList<String>();
-	private List<String> absentees = new ArrayList<String>(); 
+	private List<PeopleList> pplList = new ArrayList<PeopleList>();
 	private List<DiscussionItem> discussionItems = new ArrayList<DiscussionItem>(); 
 	private List<DiscussionItem> discussedItems = new ArrayList<DiscussionItem>(); 
 	private List<Agenda> agenda = new ArrayList<Agenda>();
@@ -29,7 +29,7 @@ public class Mom  extends BasicInfo{
 		
 	}
 	public Mom(String title, String projectId, String objective, Date date, String venue, String meetingNo, 
-			List<String> attendees, List<String> absentees, List<DiscussionItem> discussionItems,
+			List<PeopleList> pplList, List<String> absentees, List<DiscussionItem> discussionItems,
 			List<DiscussionItem> discussedItems, List<Agenda> agenda) {
 		this.title = title;
 		this.projectId = projectId;
@@ -37,8 +37,7 @@ public class Mom  extends BasicInfo{
 		this.date = date;
 		this.venue = venue;
 		this.meetingNo = meetingNo;
-		this.attendees = attendees;
-		this.absentees = absentees;
+		this.pplList = pplList;
 		this.discussionItems = discussionItems;
 		this.discussedItems = discussedItems;
 		this.agenda = agenda;
@@ -78,6 +77,12 @@ public class Mom  extends BasicInfo{
 		return date;
 	}
 
+	public String getMeetingType() {
+		return meetingType;
+	}
+	public void setMeetingType(String meetingType) {
+		this.meetingType = meetingType;
+	}
 	public void setDate(Date date) {
 		this.date = date;
 	}
@@ -98,20 +103,12 @@ public class Mom  extends BasicInfo{
 		this.meetingNo = meetingNo;
 	}
 
-	public List<String> getAttendees() {
-		return attendees;
+	public List<PeopleList> getPplList() {
+		return pplList;
 	}
 
-	public void setAttendees(List<String> attendees) {
-		this.attendees = attendees;
-	}
-
-	public List<String> getAbsentees() {
-		return absentees;
-	}
-
-	public void setAbsentees(List<String> absentees) {
-		this.absentees = absentees;
+	public void setPplList(List<PeopleList> attendees) {
+		this.pplList = attendees;
 	}
 
 	public List<DiscussionItem> getDiscussionItems() {

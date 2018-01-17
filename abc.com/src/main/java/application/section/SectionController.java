@@ -72,7 +72,7 @@ public class SectionController {
         long res = sectionRepository.deleteById(id);
         boq.deleteSection(id);
         boqRepository.save(boq);
-        return ResponseWrapper.getResponse( new RestResponse(res));
+        return ResponseWrapper.getResponse( new RestResponse(id));
 
     }
     

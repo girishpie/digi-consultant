@@ -80,6 +80,11 @@ public enum PermissionType {
     READ_EMPLOYEE,
     UPDATE_EMPLOYEE,
     
+    CREATE_MOM,
+    DELETE_MOM,
+    READ_MOM,
+    UPDATE_MOM,
+	
     CREATE_CR,
     DELETE_CR,
     READ_CR,

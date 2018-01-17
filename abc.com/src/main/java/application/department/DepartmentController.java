@@ -62,7 +62,7 @@ public class DepartmentController {
         long res = departmentRepository.deleteById(id);
         company.deleteDepartment(id);
         companyRepository.save(company);
-        return ResponseWrapper.getResponse( new RestResponse(res));
+        return ResponseWrapper.getResponse( new RestResponse(id));
 
     }
     
