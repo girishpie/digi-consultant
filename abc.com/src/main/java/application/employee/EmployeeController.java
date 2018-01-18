@@ -125,5 +125,23 @@ public class EmployeeController {
         EmployeeDto employeeDto = new EmployeeDto(employee, company.getCompanyName());
         return ResponseWrapper.getResponse( new RestResponse(employeeDto));
     }
+    
+    @PreAuthorize("hasAuthority('READ_EMPLOYEE')")
+    @RequestMapping(value = "/{projectId}",method = RequestMethod.GET)
+    public ResponseEntity<?> getAllEmployeeByProject(@PathVariable("projectId") String projectId) {
+        List<Employee> employees = employeeRepository.findByProjectId(projectId);
+        
+        if (employees.isEmpty()) {
+            return ResponseWrapper.getResponse( new RestError("No employees are exist", HttpStatus.NOT_FOUND));
+         }
+        List<EmployeeDto> employeeDtos = new ArrayList<EmployeeDto>();
+        for(int i = 0; i < employees.size(); i++ ) {
+        	 Company company = companyRepository.findById(employees.get(i).getCompanyId());
+        	EmployeeDto employeeDto = new EmployeeDto(employees.get(i), company.getCompanyName());
+            employeeDtos.add(employeeDto);
+        }
+        return ResponseWrapper.getResponse(new RestResponse(employeeDtos));
+
+    }
 
 }

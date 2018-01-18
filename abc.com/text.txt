@@ -1,0 +1,19 @@
+:compileJava FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Could not resolve all files for configuration ':compileClasspath'.
+> Could not find javax.mail:mail:1.6.0.
+  Required by:
+      project :
+> Could not find javax.mail:mail-api:1.5.6.
+  Required by:
+      project :
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+* Get more help at https://help.gradle.org
+
+BUILD FAILED in 18s

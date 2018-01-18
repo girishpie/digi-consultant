@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import application.client.Client;
 import application.client.ClientRepository;
+import application.employee.Employee;
+import application.employee.EmployeeRepository;
 import application.response.IResponse;
 import application.response.ResponseWrapper;
 import application.response.RestError;
@@ -31,12 +33,15 @@ public class ProjectController {
 	@Autowired
 	private final ProjectRepository projectRepository;
 	@Autowired
+	private final EmployeeRepository employeeRepository;
+	@Autowired
 	private final ClientRepository clientRepository;
 	
 	
-	ProjectController(ClientRepository clientRepository, ProjectRepository projectRepository) {
+	ProjectController(ClientRepository clientRepository, ProjectRepository projectRepository,EmployeeRepository employeeRepository) {
         this.projectRepository = projectRepository;
         this.clientRepository = clientRepository;
+        this.employeeRepository = employeeRepository;
     }
 	
 	@PreAuthorize("hasAuthority('CREATE_PROJECT')")
@@ -88,12 +93,48 @@ public class ProjectController {
             return ResponseWrapper.getResponse(new RestError("Update failed as project with id " + projectId + " doesnot exist" , HttpStatus.NOT_FOUND));
         }
 
+        List<String> existingEmployees = project.getEmployeeIds();
+        List<String> newEmployees =  input.getEmployeeIds();
+        List<String>addList = new ArrayList<String>();
+        List<String>deleteList = new ArrayList<String>();
+        //compute add list
+        for(int i = 0; i< newEmployees.size();i++) {
+        	if(!existingEmployees.contains(newEmployees.get(i))) {
+        		addList.add(newEmployees.get(i));
+        	}
+        }
+        //compute delete list
+        for(int i = 0; i< existingEmployees.size();i++) {
+        	if(!newEmployees.contains(existingEmployees.get(i))) {
+        		deleteList.add(existingEmployees.get(i));
+        	}
+        }
         project.setProjectName(input.getProjectName());
         project.setJobNumber(input.getJobNumber());
         project.setSiteAddress(input.getSiteAddress());
         project.setDescription(input.getDescription());
         project.setPhase(input.getPhase());
+        project.setEmployeeIds(input.getEmployeeIds());
+       
+        for(int i = 0; i< addList.size();i++) {
+        	Employee emp = employeeRepository.findById(addList.get(i));
+        	if(emp!= null) {
+        		emp.addProject(project.getId());
+        		emp.update();
+        		employeeRepository.save(emp);
+        	}
+        }
+        for(int i = 0; i< deleteList.size();i++) {
+        	Employee emp = employeeRepository.findById(deleteList.get(i));
+        	if(emp!= null) {
+        		emp.deleteProject(project.getId());
+        		emp.update();
+        		employeeRepository.save(emp);
+        	}
+        }
+        
         project.update();
+        
         project = projectRepository.save(project);
         return ResponseWrapper.getResponse(new RestResponse(project));
     }

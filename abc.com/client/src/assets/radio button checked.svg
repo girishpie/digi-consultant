@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-28 12599 20 20">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #00adee;
+      }
+    </style>
+  </defs>
+  <path id="radio_button_checked" data-name="radio button checked" class="cls-1" d="M12,7a5,5,0,1,0,5,5A5,5,0,0,0,12,7Zm0-5A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" transform="translate(-30 12597)"/>
+</svg>

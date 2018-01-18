@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-23 12462 15 15">
+  <defs>
+    <style>
+      .cls-1 {
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <g id="ticket_management_black" data-name="ticket management black" transform="translate(-26 12459.003)">
+    <g id="Group_28" data-name="Group 28" transform="translate(3 2.997)">
+      <path id="Path_18" data-name="Path 18" d="M4.276,1031.36A1.282,1.282,0,0,0,3,1032.635v12.45a1.282,1.282,0,0,0,1.276,1.274H16.724A1.282,1.282,0,0,0,18,1045.084v-12.45a1.283,1.283,0,0,0-1.276-1.276H4.276Zm0,.835H16.724a.432.432,0,0,1,.443.441v12.45a.432.432,0,0,1-.443.441H4.276a.434.434,0,0,1-.443-.442v-12.449a.432.432,0,0,1,.443-.441Z" transform="translate(-3 -1031.359)"/>
+      <path id="Path_19" data-name="Path 19" d="M11.417,1034.36a.417.417,0,0,0-.417.417v2.5a.417.417,0,0,0,.417.417h5a.417.417,0,0,0,.417-.417v-2.5a.417.417,0,0,0-.417-.417Zm.417.833H16v1.667H11.833Z" transform="translate(-4.333 -1031.859)"/>
+      <path id="Path_20" data-name="Path 20" d="M11.417,1039.36a.417.417,0,0,0-.417.417v2.5a.417.417,0,0,0,.417.417h5a.417.417,0,0,0,.417-.417v-2.5a.417.417,0,0,0-.417-.417Zm.417.833H16v1.667H11.833Z" transform="translate(-4.333 -1032.692)"/>
+      <path id="Path_21" data-name="Path 21" class="cls-1" d="M6,1035.36v.833H8.5v-.833Z" transform="translate(-3.5 -1032.026)"/>
+      <path id="Path_22" data-name="Path 22" class="cls-1" d="M6,1040.36v.833H8.5v-.833Z" transform="translate(-3.5 -1032.859)"/>
+      <path id="Path_23" data-name="Path 23" class="cls-1" d="M6,1045.36v.833h9.915v-.833H6Z" transform="translate(-3.5 -1033.692)"/>
+    </g>
+  </g>
+</svg>

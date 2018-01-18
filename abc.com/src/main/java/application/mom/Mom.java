@@ -22,15 +22,13 @@ public class Mom  extends BasicInfo{
 	private String venue;
 	private List<PeopleList> pplList = new ArrayList<PeopleList>();
 	private List<DiscussionItem> discussionItems = new ArrayList<DiscussionItem>(); 
-	private List<DiscussionItem> discussedItems = new ArrayList<DiscussionItem>(); 
-	private List<Agenda> agenda = new ArrayList<Agenda>();
+	//private List<Agenda> agenda = new ArrayList<Agenda>();
 	
 	public Mom() {
 		
 	}
 	public Mom(String title, String projectId, String objective, Date date, String venue, String meetingNo, 
-			List<PeopleList> pplList, List<String> absentees, List<DiscussionItem> discussionItems,
-			List<DiscussionItem> discussedItems, List<Agenda> agenda) {
+			List<PeopleList> pplList, List<String> absentees, List<DiscussionItem> discussionItems) {
 		this.title = title;
 		this.projectId = projectId;
 		this.objective = objective;
@@ -39,8 +37,8 @@ public class Mom  extends BasicInfo{
 		this.meetingNo = meetingNo;
 		this.pplList = pplList;
 		this.discussionItems = discussionItems;
-		this.discussedItems = discussedItems;
-		this.agenda = agenda;
+	
+		//this.agenda = agenda;
 	}
 
 	public String getId() {
@@ -119,22 +117,17 @@ public class Mom  extends BasicInfo{
 		this.discussionItems = discussionItems;
 	}
 
-	public List<DiscussionItem> getDiscussedItems() {
-		return discussedItems;
-	}
-
-	public void setDiscussedItems(List<DiscussionItem> discussedItems) {
-		this.discussedItems = discussedItems;
-	}
-
-	public List<Agenda> getAgenda() {
-		return agenda;
-	}
-
-	public void setAgenda(List<Agenda> agenda) {
-		this.agenda = agenda;
-	} 
-
 	
+	public void addDiscussionItem(DiscussionItem parentItem,DiscussionItem newItem) {
+		if(parentItem!= null) {
+			parentItem.add(newItem);
+		}else {
+			//TODO: revisit when delete topic is possible
+			String version = discussionItems.size() + ".0";
+			newItem.setVersion(version);
+			this.discussionItems.add(newItem);
+		}
+		
+	}
 	
 }

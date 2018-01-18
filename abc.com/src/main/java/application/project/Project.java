@@ -31,6 +31,7 @@ public class Project extends BasicInfo {
 	private List<String> boqDepartmentIds = new ArrayList<String>();
 	private List<String> crIds = new ArrayList<String>();
 	private List<String> meetingIds = new ArrayList<String>();
+	private List<String> employeeIds = new ArrayList<String>();
 	
 	public Project() {
 		
@@ -49,6 +50,38 @@ public class Project extends BasicInfo {
 		
 	}
 	
+	public List<String> getBoqDepartmentIds() {
+		return boqDepartmentIds;
+	}
+
+	public void setBoqDepartmentIds(List<String> boqDepartmentIds) {
+		this.boqDepartmentIds = boqDepartmentIds;
+	}
+
+	public List<String> getCrIds() {
+		return crIds;
+	}
+
+	public void setCrIds(List<String> crIds) {
+		this.crIds = crIds;
+	}
+
+	public List<String> getMeetingIds() {
+		return meetingIds;
+	}
+
+	public void setMeetingIds(List<String> meetingIds) {
+		this.meetingIds = meetingIds;
+	}
+
+	public List<String> getEmployeeIds() {
+		return employeeIds;
+	}
+
+	public void setEmployeeIds(List<String> employeeIds) {
+		this.employeeIds = employeeIds;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -136,4 +169,6 @@ public class Project extends BasicInfo {
             }
         }
 	}
+	
+	
 }

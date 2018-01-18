@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="154 12298 25 16.667">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #00adee;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="view" transform="translate(-886 11809)">
+    <rect id="Rectangle_99" data-name="Rectangle 99" class="cls-1" width="25" height="16.667" rx="1" transform="translate(1040 489)"/>
+    <path id="ic_visibility_24px" class="cls-2" d="M6.867,4.5A6.308,6.308,0,0,0,1,8.5a6.3,6.3,0,0,0,11.733,0A6.308,6.308,0,0,0,6.867,4.5Zm0,6.667A2.667,2.667,0,1,1,9.533,8.5,2.668,2.668,0,0,1,6.867,11.167Zm0-4.267a1.6,1.6,0,1,0,1.6,1.6A1.6,1.6,0,0,0,6.867,6.9Z" transform="translate(1046 488.5)"/>
+  </g>
+</svg>

@@ -1,0 +1,53 @@
+<div class="container-fluid rounded" >
+ 	<div class = "glyphicon glyphicon-cog">ADD PRODUCT</div>
+      <div >
+        <form>
+          <div class="form-group" >
+            <label for="section-option" class="form-control-label">Sections:</label>
+            <select id="section-option" class="form-control"   [(ngModel)]="sectionId" name="sections">
+              <option *ngFor="let section of availableSections" [value]="section.id">
+                {{ section.sectionName }}
+              </option>
+            </select>            
+          </div>
+          <div class="form-group">
+            <label for="product-name" class="form-control-label">Product Name:</label>
+            <input type="text" class="form-control" id="product-name" [(ngModel)]="name" name="first">
+          </div>
+          <div class="form-group" >
+            <label for="category-option" class="form-control-label">Categories:</label>
+            <select id="category-option" class="form-control"   [(ngModel)]="categoryId" name="categories">
+              <option *ngFor="let category of availableCategories" [value]="category.id">
+                {{ category.name }}
+              </option>
+            </select>            
+          </div>
+          <div class="form-group">
+            <label for="quantity" class="form-control-label">Quantity:</label>
+            <input type="text" class="form-control" id="quantity" [(ngModel)]="quantity" name="second">
+          </div>
+          <div class="form-group">
+            <label for="amount" class="form-control-label">Amount:</label>
+            <input type="text" class="form-control" id="quantity" [(ngModel)]="amount" name="third">
+          </div>
+          <div class="form-group">
+            <label for="unit" class="form-control-label">Unit:</label>
+            <input type="text" class="form-control" id="quantity" [(ngModel)]="unit" name="first">
+          </div>
+          <div class="form-group">
+            <label for="bimId" class="form-control-label">Bim Id:</label>
+            <input type="text" class="form-control" id="bimId" [(ngModel)]="bimId" name="first">
+          </div>
+          <div class="form-group">
+            <label for="description" class="form-control-label">Description:</label>
+            <input type="textarea" class="form-control" id="description" [(ngModel)]="description" name="first">
+          </div>
+          <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" (click)="goBack()">Cancel</button>
+	        <button type="button" class="btn btn-primary" (click)="addNewProduct()" >Add</button>
+      	  </div>
+        </form>
+      </div>
+</div>
+
+

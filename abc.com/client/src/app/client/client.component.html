@@ -1,0 +1,31 @@
+<div class="container-fluid digi-client rounded" >
+<div class="column">
+<div class = "glyphicon glyphicon-cog">MANAGE CLIENTS</div>
+	<a href="#/new-client" class="btn btn-primary round pull-right" role="button">+Add Client</a>
+</div>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Client Name</th>
+    <th>Address</th>
+    <th>Client's Company</th>
+    <th>Projects</th>
+  </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let client of clients.clients | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: clients.totalItems, id:'server'} ">
+        <td class = "table-cell">{{ client.name }}</td>
+        <td class = "table-cell">{{ client.address }}</td>
+        <td class = "table-cell">{{ client.companyName }}</td>
+        <td class = "table-cell">{{ client.projectNames }}</td>
+        
+         <td class = "table-cell">
+       
+           <img src="assets/edit.svg" style="width:30px">
+		   <img src="assets/delete.svg" (click) = "deleteClient(client)" style="width:30px">
+         </td>
+     </tr>
+  </tbody>
+ </table>
+  <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+</div>

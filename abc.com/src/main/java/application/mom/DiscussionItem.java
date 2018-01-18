@@ -1,27 +1,31 @@
 package application.mom;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DiscussionItem {
-	private double ItemNo;
+	private String version;
 	private String discussion;
 	private String action;
 	private String edit;
+	private List<DiscussionItem> discussionItems = new ArrayList<DiscussionItem>(); 
 	
 	public DiscussionItem() {
 		
 	}
 	
-	public DiscussionItem(double itemNo, String discussion, String action, String edit) {
+	public DiscussionItem(String version, String discussion, String action, String edit) {
 		super();
-		ItemNo = itemNo;
+		this.version = version;
 		this.discussion = discussion;
 		this.action = action;
 		this.edit = edit;
 	}
-	public double getItemNo() {
-		return ItemNo;
+	public String getVersion() {
+		return version;
 	}
-	public void setItemNo(double itemNo) {
-		ItemNo = itemNo;
+	public void setVersion(String version) {
+		this.version = version;
 	}
 	public String getDiscussion() {
 		return discussion;
@@ -42,4 +46,11 @@ public class DiscussionItem {
 		this.edit = edit;
 	}
 	
+	public void add(DiscussionItem item) {
+		String[]  versions = version.split(".");
+		//TODO: revisit when delete topic is possible
+		String version = versions[0] + "." + discussionItems.size();
+		item.setVersion(version);
+		this.discussionItems.add(item);
+	}
 }

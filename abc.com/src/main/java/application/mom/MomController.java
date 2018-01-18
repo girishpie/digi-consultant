@@ -49,10 +49,10 @@ public class MomController {
 		mom.setDate(input.getDate());
 		mom.setVenue(input.getVenue());
 		mom.setMeetingNo(input.getMeetingNo());
-		//mom.setAttendees(input.getAttendees());
+		mom.setPplList(input.getPplList());
 		///mom.setAbsentees(input.getAbsentees());
 		mom.setDiscussionItems(input.getDiscussionItems());
-		mom.setDiscussedItems(input.getDiscussedItems());
+		//mom.setDiscussedItems(input.getDiscussedItems());
 		mom = momRepository.save(mom);
 		project.addMeeting(mom.getId());
 		projectRepository.save(project);
@@ -67,11 +67,12 @@ public class MomController {
 	            return ResponseWrapper.getResponse( new RestError("Mom With: "+ id + " does not exist", HttpStatus.NOT_FOUND));
 	        }
 	        Project project = projectRepository.findById(mom.getProjectId());
-	        if(project == null){
-	            return ResponseWrapper.getResponse( new RestError("Project With: "+ mom.getProjectId()+ " does not exist", HttpStatus.NOT_FOUND));
+	        if(project != null){
+	        	project.deleteMeeting(id);
+	            //return ResponseWrapper.getResponse( new RestError("Project With: "+ mom.getProjectId()+ " does not exist", HttpStatus.NOT_FOUND));
 	        }
 	        long res = momRepository.deleteById(id);
-	        project.deleteMeeting(id);
+	        //project.deleteMeeting(id);
 	        return ResponseWrapper.getResponse( new RestResponse(res));
 
 	    }
@@ -88,10 +89,10 @@ public class MomController {
 			mom.setDate(input.getDate());
 			mom.setVenue(input.getVenue());
 			mom.setMeetingNo(input.getMeetingNo());
-			//mom.setAttendees(input.getAttendees());
-			//mom.setAbsentees(input.getAbsentees());
-			mom.setDiscussionItems(input.getDiscussionItems());
-			mom.setDiscussedItems(input.getDiscussedItems());
+			mom.setPplList(input.getPplList());
+		//	mom.setAgenda(input.getAgenda());
+			//mom.setDiscussionItems(input.getDiscussionItems());
+		//	mom.setDiscussedItems(input.getDiscussedItems());
 			mom.update();
 			mom = momRepository.save(mom);
 	      
@@ -111,7 +112,7 @@ public class MomController {
 	    } 
 	        
 
-	    @PreAuthorize("hasAuthority('READ_GET')")
+	    @PreAuthorize("hasAuthority('READ_MOM')")
 	    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	    public ResponseEntity<?> get(@PathVariable("id") String id) {
 	    	Mom meeting = momRepository.findById(id);

@@ -152,5 +152,13 @@ public class Employee extends BasicInfo{
 		this.projectIds = projectIds;
 	}
 	
+	public void addProject(String projectId) {
+		this.projectIds.add(projectId);
+	}
+	
+	public void deleteProject(String projectId) {
+		this.projectIds.remove(projectId);
+	}
+	
 
 }

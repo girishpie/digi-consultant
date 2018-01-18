@@ -1,0 +1,26 @@
+<div class="container-fluid rounded" >
+ 	<div class = "glyphicon glyphicon-cog">ADD CATEGORY</div>
+      <div>
+        <form>
+          <div class="form-group">
+            <label for="department-name" class="form-control-label">Department Name:</label>
+            <input type="text" class="form-control" id="department-name" [(ngModel)]="name" name="first">
+          </div>
+          <div class="form-group" >
+            <label for="project-option" class="form-control-label">Projects:</label>
+            <select id="project-option" class="form-control"   [(ngModel)]="projectId" name="projects">
+              <option *ngFor="let project of availableProjects" [value]="project.id">
+                {{ project.projectName }}
+              </option>
+            </select>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="goBack()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="addNewDepartment()" >Add</button>
+      </div>
+    </div>
+
+

@@ -1,0 +1,40 @@
+<div class="container-fluid digi-category rounded" >
+<div class="column">
+	<div class = "glyphicon glyphicon-cog">MANAGE CATEGORIES</div>
+	<a href="#/new-category" class="btn btn-primary round pull-right" role="button">+Add Category</a>
+</div>
+
+<table class="table ">
+  <thead>
+  <tr>
+  	<th>Category Name</th>
+    <th>Description</th>
+    <th>SubCategories</th>
+  </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let category of categories.categories | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: categories.totalItems, id:'server'} ">
+        <td class = "table-cell">{{ category.name }}</td>
+        <td class = "table-cell">{{ category.description }}</td>
+         <td class = "table-cell">
+          {{ category.subCategories }} 
+<!--             <select id="subCat-option" [ngClass]="pageMode" [(ngModel)]="subCats" name="subCat-option" multiple> -->
+<!--               <option *ngFor="let subCat of availableSubcat" [value]="subCat.id"> -->
+<!--                {{ subCat.name }}-->
+ <!--              </option>-->
+<!--             </select>    -->
+
+  <!--        <span class="displayValue" [ngClass]="pageMode">{{category.subCategories }}</span>   --> 
+           </td>
+           <td>
+           <img src="assets/edit.svg" class="viewButton" [ngClass]="pageMode" style="width:30px" (click) = "editCategory(category)">
+		   <img src="assets/delete.svg" (click) = "deleteCategory(category)" style="width:30px">
+		 <button type="submit" class="editButton" [ngClass]="pageMode" (click) = "saveCategory(category)">Save</button>
+        <button class="editButton" [ngClass]="pageMode" (click)="cancelEdit()">Cancel</button>
+     
+        </td>
+     </tr>
+  </tbody>
+ </table>
+  <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+</div>

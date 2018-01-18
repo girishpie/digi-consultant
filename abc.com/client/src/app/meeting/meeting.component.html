@@ -1,0 +1,36 @@
+<div class="container-fluid digi-meeting rounded" >
+        <div class="column">
+        <div class = "glyphicon glyphicon-cog">MEETING</div>
+            <a href="#/new-meeting" class="btn btn-primary round pull-right" role="button">+Add Meeting</a>
+        </div>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Meeting Type</th>
+            <th>Venue</th>
+            <th>Date</th>
+            <th>Uploaded by</th>
+          </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let meeting of meetings.meetings | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: meetings.totalItems, id:'server'} ">
+                <td class = "table-cell">{{ meeting.type }}</td>
+                <td class = "table-cell">{{ meeting.venue }}</td>
+                <td class = "table-cell">{{ meeting.ondate |  date:'MM/dd/yyyy'}}</td>
+                <td class = "table-cell">{{ meeting.uploaded }}</td>
+                
+                 <td class = "table-cell">
+               
+                   <img src="assets/edit.svg" style="width:30px">
+                   <img src="assets/delete.svg" (click) = "deleteMeeting(meeting)" style="width:30px">
+                 </td>
+             </tr>
+          </tbody>
+         </table>
+          <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+        </div>
+        
+
+         
+       
+

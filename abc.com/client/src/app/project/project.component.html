@@ -1,0 +1,33 @@
+<div class="container-fluid digi-project rounded" >
+<div class="column">
+	<div class = "glyphicon glyphicon-cog">MANAGE PROJECTS</div>
+	<a href="#/new-project" class="btn btn-primary round pull-right" role="button">+Add Project</a>
+</div>
+
+<table class="table ">
+  <thead>
+  <tr>
+    <th>Project Name</th>
+    <th>Job Number</th>
+    <th>Site Address</th>
+    <th>Description</th>
+    <th>Start Date</th>
+    
+  </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let project of projects.projects | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: projects.totalItems, id:'server'} ">
+        <td class = "table-cell">{{ project.projectName }}</td>
+        <td class = "table-cell">{{ project.jobNumber }}</td>
+        <td class = "table-cell">{{ project.siteAddress }}</td>
+        <td class = "table-cell">{{ project.description }}</td>
+        <td class = "table-cell">{{ project.startDate |  date:'MM/dd/yyyy' }}</td>
+        <td class = "table-cell">
+         <img src="assets/edit.svg" style="width:30px">
+		 <img src="assets/delete.svg" (click) = "deleteProject(project)" style="width:30px">
+        </td>
+     </tr>
+  </tbody>
+ </table>
+  <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+</div>

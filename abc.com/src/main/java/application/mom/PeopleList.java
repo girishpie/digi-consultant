@@ -1,23 +1,23 @@
 package application.mom;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import application.employee.Employee;
-
 public class PeopleList {
 
-	private List<Employee> attendees = new ArrayList<Employee>();
-	private String reference;
-	private Boolean present;
-	private Boolean absent;
-	private Boolean distributionList;
-	private Boolean apologised;
-	public List<Employee> getAttendees() {
-		return attendees;
+	enum STATE{
+		PRESENT,
+		ABSENT,
+		APOLOGIZED
 	}
-	public void setAttendees(List<Employee> attendees) {
-		this.attendees = attendees;
+
+	private String employeeId;
+	private String reference; // what is this?
+	private STATE state;
+	private Boolean isPartOfDL;
+	
+	public String getEmployeeId() {
+		return employeeId;
+	}
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
 	}
 	public String getReference() {
 		return reference;
@@ -25,30 +25,23 @@ public class PeopleList {
 	public void setReference(String reference) {
 		this.reference = reference;
 	}
-	public Boolean getPresent() {
-		return present;
+	public STATE getState() {
+		return state;
 	}
-	public void setPresent(Boolean present) {
-		this.present = present;
+	public void setState(STATE state) {
+		this.state = state;
 	}
-	public Boolean getAbsent() {
-		return absent;
+	
+	public Boolean getIsPartOfDL() {
+		return isPartOfDL;
 	}
-	public void setAbsent(Boolean absent) {
-		this.absent = absent;
+	
+	public void setv(Boolean isPartOfDL) {
+		this.isPartOfDL = isPartOfDL;
 	}
-	public Boolean getDistributionList() {
-		return distributionList;
-	}
-	public void setDistributionList(Boolean distributionList) {
-		this.distributionList = distributionList;
-	}
-	public Boolean getApologised() {
-		return apologised;
-	}
-	public void setApologised(Boolean apologised) {
-		this.apologised = apologised;
-	}
+	
+	
+	
 	
 	
 }

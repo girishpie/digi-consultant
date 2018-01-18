@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="185 12326 25 16.667">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #00adee;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="share" transform="translate(-925 11367)">
+    <g id="Group_461" data-name="Group 461" transform="translate(70 470)">
+      <path id="Path_253" data-name="Path 253" class="cls-1" d="M1,0H24a1,1,0,0,1,1,1V15.667a1,1,0,0,1-1,1H1a1,1,0,0,1-1-1V1A1,1,0,0,1,1,0Z" transform="translate(1040 489)"/>
+    </g>
+    <path id="ic_share_24px" class="cls-2" d="M10.53,9.068a1.462,1.462,0,0,0-.984.387L5.967,7.371a1.389,1.389,0,0,0,0-.7L9.506,4.605a1.5,1.5,0,1,0-.482-1.1,1.643,1.643,0,0,0,.045.351L5.53,5.921a1.506,1.506,0,1,0,0,2.2L9.1,10.208a1.416,1.416,0,0,0-.04.326A1.466,1.466,0,1,0,10.53,9.068Z" transform="translate(1115 960)"/>
+  </g>
+</svg>

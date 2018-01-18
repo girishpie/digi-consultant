@@ -1,0 +1,17 @@
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+html {
+  box-sizing: border-box;
+  
+}
+.grid {
+
+  background: #ffffff;
+
+}
+
+.grid-logo-cell {
+  flex: 1;
+  background: #ffffff;
+}

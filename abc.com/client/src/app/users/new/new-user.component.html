@@ -1,0 +1,46 @@
+<div class="container-fluid rounded" >
+ 	<div class = "glyphicon glyphicon-cog">ADD USER</div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="user-name" class="form-control-label">User Id:</label>
+            <input type="text" class="form-control" id="user-id" [(ngModel)]="userId" name="first">
+          </div>
+          <div class="form-group">
+            <label for="user-name" class="form-control-label">First Name:</label>
+            <input type="text" class="form-control" id="first-name" [(ngModel)]="firstName" name="first">
+          </div>
+          <div class="form-group">
+            <label for="user-name" class="form-control-label">Last Name:</label>
+            <input type="text" class="form-control" id="last-name" [(ngModel)]="lastName" name="first">
+          </div>
+          <div class="form-group">
+            <label for="user-name" class="form-control-label">Email:</label>
+            <input type="text" class="form-control" id="email-text" [(ngModel)]="email" name="first">
+          </div>
+          <div class="form-group">
+            <label for="user-name" class="form-control-label">Phone Number:</label>
+            <input type="text" class="form-control" id="phone-number" [(ngModel)]="phoneNumber" name="first">
+          </div>
+          <div class="form-group">
+            <label for="password-text" class="form-control-label">Password:</label>
+            <input type="password" class="form-control" id="password-text" [(ngModel)]="password" name="first">
+          </div>
+          <div class="form-group" >
+            <label for="role-option" class="form-control-label">Roles:</label>
+            <select id="role-option" class="form-control"   [(ngModel)]="userRole" name="roles">
+              <option *ngFor="let role of availableRoles" [value]="role.id">
+                {{ role.name }}
+              </option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+       <button type="button" class="btn btn-secondary" (click)="goBack()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="addNewUser()" >Add</button>
+      </div>
+</div>
+
+
+

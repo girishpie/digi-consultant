@@ -1,0 +1,40 @@
+<div class="container-fluid digi-product rounded" >
+<div class="column">
+	<div class = "glyphicon glyphicon-cog">MANAGE PRODUCTS</div>
+	<label for="section-option" class="form-control-label" >Section:</label>
+     <select width = "50%" id="section-option" class="form-control"   [(ngModel)]="sectionId" name="sections">
+       <option *ngFor="let section of availableSections" [value]="section.id">
+                {{ section.sectionName }} 
+       </option> 
+     </select>
+	<a href="#/new-product" class="btn btn-primary round pull-right" role="button">+Add Product</a>
+</div>
+
+<table class="table ">
+  <thead>
+  <tr>
+  	<th>Product Name</th>
+    <th>Unit</th>
+    <th>Quantity</th>
+    <th>Amount</th>    
+    <th>Description</th>
+    <th>Bim Id</th>
+  </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let product of products.products | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: products.totalItems, id:'server'} ">
+        <td class = "table-cell">{{ product.name }}</td>
+        <td class = "table-cell">{{ product.unit }}</td>
+        <td class = "table-cell">{{ product.quantity }}</td>
+        <td class = "table-cell">{{ product.amount }}</td>
+        <td class = "table-cell">{{ product.descrition }}</td>
+        <td class = "table-cell">{{ product.bimId }}</td>
+         <td class = "table-cell">
+         <img src="assets/edit.svg" style="width:30px">
+		 <img src="assets/delete.svg" (click) = "deleteProduct(product)" style="width:30px">
+        </td>
+     </tr>
+  </tbody>
+ </table>
+  <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+</div>
